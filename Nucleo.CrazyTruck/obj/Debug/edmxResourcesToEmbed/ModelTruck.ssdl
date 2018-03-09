@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CrazyTruckModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Carga">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idGandola" Type="int" Nullable="false" />
+    <Property Name="idFlete" Type="int" Nullable="false" />
+    <Property Name="descripcion" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="peso" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Escala">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="latitud" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="longitud" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="nombre" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="descripcion" Type="nchar" MaxLength="100" />
+    <Property Name="fecha" Type="datetime" Nullable="false" />
+    <Property Name="tipo" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="idFlete" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Flete">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="folio" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="idTrailer" Type="int" Nullable="false" />
+    <Property Name="idOperador" Type="int" Nullable="false" />
+    <Property Name="idUsuario" Type="int" Nullable="false" />
+    <Property Name="fecha" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Gandola">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="matricula" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="capacidad" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Operador">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="numOperador" Type="nvarchar" MaxLength="45" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="nss" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="curp" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="numLicencia" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="direccion" Type="nvarchar" MaxLength="50" />
+    <Property Name="telefono" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Trailer">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="matricula" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="modelo" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="anio" Type="nvarchar" MaxLength="10" />
+    <Property Name="color" Type="nvarchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="rol" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="email" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="tokenPassword" Type="nchar" MaxLength="150" />
+    <Property Name="passRequest" Type="nchar" MaxLength="150" />
+    <Property Name="activado" Type="bit" />
+    <Property Name="activacion" Type="bit" />
+  </EntityType>
+  <Association Name="FK_Carga_Flete">
+    <End Role="Flete" Type="Self.Flete" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Carga" Type="Self.Carga" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Flete">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Carga">
+        <PropertyRef Name="idFlete" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Carga_Gandola">
+    <End Role="Gandola" Type="Self.Gandola" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Carga" Type="Self.Carga" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gandola">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Carga">
+        <PropertyRef Name="idGandola" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Escala_Flete">
+    <End Role="Flete" Type="Self.Flete" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Escala" Type="Self.Escala" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Flete">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Escala">
+        <PropertyRef Name="idFlete" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Flete_Operador">
+    <End Role="Operador" Type="Self.Operador" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Flete" Type="Self.Flete" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operador">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Flete">
+        <PropertyRef Name="idOperador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Flete_Trailer">
+    <End Role="Trailer" Type="Self.Trailer" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Flete" Type="Self.Flete" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trailer">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Flete">
+        <PropertyRef Name="idTrailer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Flete_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Flete" Type="Self.Flete" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Flete">
+        <PropertyRef Name="idUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CrazyTruckModelStoreContainer">
+    <EntitySet Name="Carga" EntityType="Self.Carga" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Escala" EntityType="Self.Escala" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Flete" EntityType="Self.Flete" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Gandola" EntityType="Self.Gandola" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Operador" EntityType="Self.Operador" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Trailer" EntityType="Self.Trailer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Carga_Flete" Association="Self.FK_Carga_Flete">
+      <End Role="Flete" EntitySet="Flete" />
+      <End Role="Carga" EntitySet="Carga" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Carga_Gandola" Association="Self.FK_Carga_Gandola">
+      <End Role="Gandola" EntitySet="Gandola" />
+      <End Role="Carga" EntitySet="Carga" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Escala_Flete" Association="Self.FK_Escala_Flete">
+      <End Role="Flete" EntitySet="Flete" />
+      <End Role="Escala" EntitySet="Escala" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Flete_Operador" Association="Self.FK_Flete_Operador">
+      <End Role="Operador" EntitySet="Operador" />
+      <End Role="Flete" EntitySet="Flete" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Flete_Trailer" Association="Self.FK_Flete_Trailer">
+      <End Role="Trailer" EntitySet="Trailer" />
+      <End Role="Flete" EntitySet="Flete" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Flete_Usuario" Association="Self.FK_Flete_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Flete" EntitySet="Flete" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
