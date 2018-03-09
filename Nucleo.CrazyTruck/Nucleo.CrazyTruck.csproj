@@ -63,6 +63,7 @@
     <Compile Include="Gandola.cs">
       <DependentUpon>ModelTruck.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Flete.cs" />
     <Compile Include="ModelTruck.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
