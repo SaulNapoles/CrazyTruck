@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="Models\FleteModel.cs" />
     <Compile Include="Models\OperadoresModel.cs" />
+    <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="ModelTruck.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
