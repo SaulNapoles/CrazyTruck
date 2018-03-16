@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net;
+using System.Security.Cryptography;
 
 namespace Nucleo.CrazyTruck.Models
 {
@@ -103,6 +104,100 @@ namespace Nucleo.CrazyTruck.Models
             usu.passRequest = true;
             usu.tokenPassword = token;
 
+            context.SaveChanges();
+        }
+
+        //Metodo el cual comprueba que el logeo que realizado correctamente
+        public Usuario login (string correo, string contrasenia)
+        {
+            Usuario usu = context.Usuario.Single(d => d.email == correo);
+
+            string pass = passHash(contrasenia);
+
+            if(usu.email== correo && usu.password == pass)
+            {
+                Console.Write("Se encontró el usuario con los datos correctos");
+                return usu;
+            }
+            else
+            {
+                Console.Write("No se pudo encontrar al usuario");
+                return null;
+            }
+
+        }
+
+        //Metodo que encripta la contraseya tanto al momento de crear al usuario como al querer cambiar la contrasenia
+        public string passHash(string pass)
+        {
+            string contra = pass;
+
+            byte[] salt;
+            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+
+            var pbkdf2 = new Rfc2898DeriveBytes(pass, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+
+            byte[] hashBytes = new byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+
+            string savedPassHash = Convert.ToBase64String(hashBytes);
+
+            return savedPassHash;
+        }
+
+        //Metodo el cual se utiliza al momento de hacer click en el enlace del correo, este metodo jala el id del token
+        //Y busca en la base de datos el email registrado con ese token para devolver un usuario y de ahi mdoificar la contraseyia
+        public Usuario buscarPorTokenPass(string token)
+        {
+            Usuario usu = context.Usuario.Single(d => d.tokenPassword == token);
+
+            if (usu.Equals(null))
+            {
+                Console.Write("No se encontró ningun usuario con ese token o no hay token");
+                return null;
+            }
+            else
+            {
+                Console.Write("Se encontró el usuario");
+                return usu;
+            }
+        }
+
+        //Metodo para restablecer los datos del usuario respecto a los tokens modificaos al solicitar la contraseya
+        //Se declaran con sus valores predeterminados
+        public void restablecerTokenPass(int idT)
+        {
+            Usuario usu = context.Usuario.Single(d=> d.id == idT);
+            usu.passRequest = false;
+            usu.tokenPassword = "";
+            context.SaveChanges();
+        }
+
+        //Metodo para buscar un usuario por su token de activacion, este al momento de haber hecho click en el enlace de 
+        //Actiacion buscara dicho usuario para poder manipualr sus datos, como modificar sus tokens y marcar como activado
+        public Usuario buscarPorTokenActivar(string token)
+        {
+            Usuario usu = context.Usuario.Single(d => d.tokenActivacion == token);
+            if (usu.Equals(null))
+            {
+                Console.Write("No se encontro usuario o token no existe");
+                return null;
+            }
+            else
+            {
+                Console.Write("Se contró el usuario");
+                return usu;
+            }
+        }
+
+        //Metodo el cual se usa para marcar como activado el usuario y restablecer sus valores
+        public void restablecerTokenActivacion(int idT)
+        {
+            Usuario usu = context.Usuario.Single(d => d.id == idT);
+            usu.activado = false;
+            usu.tokenActivacion = "";
             context.SaveChanges();
         }
     }
