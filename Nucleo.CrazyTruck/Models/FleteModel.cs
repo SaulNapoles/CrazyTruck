@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Nucleo.CrazyTruck.Models
 {
-   public class Flete
+   public class FleteModel
     {
 
         public int id { get; set; }
@@ -29,25 +29,25 @@ namespace Nucleo.CrazyTruck.Models
         //Metodo para agregar
         //Metodo para eliminar
         //Metodo para buscar
-        public List<Flete> getListaFletes(Flete buscar)
-        {
+   //     public List<Flete> getListaFletes(Flete buscar)
+   //     {
            
-            try
-            {               
-                CrazyTruckEntitiesCn context = new CrazyTruckEntitiesCn();
+   //         try
+   //         {               
+   //             CrazyTruckEntitiesCn context = new CrazyTruckEntitiesCn();
                           
-                List<Flete> list = new List<Flete>();
-                var datos = context.Flete.Include(d => d.Carga).Where(sd => sd.id == buscar.id).ToList();
+   //             List<Flete> list = new List<Flete>();
+   //             var datos = context.Flete.Include(d => d.Carga).Where(sd => sd.id == buscar.id).ToList();
 
-                ///codigo para poner xD
-                return list;
+   //             ///codigo para poner xD
+   //             return list;
            
-        }catch (Exception)
-            {
+   //     }catch (Exception)
+   //         {
 
-                throw;
-            }
-   }
+   //             throw;
+   //         }
+   //}
 
 
         //Metodo para editar
