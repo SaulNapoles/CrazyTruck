@@ -13,10 +13,10 @@ namespace Nucleo.CrazyTruck
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CrazyTruckEntitiesCn : DbContext
+    public partial class CrazyTruckDBEntitiesCn : DbContext
     {
-        public CrazyTruckEntitiesCn()
-            : base("name=CrazyTruckEntitiesCn")
+        public CrazyTruckDBEntitiesCn()
+            : base("name=CrazyTruckDBEntitiesCn")
         {
         }
     

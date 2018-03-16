@@ -4,20 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bdf9a15305664611b5e66c2cd01896ed" Name="Diagram1">
-        <EntityTypeShape EntityType="CrazyTruckModel.Carga" Width="1.5" PointX="2.25" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CrazyTruckModel.Escala" Width="1.5" PointX="2.875" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CrazyTruckModel.Flete" Width="1.5" PointX="1.25" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CrazyTruckModel.Gandola" Width="1.5" PointX="5.125" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CrazyTruckModel.Operador" Width="1.5" PointX="6.5" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CrazyTruckModel.Trailer" Width="1.5" PointX="4.25" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CrazyTruckModel.Usuario" Width="1.5" PointX="6.5" PointY="7.25" IsExpanded="true" />
-        <AssociationConnector Association="CrazyTruckModel.FK_Carga_Flete" ManuallyRouted="false" />
-        <AssociationConnector Association="CrazyTruckModel.FK_Carga_Gandola" ManuallyRouted="false" />
-        <AssociationConnector Association="CrazyTruckModel.FK_Escala_Flete" ManuallyRouted="false" />
-        <AssociationConnector Association="CrazyTruckModel.FK_Flete_Operador" ManuallyRouted="false" />
-        <AssociationConnector Association="CrazyTruckModel.FK_Flete_Trailer" ManuallyRouted="false" />
-        <AssociationConnector Association="CrazyTruckModel.FK_Flete_Usuario" ManuallyRouted="false" />
+      <Diagram DiagramId="24d27a36628a4aa795f94d9adc5f4686" Name="Diagram1">
+        <EntityTypeShape EntityType="CrazyTruckDBModel.Carga" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrazyTruckDBModel.Escala" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrazyTruckDBModel.Flete" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrazyTruckDBModel.Gandola" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrazyTruckDBModel.Operador" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrazyTruckDBModel.Trailer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrazyTruckDBModel.Usuario" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <AssociationConnector Association="CrazyTruckDBModel.FK_Carga_Flete" ManuallyRouted="false" />
+        <AssociationConnector Association="CrazyTruckDBModel.FK_Carga_Gandola" ManuallyRouted="false" />
+        <AssociationConnector Association="CrazyTruckDBModel.FK_Escala_Flete" ManuallyRouted="false" />
+        <AssociationConnector Association="CrazyTruckDBModel.FK_Flete_Operador" ManuallyRouted="false" />
+        <AssociationConnector Association="CrazyTruckDBModel.FK_Flete_Trailer" ManuallyRouted="false" />
+        <AssociationConnector Association="CrazyTruckDBModel.FK_Flete_Usuario" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

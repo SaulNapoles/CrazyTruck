@@ -14,8 +14,9 @@ namespace CrazyTruck.Controllers
         public ActionResult Lista()
         {
             IList<Operador> opp = new List<Operador>();
-            using (CrazyTruckEntitiesCn ct = new CrazyTruckEntitiesCn())
+            using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
             {
+                
                 try
                 {
                     //obtener datos
@@ -38,7 +39,7 @@ namespace CrazyTruck.Controllers
                                     string operadorTelefono, string operadorNumOperador, string operadorNss)
         {
 
-            using(CrazyTruckEntitiesCn ct = new CrazyTruckEntitiesCn())
+            using(CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
             {
                 try
                 {

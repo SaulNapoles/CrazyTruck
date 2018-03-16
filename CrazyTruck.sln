@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrazyTruck", "CrazyTruck\Cr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nucleo.CrazyTruck", "Nucleo.CrazyTruck\Nucleo.CrazyTruck.csproj", "{1F4427E8-A6C1-4210-B609-27ACDF64E37C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLr", "ClassLr\ClassLr.csproj", "{BA93C313-CD53-401B-9AA3-471A7C69ECE5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{1F4427E8-A6C1-4210-B609-27ACDF64E37C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F4427E8-A6C1-4210-B609-27ACDF64E37C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F4427E8-A6C1-4210-B609-27ACDF64E37C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BA93C313-CD53-401B-9AA3-471A7C69ECE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA93C313-CD53-401B-9AA3-471A7C69ECE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA93C313-CD53-401B-9AA3-471A7C69ECE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA93C313-CD53-401B-9AA3-471A7C69ECE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

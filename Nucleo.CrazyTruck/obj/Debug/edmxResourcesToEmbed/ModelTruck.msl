@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="CrazyTruckModelStoreContainer" CdmEntityContainer="CrazyTruckEntitiesCn">
+  <EntityContainerMapping StorageEntityContainer="CrazyTruckDBModelStoreContainer" CdmEntityContainer="CrazyTruckDBEntitiesCn">
     <EntitySetMapping Name="Carga">
-      <EntityTypeMapping TypeName="CrazyTruckModel.Carga">
+      <EntityTypeMapping TypeName="CrazyTruckDBModel.Carga">
         <MappingFragment StoreEntitySet="Carga">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="idGandola" ColumnName="idGandola" />
@@ -13,7 +13,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Escala">
-      <EntityTypeMapping TypeName="CrazyTruckModel.Escala">
+      <EntityTypeMapping TypeName="CrazyTruckDBModel.Escala">
         <MappingFragment StoreEntitySet="Escala">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="latitud" ColumnName="latitud" />
@@ -27,7 +27,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Flete">
-      <EntityTypeMapping TypeName="CrazyTruckModel.Flete">
+      <EntityTypeMapping TypeName="CrazyTruckDBModel.Flete">
         <MappingFragment StoreEntitySet="Flete">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="folio" ColumnName="folio" />
@@ -39,7 +39,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Gandola">
-      <EntityTypeMapping TypeName="CrazyTruckModel.Gandola">
+      <EntityTypeMapping TypeName="CrazyTruckDBModel.Gandola">
         <MappingFragment StoreEntitySet="Gandola">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="matricula" ColumnName="matricula" />
@@ -48,7 +48,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Operador">
-      <EntityTypeMapping TypeName="CrazyTruckModel.Operador">
+      <EntityTypeMapping TypeName="CrazyTruckDBModel.Operador">
         <MappingFragment StoreEntitySet="Operador">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="numOperador" ColumnName="numOperador" />
@@ -63,7 +63,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Trailer">
-      <EntityTypeMapping TypeName="CrazyTruckModel.Trailer">
+      <EntityTypeMapping TypeName="CrazyTruckDBModel.Trailer">
         <MappingFragment StoreEntitySet="Trailer">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="matricula" ColumnName="matricula" />
@@ -74,7 +74,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Usuario">
-      <EntityTypeMapping TypeName="CrazyTruckModel.Usuario">
+      <EntityTypeMapping TypeName="CrazyTruckDBModel.Usuario">
         <MappingFragment StoreEntitySet="Usuario">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -85,7 +85,7 @@
           <ScalarProperty Name="tokenPassword" ColumnName="tokenPassword" />
           <ScalarProperty Name="passRequest" ColumnName="passRequest" />
           <ScalarProperty Name="activado" ColumnName="activado" />
-          <ScalarProperty Name="activacion" ColumnName="activacion" />
+          <ScalarProperty Name="tokenActivacion" ColumnName="tokenActivacion" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

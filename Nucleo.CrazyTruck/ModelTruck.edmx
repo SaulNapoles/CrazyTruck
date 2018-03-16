@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CrazyTruckModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CrazyTruckDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Carga">
           <Key>
             <PropertyRef Name="id" />
@@ -82,9 +82,9 @@
           <Property Name="password" Type="nchar" MaxLength="100" Nullable="false" />
           <Property Name="email" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="tokenPassword" Type="nchar" MaxLength="150" />
-          <Property Name="passRequest" Type="nchar" MaxLength="150" />
+          <Property Name="passRequest" Type="bit" />
           <Property Name="activado" Type="bit" />
-          <Property Name="activacion" Type="bit" />
+          <Property Name="tokenActivacion" Type="varchar" MaxLength="150" />
         </EntityType>
         <Association Name="FK_Carga_Flete">
           <End Role="Flete" Type="Self.Flete" Multiplicity="1">
@@ -170,7 +170,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CrazyTruckModelStoreContainer">
+        <EntityContainer Name="CrazyTruckDBModelStoreContainer">
           <EntitySet Name="Carga" EntityType="Self.Carga" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Escala" EntityType="Self.Escala" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Flete" EntityType="Self.Flete" Schema="dbo" store:Type="Tables" />
@@ -207,7 +207,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="CrazyTruckModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="CrazyTruckDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Carga">
           <Key>
             <PropertyRef Name="id" />
@@ -296,9 +296,9 @@
           <Property Name="password" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="tokenPassword" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
-          <Property Name="passRequest" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
+          <Property Name="passRequest" Type="Boolean" />
           <Property Name="activado" Type="Boolean" />
-          <Property Name="activacion" Type="Boolean" />
+          <Property Name="tokenActivacion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Flete" Relationship="Self.FK_Flete_Usuario" FromRole="Usuario" ToRole="Flete" />
         </EntityType>
         <Association Name="FK_Carga_Flete">
@@ -385,7 +385,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CrazyTruckEntitiesCn" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CrazyTruckDBEntitiesCn" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Carga" EntityType="Self.Carga" />
           <EntitySet Name="Escala" EntityType="Self.Escala" />
           <EntitySet Name="Flete" EntityType="Self.Flete" />
@@ -423,9 +423,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CrazyTruckModelStoreContainer" CdmEntityContainer="CrazyTruckEntitiesCn">
+        <EntityContainerMapping StorageEntityContainer="CrazyTruckDBModelStoreContainer" CdmEntityContainer="CrazyTruckDBEntitiesCn">
           <EntitySetMapping Name="Carga">
-            <EntityTypeMapping TypeName="CrazyTruckModel.Carga">
+            <EntityTypeMapping TypeName="CrazyTruckDBModel.Carga">
               <MappingFragment StoreEntitySet="Carga">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idGandola" ColumnName="idGandola" />
@@ -436,7 +436,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Escala">
-            <EntityTypeMapping TypeName="CrazyTruckModel.Escala">
+            <EntityTypeMapping TypeName="CrazyTruckDBModel.Escala">
               <MappingFragment StoreEntitySet="Escala">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="latitud" ColumnName="latitud" />
@@ -450,7 +450,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Flete">
-            <EntityTypeMapping TypeName="CrazyTruckModel.Flete">
+            <EntityTypeMapping TypeName="CrazyTruckDBModel.Flete">
               <MappingFragment StoreEntitySet="Flete">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="folio" ColumnName="folio" />
@@ -462,7 +462,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Gandola">
-            <EntityTypeMapping TypeName="CrazyTruckModel.Gandola">
+            <EntityTypeMapping TypeName="CrazyTruckDBModel.Gandola">
               <MappingFragment StoreEntitySet="Gandola">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="matricula" ColumnName="matricula" />
@@ -471,7 +471,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Operador">
-            <EntityTypeMapping TypeName="CrazyTruckModel.Operador">
+            <EntityTypeMapping TypeName="CrazyTruckDBModel.Operador">
               <MappingFragment StoreEntitySet="Operador">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="numOperador" ColumnName="numOperador" />
@@ -486,7 +486,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Trailer">
-            <EntityTypeMapping TypeName="CrazyTruckModel.Trailer">
+            <EntityTypeMapping TypeName="CrazyTruckDBModel.Trailer">
               <MappingFragment StoreEntitySet="Trailer">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="matricula" ColumnName="matricula" />
@@ -497,7 +497,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Usuario">
-            <EntityTypeMapping TypeName="CrazyTruckModel.Usuario">
+            <EntityTypeMapping TypeName="CrazyTruckDBModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -508,7 +508,7 @@
                 <ScalarProperty Name="tokenPassword" ColumnName="tokenPassword" />
                 <ScalarProperty Name="passRequest" ColumnName="passRequest" />
                 <ScalarProperty Name="activado" ColumnName="activado" />
-                <ScalarProperty Name="activacion" ColumnName="activacion" />
+                <ScalarProperty Name="tokenActivacion" ColumnName="tokenActivacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

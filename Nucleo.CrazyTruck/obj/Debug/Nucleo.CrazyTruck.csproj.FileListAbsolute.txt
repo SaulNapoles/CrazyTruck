@@ -1,6 +1,5 @@
 C:\Users\XD\documents\visual studio 2015\Projects\CrazyTruck\Nucleo.CrazyTruck\bin\Debug\Nucleo.CrazyTruck.dll
 C:\Users\XD\documents\visual studio 2015\Projects\CrazyTruck\Nucleo.CrazyTruck\bin\Debug\Nucleo.CrazyTruck.pdb
-C:\Users\XD\documents\visual studio 2015\Projects\CrazyTruck\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.csprojResolveAssemblyReference.cache
 C:\Users\XD\documents\visual studio 2015\Projects\CrazyTruck\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.dll
 C:\Users\XD\documents\visual studio 2015\Projects\CrazyTruck\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.pdb
 C:\Users\XD\Documents\Visual Studio 2015\Projects\CrazyTruck\Nucleo.CrazyTruck\bin\Debug\Nucleo.CrazyTruck.dll.config

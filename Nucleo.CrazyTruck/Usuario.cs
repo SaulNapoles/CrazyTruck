@@ -27,9 +27,9 @@ namespace Nucleo.CrazyTruck
         public string password { get; set; }
         public string email { get; set; }
         public string tokenPassword { get; set; }
-        public string passRequest { get; set; }
+        public Nullable<bool> passRequest { get; set; }
         public Nullable<bool> activado { get; set; }
-        public Nullable<bool> activacion { get; set; }
+        public string tokenActivacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Flete> Flete { get; set; }
