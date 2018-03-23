@@ -1,41 +1,71 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CrazyTruck</title>
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+
+  
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Fletes", "Fletes", new { area = "" }, new { @class = "navbar-brand" })
+    <div id="main">
+        <header>
+            <div id="logoSection" class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-6 left" id="logo">
+                        <a href="index.html"><h1>CrazyTruck</h1></a>
+                    </div>
+                    <div class="col-xs-6 right" id="userOptions">
+                        <span id="userID" class="none">0</span><span id="userName">Nombre usuario</span><button type="button" id="btnLogOut"><i class="fas fa-power-off"></i></button>
+                    </div>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <a href="@Url.Action("Fletes", "Fletes")"><li>Espadas y cuchillos</li></a> 
-                </ul>
+        </header>
+
+        <div id="menu">
+            <nav id="menuSection" class="container-fluid">
+                <div class="row">
+                    <a href="fletes.html">Fletes</a>
+                    <a href="trailers.html">Trailers</a>
+                    <a href="remolques.html">Remolques</a>
+                    <a href="@Url.Action("Lista", "Operadores")">Operadores</a>
+                </div>
+            </nav>
+            <div id="titleSection" class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-6 left">
+                        <h2>Titulo</h2>
+                    </div>
+                    <div class="col-xs-6 right">
+                        <button type="button" id="btnMenu"><i class="fas fa-bars"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <div id="content">
+            
+             @RenderBody()
+         
+        </div>
+
+     
     </div>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+
+
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <script src="~/scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/scripts/bootstrap.min.js"></script>
+  
+    <script src="~/scripts/scripts.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
 </body>
 </html>

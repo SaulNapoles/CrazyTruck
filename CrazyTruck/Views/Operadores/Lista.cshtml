@@ -3,82 +3,156 @@
 @{
     ViewBag.Title = "Lista";
 }
+    <div id="subtitleSection" class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 left">
+                <h3>Lista de Operadores</h3>
+            </div>
+            <div class="col-xs-12 col-sm-6 right">
+                <div class="btnFloat">
+                    <button type="button" id="btnShowAddOperador" class="btnAdd"><span><i class="fas fa-plus"></i></span><span>Agregar</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<h2>Operadores</h2>
-<br />
-
-<label for="operadorNombre">Nombre:</label>
-<input type="text" id="operadorNombre" name="operadorNombre" />
-
-<label for="operadorApellido">Apellido:</label>
-<input type="text" id="operadorApellido" name="operadorApellido" />
-
-<label for="operadorDireccion">Direccion:</label>
-<input type="text" id="operadorDireccion" name="operadorDireccion" />
-
-<label for="operadorCurp">CURP:</label>
-<input type="text" id="operadorCurp" name="operadorCurp" />
-
-<label for="operadorNumLicencia">Num Licencia:</label>
-<input type="text" id="operadorNumLicencia" name="operadorNumLicencia" />
-
-<label for="operadorTelefono">Telefono:</label>
-<input type="text" id="operadorTelefono" name="operadorTelefono" />
-
-<label for="operadorNumOperador">Num Operador:</label>
-<input type="text" id="operadorNumOperador" name="operadorNumOperador" />
-
-<label for="operadorNss">Nss:</label>
-<input type="text" id="operadorNss" name="operadorNss" />
-
-<button type="button" class="btn btn-papu btn-success" onclick="agregarOperador()">Agregar</button>
-
-
-
-<div class="table-responsive">
-
-    <table id="tablaAdeudo" class="table table-striped table-bordered" cellspacing="0" width="100%">
-        <thead>
-            <tr class="">
-                <th colspan="4" class="text-center">Datos Generales</th>
-                <th colspan="5" class="text-center">Detalles</th>
-            </tr>
-            <tr>
-                <th>id</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>NSS</th>
-                <th>CURP</th>
-                <th>NUMOPERADOR</th>
-                <th>NUM LICENCIA</th>
-                <th>DIRECCION</th>
-                <th>TELEFONO</th>
-
-            </tr>
-        </thead>
-
-        <tbody id="varo">
+    <div id="tableSection" class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <table class="table table-hover" id="tableOperadores" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>+</th>
+                            <th class="none">ID</th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Licencia</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
             @foreach (Nucleo.CrazyTruck.Operador o in Model)
-            {
-                if (Model != null)
-                {
+                        {
+                            if (Model != null)
+                            {
+                        <tr data-child-nss="@o.nss" data-child-curp="@o.curp" data-child-direccion="@o.direccion" data-child-telefono="@o.telefono">
+                            <td class="details-control"><i class="fas fa-plus-square"></i></td>
+                            <td class="none">@o.id</td>
+                            <td>@o.numOperador</td>
+                            <td>@o.nombre</td>
+                            <td>@o.apellido</td>
+                            <td>@o.numLicencia</td>
+                            <td><button type="button" class="btnShowEditOperador"><i class="fas fa-pencil-alt"></i></button><button type="button" class="btnShowDeleteOperador"><i class="fas fa-trash-alt"></i></button></td>
+                        </tr>
+                             }
+                        }
+    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-                    <tr>
-                        <td><span id="edFecha">@o.id</span></td>
-                        <td><span id="edFecha">@o.nombre</span></td>
-                        <td><span>@o.apellido</span></td>
-                        <td><span id="edDescripcion">@o.nss</span></td>
-                        <td><span id="edCargo">@o.curp</span></td>
-                        <td><span>@o.numOperador</span></td>
-                        <td><span id="edAbono">@o.numLicencia</span></td>
-                        <td><span>@o.direccion</span></td>
-                        <td><span>@o.telefono</span></td>
-                    </tr>
+<div>
+    <!-- Modal form -->
+    <div class="modal fade" id="modalFormOperador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <button type="button" class="close right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form action="#" method="post" class="formOperador">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="form-group">
+                                    <label for="operadorNombre">Nombre:</label>
+                                    <input type="text" name="operadorNombre" id="operadorNombre">
+                                </div>
+                            </div>
 
-                }
-            }
-        </tbody>
-    </table>
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="form-group">
+                                    <label for="operadorApellido">Apellido:</label>
+                                    <input type="text" name="operadorApellido" id="operadorApellido">
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="form-group">
+                                    <label for="operadorNss">NSS:</label>
+                                    <input type="text" name="operadorNss" id="operadorNss">
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="form-group">
+                                    <label for="operadorCurp">CURP:</label>
+                                    <input type="text" name="operadorCurp" id="operadorCurp">
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="form-group">
+                                    <label for="operadorLicencia">Licencia:</label>
+                                    <input type="text" name="operadorNumLicencia" id="operadorNumLicencia">
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="form-group">
+                                    <label for="operadorTelefono">Teléfono:</label>
+                                    <input type="text" name="operadorTelefono" id="operadorTelefono">
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="operadorDireccion">Dirección:</label>
+                                    <textarea rows="3" name="operadorDireccion" id="operadorDireccion"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btnAccept"><span><i class="fas fa-check"></i></span><span>Aceptar</span></button>
+                    <button type="button" class="btnCancel" data-dismiss="modal"><span><i class="fas fa-times"></i></span><span>Cancelar</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal delete -->
+
+    <div class="modal fade" id="modalDeleteOperador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <button type="button" class="close right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form action="#" method="post" class="formOperador">
+                            <div class="col-xs-12">
+                                <p>Esta seguro de eliminar operador</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btnAccept"><span><i class="fas fa-check"></i></span><span>Aceptar</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
-<script src="~/scripts/operadoreScript.js"></script>
+<script src="~/scripts/jquery-3.3.1.min.js"></script>
+<script src="~/scripts/bootstrap.min.js"></script>
+<script src="~/scripts/operadoresScript.js"></script>

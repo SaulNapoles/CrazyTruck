@@ -7,3 +7,4 @@ C:\Users\XD\Documents\Visual Studio 2015\Projects\CrazyTruck\Nucleo.CrazyTruck\b
 C:\Users\XD\Documents\Visual Studio 2015\Projects\CrazyTruck\Nucleo.CrazyTruck\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\XD\Documents\Visual Studio 2015\Projects\CrazyTruck\Nucleo.CrazyTruck\bin\Debug\EntityFramework.xml
 C:\Users\XD\Documents\Visual Studio 2015\Projects\CrazyTruck\Nucleo.CrazyTruck\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\XD\documents\visual studio 2015\Projects\CrazyTruck\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.csprojResolveAssemblyReference.cache
