@@ -1,0 +1,136 @@
+﻿@using Nucleo.CrazyTruck
+@model List<Trailer>
+@{
+    ViewBag.Title = "Lista";
+}
+<div id="subtitleSection" class="container-fluid">
+    <div class="row">
+        <div class="col-xs-10 col-sm-6 left">
+            <h3>Lista de Trailers</h3>
+        </div>
+        <div class="col-xs-12 col-sm-6 right">
+            <div class="btnFloat">
+                <button type="button" id="btnShowAddTrailer" class="btnAdd"><span><i class="fas fa-plus"></i></span><span>Agregar</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="tableSection" class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 table-responsive">
+            <table class="table table-hover" id="tableTrailers" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th class="none">ID</th>
+                        <th>Modelo</th>
+                        <th>Año</th>
+                        <th>Matrícula</th>
+                        <th>Color</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+       
+
+                    @foreach (Nucleo.CrazyTruck.Trailer t in Model)
+                    {
+                        if (Model != null)
+                        {
+                            <tr>
+                                <td class="none">@t.id</td>
+                                <td>@t.modelo</td>
+                                <td>@t.anio</td>
+                                <td>@t.matricula</td>
+                                <td>@t.color</td>
+                                <td><button type="button" class="btnEdit btnShowEditTrailer"><i class="fas fa-pencil-alt"></i></button><button type="button" class="btnDelete btnShowDeleteTrailer"><i class="fas fa-trash-alt"></i></button></td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="modals">
+
+    <!-- Modal form -->
+    <div class="modal fade" id="modalFormTrailer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <button type="button" class="close right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form action="#" method="post" class="formTrailer">
+                            <div class="col-xs-12">
+
+                                <div class="form-group">
+                                    <label for="trailerModelo">Modelo:</label>
+                                    <input type="text" name="trailerModelo" id="trailerModelo">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="trailerAnio">Año:</label>
+                                    <input type="number" name="trailerAnio" id="trailerAnio">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="trailerMatricula">Matrícula:</label>
+                                    <input type="text" name="trailerMatricula" id="trailerMatricula">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="trailerColor">Color:</label>
+                                    <input type="text" name="trailerColor" id="trailerColor">
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btnAccept"><span><i class="fas fa-check"></i></span><span>Aceptar</span></button>
+                    <button type="button" class="btnCancel" data-dismiss="modal"><span><i class="fas fa-times"></i></span><span>Cancelar</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal delete -->
+    <div class="modal fade" id="modalDeleteTrailer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <button type="button" class="close right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form action="#" method="post" class="formTrailer">
+
+                            <div class="col-xs-12">
+                                <p>Esta seguro de eliminar trailer</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btnAccept" id="btnDeleteTrailer"><span><i class="fas fa-check"></i></span><span>Eliminar</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/scripts/jquery-3.3.1.min.js"></script>
+<script src="~/scripts/bootstrap.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+<script src="~/scripts/trailersScript.js"></script>

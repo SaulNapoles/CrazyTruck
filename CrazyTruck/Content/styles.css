@@ -40,22 +40,22 @@ header {
     text-align: left;
 }
 
-#logo a {
-    position: relative;
-    display: inline-block;
-    background: url("../images/crazytruck-logo.png") no-repeat -19px 0px;
-    color: #000;
-    text-decoration: none;
-    width: 88px;
-    height: 30px;
-    margin: 10px 0px;
-}
+    #logo a {
+        position: relative;
+        display: inline-block;
+        background: url("../images/crazytruck-logo.png") no-repeat -19px 0px;
+        color: #000;
+        text-decoration: none;
+        width: 88px;
+        height: 30px;
+        margin: 10px 0px;
+    }
 
-#logo a h1 {
-    font-size: 22px;
-    font-weight: bold;
-    visibility: hidden;
-}
+        #logo a h1 {
+            font-size: 22px;
+            font-weight: bold;
+            visibility: hidden;
+        }
 
 #userOptions {
     position: relative;
@@ -63,31 +63,31 @@ header {
     margin-top: 10px;
 }
 
-#userOptions > * {
-    position: relative;
-    display: inline-block;
-    font-size: 18px;
-    font-weight: bold;
-    vertical-align: middle;
-}
+    #userOptions > * {
+        position: relative;
+        display: inline-block;
+        font-size: 18px;
+        font-weight: bold;
+        vertical-align: middle;
+    }
 
-#userOptions #userName {
-    display: none;
-}
+    #userOptions #userName {
+        display: none;
+    }
 
-#userOptions button {
-    font-size: 22px;
-    margin-left: 5px;
-}
+    #userOptions button {
+        font-size: 22px;
+        margin-left: 5px;
+    }
 
-#userOptions button:hover {
-    color: #DD1E1B;
-}
+        #userOptions button:hover {
+            color: #DD1E1B;
+        }
 
 #menu {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 2;
 }
 
 #menuSection {
@@ -95,23 +95,23 @@ header {
     display: none;
     background-color: #0062DA;
     text-align: center;
-    z-index: 1;
+    z-index: 2;
 }
 
-#menuSection a {
-    position: relative;
-    display: block;
-    text-transform: uppercase;
-    color: #FFF;
-    font-size: 16px;
-    font-weight: 600;
-    text-decoration: none;
-    padding: 6px 20px;
-}
+    #menuSection a {
+        position: relative;
+        display: block;
+        text-transform: uppercase;
+        color: #FFF;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 6px 20px;
+    }
 
-#menuSection a:hover, .menuSelected {
-    background-color: #006DF0;
-}
+        #menuSection a:hover, .menuSelected {
+            background-color: #006DF0;
+        }
 
 #titleSection {
     position: relative;
@@ -121,40 +121,84 @@ header {
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-#titleSection h2 {
-    font-size: 22px;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 4px 0;
-}
+    #titleSection h2 {
+        font-size: 22px;
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 4px 0;
+    }
 
-#titleSection button {
-    font-size: 22px;
-    margin-top: 4px;
-}
+    #titleSection button {
+        font-size: 22px;
+        margin-top: 4px;
+    }
 
-#titleSection button:hover {
-    color: #FCB535;
-}
+        #titleSection button:hover {
+            color: #FCB535;
+        }
 
 #content {
     /*height: 1500px;*/
 }
 
-#content > div:not(#menu) {
-    position: relative;
-    display: block;
-    margin-top: 10px;
-}
+    #content h3 {
+        font-size: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
 
-#subtitleSection > div {
+    #content > div {
+        margin-top: 10px;
+    }
+
+#subtitleSection > div:first-child {
     border-bottom: 3px solid #FCB535;
 }
 
-#subtitleSection h3 {
-    font-size: 20px;
-    font-weight: bold;
-    text-transform: uppercase;
+#addSection {
+    position: relative;
+    display: none;
+}
+
+
+    #addSection > * > div {
+        margin-bottom: 15px !important;
+    }
+
+    #addSection .fleteTitle {
+        border-left: 3px solid #525252;
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+
+#generalInfo form > div {
+    margin-bottom: 10px;
+}
+
+
+
+#selectTrailer {
+    border-left: 3px solid #F5D131;
+    border-right: 3px solid #F5D131;
+}
+
+#selectOperador {
+    border-left: 3px solid #DD1E1B;
+    border-right: 3px solid #DD1E1B;
+}
+
+#selectTipoRemolque {
+    border-left: 3px solid #50D16E;
+    border-right: 3px solid #50D16E;
+}
+
+.selectRemolque {
+    border-left: 3px solid #713AA2;
+    border-right: 3px solid #713AA2;
+}
+
+#remolque1, #remolque2 {
+    display: none;
 }
 
 /* Button edit and delete styles */
@@ -170,17 +214,22 @@ table button {
     top: 0;
     transition: all 0.2s ease;
 }
-table button:hover {
-    top: -2px;
-}
 
-table button:first-child {
-    color: #0062DA;
-}
+    table button:hover {
+        top: -2px;
+    }
 
-table button:last-child {
-    color: #DD1E1B;
-}
+    table button.btnPin {
+        color: #F5D131;
+    }
+
+    table button.btnEdit {
+        color: #0062DA;
+    }
+
+    table button.btnDelete {
+        color: #DD1E1B;
+    }
 /* End button edit and delete styles */
 
 /* DataTables styles */
@@ -189,8 +238,13 @@ td.details-control {
     color: #50D16E;
     cursor: pointer;
 }
+
 tr.shown td.details-control {
     color: #DD1E1B;
+}
+
+.table-details:first-child {
+    display: none;
 }
 
 .table-details span {
@@ -209,82 +263,80 @@ table.dataTable {
     zoom: 1;
 }
 
-.dataTables_wrapper::after {
-    visibility: hidden;
-    display: block;
-    content: "";
-    clear: both;
-    height: 0;
-}
+    .dataTables_wrapper::after {
+        visibility: hidden;
+        display: block;
+        content: "";
+        clear: both;
+        height: 0;
+    }
 
-.dataTables_wrapper .dataTables_length,
-.dataTables_wrapper .dataTables_filter {
-    float: none;
-    text-align: center;
-    margin-bottom: 6px;
-}
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        float: none;
+        text-align: center;
+        margin-bottom: 6px;
+    }
 
-.dataTables_wrapper .dataTables_info,
-.dataTables_wrapper .dataTables_paginate {
-    float: none;
-    text-align: center;
-    margin-bottom: 6px;
-}
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_paginate {
+        float: none;
+        text-align: center;
+        margin-bottom: 6px;
+    }
 
-.dataTables_wrapper .dataTables_length select {
-    outline: none;
-    padding: 2px;
-    border: 1px solid #CECECE;
-    border-radius: 2px;
-}
+    .dataTables_wrapper .dataTables_length select {
+        outline: none;
+        padding: 2px;
+        border: 1px solid #CECECE;
+        border-radius: 2px;
+    }
 
+    .dataTables_wrapper .dataTables_filter input {
+        margin-left: 6px;
+        outline: none;
+        padding: 2px;
+        border: 1px solid #CECECE;
+        border-radius: 2px;
+        width: 200px;
+    }
 
-.dataTables_wrapper .dataTables_filter input {
-    margin-left: 6px;
-    outline: none;
-    padding: 2px;
-    border: 1px solid #CECECE;
-    border-radius: 2px;
-    width: 200px;
-}
+        .dataTables_wrapper .dataTables_length select:hover,
+        .dataTables_wrapper .dataTables_filter input:hover {
+            border: 1px solid #AFAFAF;
+        }
 
-.dataTables_wrapper .dataTables_length select:hover,
-.dataTables_wrapper .dataTables_filter input:hover {
-    border: 1px solid #AFAFAF;
-}
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        cursor: pointer;
+        outline: none;
+        text-decoration: none;
+        color: #FFF;
+        padding: 0px 10px;
+        margin: 0px 2px;
+        background-color: #0F7CFF;
+        text-transform: uppercase;
+        font-weight: 600;
+        border-radius: 3px;
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+    }
 
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background-color: #006DF0;
+            box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-    cursor: pointer;
-    outline: none;
-    text-decoration: none;
-    color: #FFF;
-    padding: 0px 10px;
-    margin: 0px 2px;
-    background-color: #0F7CFF;
-    text-transform: uppercase;
-    font-weight: 600;
-    border-radius: 3px;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-}
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background-color: #004EAC;
+            cursor: default;
+        }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    background-color: #006DF0;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-}
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+            background-color: #CECECE;
+            cursor: default;
+        }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    background-color: #004EAC;
-    cursor: default;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
-    background-color: #CECECE;
-    cursor: default;
-}
-
-/* End dataTables styles*/
+/* End dataTables styles */
 
 /* Button accept and cancel styles */
 .btnAccept, .btnCancel {
@@ -306,53 +358,57 @@ table.dataTable {
     border-bottom: 3px solid #961310;
 }
 
-.btnAccept span:first-child, .btnCancel span:first-child {
-    margin-right: 5px;
-}
+    .btnAccept span:first-child, .btnCancel span:first-child {
+        margin-right: 5px;
+    }
 /* End button add and cancel styles */
 
-/* Button add and search styles */
+/* FloatButton add and search styles */
 .btnFloat {
     position: fixed;
     display: block;
     bottom: 20px;
     right: 20px;
+    z-index: 1;
 }
 
-.btnFloat button {
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
-    border-radius: 50%;
-    color: #FFF;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-}
-.btnFloat button:hover {
-    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.6);
-}
+    .btnFloat button {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        border-radius: 50%;
+        color: #FFF;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+    }
 
-.btnFloat button span:last-child {
-    display: none;
-}
+        .btnFloat button:hover {
+            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.6);
+        }
 
-.btnFloat .btnAdd {
-    background-color: #50D16E;
-}
+        .btnFloat button span:last-child {
+            display: none;
+        }
 
-.btnFloat .btnSearch {
-    background-color: #0062DA;
-}
-/* End button add and search styles*/
+    .btnFloat .btnAdd {
+        background-color: #50D16E;
+    }
+
+    .btnFloat .btnSearch {
+        background-color: #006DF0;
+        display: none;
+    }
+/* End floatButton add and search styles */
 
 /* Form styles */
 .form-group {
-    text-align: center;
+    text-align: left;
+    overflow: auto;
 }
 
-.form-group label {
-    text-align: left;
-}
+    .form-group label {
+        text-align: left;
+    }
 
 form label {
     position: relative;
@@ -375,12 +431,22 @@ form input, form select, form textarea {
     outline: none;
     margin-bottom: 10px;
 }
-form input:hover, form select:hover, form textarea:hover {
-    border: 2px solid #DADADA;
+
+    form input:hover, form select:hover, form textarea:hover {
+        border: 2px solid #DADADA;
+    }
+
+    form input:focus, form select:focus, form textarea:focus {
+        border: 2px solid #CECECE;
+    }
+
+.noSelected {
+    background-color: #F5F5F5;
 }
-form input:focus, form select:focus, form textarea:focus {
-    border: 2px solid #CECECE;
-}
+
+    .noSelected option {
+        background-color: #FFF;
+    }
 /* End form styles */
 
 /* Modal styles */
@@ -391,9 +457,9 @@ form input:focus, form select:focus, form textarea:focus {
     color: #000;
 }
 
-.modal-header > button:hover {
-    color: #525252;
-}
+    .modal-header > button:hover {
+        color: #525252;
+    }
 
 .modal-header h4 {
     text-transform: uppercase;
@@ -405,7 +471,7 @@ form input:focus, form select:focus, form textarea:focus {
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-    
+
     #logo a {
         background-position: 0px 0px;
         width: 128px;
@@ -417,24 +483,42 @@ form input:focus, form select:focus, form textarea:focus {
         margin-top: 24px;
     }
 
-    #userOptions #userName {
-        display: inline-block;
-    }
+        #userOptions #userName {
+            display: inline-block;
+        }
 
     #menuSection {
         display: block;
     }
 
-    #menuSection a {
-        display: inline-block;
-    }
+        #menuSection a {
+            display: inline-block;
+        }
 
     #titleSection {
         height: 15px;
     }
 
-    #titleSection h2, #titleSection button {
-        display: none;
+        #titleSection h2, #titleSection button {
+            display: none;
+        }
+
+
+
+    #selectTrailer {
+        border-right: none;
+    }
+
+    #selectOperador {
+        border-right: none;
+    }
+
+    #selectTipoRemolque {
+        border-right: none;
+    }
+
+    .selectRemolque {
+        border-right: none;
     }
 
 
@@ -442,7 +526,7 @@ form input:focus, form select:focus, form textarea:focus {
         clear: both;
         float: left;
     }
-    
+
     .dataTables_wrapper .dataTables_paginate {
         float: right;
         text-align: right;
@@ -467,29 +551,39 @@ form input:focus, form select:focus, form textarea:focus {
         left: unset;
         margin-bottom: 6px;
     }
-    
-    .btnFloat button {
-        width: auto;
-        height: auto;
-        border-radius: 5px;
-        box-shadow: unset;
-        transition: none;
-        font-size: 16px;
-        font-weight: 600;
-        text-transform: uppercase;
-        padding: 2px 10px;
-        border-bottom: 3px solid #1A7F06;
-    }
 
-    .btnFloat button:hover {
-        box-shadow: unset;
-    }
+        .btnFloat button {
+            width: auto;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: unset;
+            transition: none;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 2px 10px;
+        }
 
-    .btnFloat button span:last-child {
-        display: inline-block;
-        margin-left: 5px;
+        .btnFloat .btnAdd {
+            border-bottom: 3px solid #1A7F06;
+        }
+
+        .btnFloat .btnSearch {
+            border-bottom: 3px solid #004EAC;
+        }
+
+        .btnFloat button:hover {
+            box-shadow: unset;
+        }
+
+        .btnFloat button span:last-child {
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+    .rowOperadores {
+        column-count: 2 !important;
     }
-    
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -499,13 +593,10 @@ form input:focus, form select:focus, form textarea:focus {
         width: 960px;
         margin: 0 auto;
     }
-
-
 }
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-
 }
 
 /* Estilos auxiliares */
@@ -528,3 +619,11 @@ form input:focus, form select:focus, form textarea:focus {
 .block {
     display: block !important;
 }
+
+.rowOperadores {
+    column-count: 1;
+}
+
+    .rowFletes > *, .rowOperadores > * {
+        width: 100% !important;
+    }

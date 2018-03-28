@@ -1,5 +1,5 @@
-$(document).ready(function(){
-    if($(window).outerWidth() < 768){
+$(document).ready(function () {
+    if ($(window).outerWidth() < 768) {
         $('#menuSection').appendTo('#menu');
     } else {
         $('#menuSection').prependTo('#menu');
@@ -7,20 +7,20 @@ $(document).ready(function(){
 });
 
 $('#menuSection a').on({
-    click: function(){
+    click: function () {
         $('a').removeClass("menuSelected")
         $(this).addClass("menuSelected");
     }
 });
 
 $('#btnMenu').on({
-    click: function() {
+    click: function () {
         $('#menuSection').slideToggle();
     }
 });
 
-$(window).resize(function(){
-    if($(window).outerWidth() < 768){
+$(window).resize(function () {
+    if ($(window).outerWidth() < 768) {
         $('#menuSection').appendTo('#menu');
         $('#menuSection').removeClass('block');
     } else {
@@ -30,19 +30,19 @@ $(window).resize(function(){
 });
 
 var dataTableLanguage = {
-    "emptyTable":     "No hay datos en la tabla",
-    "info":           "Mostrando _START_ a _END_ de un total de _TOTAL_ registros",
-    "infoEmpty":      "Mostrando 0 registros",
-    "infoFiltered":   "",
-    "lengthMenu":     "Ver _MENU_ registros",
+    "emptyTable": "No hay datos en la tabla",
+    "info": "Mostrando _START_ a _END_ de un total de _TOTAL_ registros",
+    "infoEmpty": "Mostrando 0 registros",
+    "infoFiltered": "",
+    "lengthMenu": "Ver _MENU_ registros",
     "loadingRecords": "Cargando...",
-    "processing":     "Procesando...",
-    "search":         "Buscar:",
-    "zeroRecords":    "No se encontraron resultados",
+    "processing": "Procesando...",
+    "search": "Buscar:",
+    "zeroRecords": "No se encontraron resultados",
     "paginate": {
-        "first":      '<i class="fas fa-angle-double-left"></i>',
-        "last":       '<i class="fas fa-angle-double-right"></i>',
-        "next":       '<i class="fas fa-chevron-right"></i>',
-        "previous":   '<i class="fas fa-chevron-left"></i>'
+        "first": '<i class="fas fa-angle-double-left"></i>',
+        "last": '<i class="fas fa-angle-double-right"></i>',
+        "next": '<i class="fas fa-chevron-right"></i>',
+        "previous": '<i class="fas fa-chevron-left"></i>'
     }
 };

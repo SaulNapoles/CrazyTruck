@@ -8,8 +8,7 @@
 
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/styles.css" rel="stylesheet" />
-
-  
+    @RenderSection("styles", false)  
 </head>
 <body>
     <div id="main">
@@ -30,8 +29,8 @@
             <nav id="menuSection" class="container-fluid">
                 <div class="row">
                     <a href="fletes.html">Fletes</a>
-                    <a href="trailers.html">Trailers</a>
-                    <a href="remolques.html">Remolques</a>
+                    <a href="@Url.Action("Lista", "Trailers")">Trailers</a>
+                    <a href="@Url.Action("Lista", "Remolques")">Remolques</a>
                     <a href="@Url.Action("Lista", "Operadores")">Operadores</a>
                 </div>
             </nav>
@@ -63,9 +62,10 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <script src="~/scripts/jquery-3.3.1.min.js"></script>
     <script src="~/scripts/bootstrap.min.js"></script>
-  
-    <script src="~/scripts/scripts.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 
+
+   
+    <script src="~/scripts/scripts.js"></script>
+ 
 </body>
 </html>

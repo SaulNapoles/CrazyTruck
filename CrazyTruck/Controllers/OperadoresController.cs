@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Nucleo.CrazyTruck.Models;
 using Nucleo.CrazyTruck;
 using System.Data.Entity;
+
 namespace CrazyTruck.Controllers
 {
     public class OperadoresController : Controller
@@ -69,6 +70,24 @@ namespace CrazyTruck.Controllers
                     
                     ct.SaveChanges();
 
+                }
+                catch (Exception) { throw; }
+            }
+
+            return Json(new { succes = true });
+        }
+
+
+        [HttpPost]
+        public JsonResult eliminar(int idOperador)
+        {
+            using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
+            {
+                try
+                {              
+                    Operador o = ct.Operador.Where(op => op.id == idOperador).FirstOrDefault();
+                    ct.Operador.Remove(o);
+                    ct.SaveChanges();
                 }
                 catch (Exception) { throw; }
             }

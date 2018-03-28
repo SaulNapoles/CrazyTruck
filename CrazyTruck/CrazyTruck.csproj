@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -138,14 +139,20 @@
     <Content Include="scripts\jquery-3.3.1.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="scripts\operadoresScript.js" />
+    <Content Include="scripts\remolquesScript.js" />
     <Content Include="scripts\scripts.js" />
-    <Content Include="Web.config" />
+    <Content Include="scripts\trailersScript.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\FletesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OperadoresController.cs" />
+    <Compile Include="Controllers\RemolquesController.cs" />
+    <Compile Include="Controllers\TrailersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -165,6 +172,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Operadores\Lista.cshtml" />
+    <Content Include="Views\Trailers\Lista.cshtml" />
+    <Content Include="Views\Remolques\Lista.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

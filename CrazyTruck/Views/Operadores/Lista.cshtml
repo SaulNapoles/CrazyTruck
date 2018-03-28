@@ -1,8 +1,12 @@
 ﻿@using Nucleo.CrazyTruck
 @model List<Operador>
+
 @{
     ViewBag.Title = "Lista";
 }
+
+@section styles{<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css">}
+
     <div id="subtitleSection" class="container-fluid">
         <div class="row">
             <div class="col-xs-12 col-sm-6 left">
@@ -19,7 +23,7 @@
     <div id="tableSection" class="container-fluid">
         <div class="row">
             <div class="col-xs-12 table-responsive">
-                <table class="table table-hover" id="tableOperadores" class="display" style="width:100%">
+                <table class="table table-hover display" id="tableOperadores" style="width:100%">
                     <thead>
                         <tr>
                             <th>+</th>
@@ -28,6 +32,10 @@
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Licencia</th>
+                            <th class="none">NSS</th>
+                            <th class="none">CURP</th>
+                            <th class="none">Teléfono</th>
+                            <th class="none">Dirección</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
@@ -36,19 +44,23 @@
                         {
                             if (Model != null)
                             {
-                        <tr data-child-nss="@o.nss" data-child-curp="@o.curp" data-child-direccion="@o.direccion" data-child-telefono="@o.telefono">
+                        <tr>
                             <td class="details-control"><i class="fas fa-plus-square"></i></td>
                             <td class="none">@o.id</td>
                             <td>@o.numOperador</td>
                             <td>@o.nombre</td>
                             <td>@o.apellido</td>
                             <td>@o.numLicencia</td>
-                            <td><button type="button" class="btnShowEditOperador"><i class="fas fa-pencil-alt"></i></button><button type="button" class="btnShowDeleteOperador"><i class="fas fa-trash-alt"></i></button></td>
+                            <td class="none">@o.nss</td>
+                            <td class="none">@o.curp</td>
+                            <td class="none">@o.telefono</td>
+                            <td class="none">@o.direccion</td>
+                            <td><button type="button" class="btnEdit btnShowEditOperador"><i class="fas fa-pencil-alt"></i></button><button type="button" class="btnDelete btnShowDeleteOperador"><i class="fas fa-trash-alt"></i></button></td>
                         </tr>
-                             }
-                        }
+                            }
+            }
     
-                    </tbody>
+                    </tbody>        
                 </table>
             </div>
         </div>
@@ -153,6 +165,9 @@
 
 </div>
 
+
 <script src="~/scripts/jquery-3.3.1.min.js"></script>
 <script src="~/scripts/bootstrap.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
 <script src="~/scripts/operadoresScript.js"></script>
