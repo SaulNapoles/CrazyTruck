@@ -15,40 +15,42 @@ namespace CrazyTruck.Controllers
         {
             IList<Operador> opp = new List<Operador>();
             using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
-            {                
-                try{
+            {
+                try {
                     //obtener datos
                     opp = ct.Operador.ToList();
-           
+
                 }
-                catch (Exception){throw;}               
+                catch (Exception) { throw; }
             }
-                return View(opp);
+            return View(opp);
         }
 
         //Agregar operadores
         [HttpPost]
         public JsonResult agregar(Operador operador)
         {
-            using(CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
+           
+            CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn();
+            try
             {
-                try
-                {
-                    Random rnd = new Random();
-                    string numerOp = operador.curp.Substring(0, 3) + rnd.Next(1000,9999);
+                Random rnd = new Random();
+                string numerOp = operador.curp.Substring(0, 3) + rnd.Next(1000, 9999);
 
-                    operador.numOperador = numerOp ; 
+                operador.numOperador = numerOp;
 
-                       
-                    ct.Operador.Add(operador);
-                    ct.SaveChanges();
-                    //ct.Dispose();
-                }
-                catch (Exception){throw;}
+
+                ct.Operador.Add(operador);
+
+                ct.SaveChanges();
+       
             }
-            
-            return Json(new { succes= true});
+            catch (Exception) { throw; }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
+        
+        
 
         //Editar operadores
         [HttpPost]
@@ -75,6 +77,43 @@ namespace CrazyTruck.Controllers
 
             return Json(new { succes = true });
         }
+
+        [HttpPost]
+        public JsonResult eliminar(string id)
+        {
+            using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
+            {
+                try
+                {
+                    int sId = Convert.ToInt32(id);
+                    Operador o = ct.Operador.Where(op => op.id == sId).FirstOrDefault();
+                    ct.Operador.Remove(o);
+                    ct.SaveChanges();
+
+                }
+                catch (Exception) { throw; }
+            }
+
+            return Json(new { succes = true });
+        }
+        [HttpGet]
+        public JsonResult listarOperadores()
+        {
+                IList<Operador> o = new List<Operador>();
+                using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
+                {
+                    try
+                    {
+                        //obtener datos
+                        o = ct.Operador.ToList();
+
+                    }
+                    catch (Exception) { throw; }
+
+                }
+            return Json(new{List = o });
+         }
+        
     }
 }
                 

@@ -138,7 +138,9 @@
     <Content Include="scripts\jquery-3.3.1.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="scripts\operadoresScript.js" />
+    <Content Include="scripts\remolquesScript.js" />
     <Content Include="scripts\scripts.js" />
+    <Content Include="scripts\trailersScript.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

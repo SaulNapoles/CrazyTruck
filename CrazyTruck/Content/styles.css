@@ -87,7 +87,7 @@ header {
 #menu {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 2;
 }
 
 #menuSection {
@@ -95,7 +95,7 @@ header {
     display: none;
     background-color: #0062DA;
     text-align: center;
-    z-index: 1;
+    z-index: 2;
 }
 
 #menuSection a {
@@ -141,20 +141,64 @@ header {
     /*height: 1500px;*/
 }
 
-#content > div:not(#menu) {
-    position: relative;
-    display: block;
-    margin-top: 10px;
-}
-
-#subtitleSection > div {
-    border-bottom: 3px solid #FCB535;
-}
-
-#subtitleSection h3 {
+#content h3 {
     font-size: 20px;
     font-weight: bold;
     text-transform: uppercase;
+}
+
+#content > div {
+    margin-top: 10px;
+}
+
+#subtitleSection > div:first-child {
+    border-bottom: 3px solid #FCB535;
+}
+
+#addSection {
+    position: relative;
+    display: none;
+}
+
+
+#addSection > * > div {
+    margin-bottom: 15px !important;
+}
+
+#addSection .fleteTitle {
+    border-left: 3px solid #525252;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+#generalInfo form > div {
+    margin-bottom: 10px;
+}
+
+
+
+#selectTrailer {
+    border-left: 3px solid #F5D131;
+    border-right: 3px solid #F5D131;
+}
+
+#selectOperador {
+    border-left: 3px solid #DD1E1B;
+    border-right: 3px solid #DD1E1B;
+}
+
+#selectTipoRemolque {
+    border-left: 3px solid #50D16E;
+    border-right: 3px solid #50D16E;
+}
+
+.selectRemolque {
+    border-left: 3px solid #713AA2;
+    border-right: 3px solid #713AA2;
+}
+
+#remolque1, #remolque2 {
+    display: none;
 }
 
 /* Button edit and delete styles */
@@ -174,11 +218,15 @@ table button:hover {
     top: -2px;
 }
 
-table button:first-child {
+table button.btnPin {
+    color: #F5D131;
+}
+
+table button.btnEdit {
     color: #0062DA;
 }
 
-table button:last-child {
+table button.btnDelete {
     color: #DD1E1B;
 }
 /* End button edit and delete styles */
@@ -191,6 +239,10 @@ td.details-control {
 }
 tr.shown td.details-control {
     color: #DD1E1B;
+}
+
+.table-details:first-child {
+    display: none;
 }
 
 .table-details span {
@@ -238,7 +290,6 @@ table.dataTable {
     border-radius: 2px;
 }
 
-
 .dataTables_wrapper .dataTables_filter input {
     margin-left: 6px;
     outline: none;
@@ -252,7 +303,6 @@ table.dataTable {
 .dataTables_wrapper .dataTables_filter input:hover {
     border: 1px solid #AFAFAF;
 }
-
 
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     cursor: pointer;
@@ -284,7 +334,7 @@ table.dataTable {
     cursor: default;
 }
 
-/* End dataTables styles*/
+/* End dataTables styles */
 
 /* Button accept and cancel styles */
 .btnAccept, .btnCancel {
@@ -311,12 +361,13 @@ table.dataTable {
 }
 /* End button add and cancel styles */
 
-/* Button add and search styles */
+/* FloatButton add and search styles */
 .btnFloat {
     position: fixed;
     display: block;
     bottom: 20px;
     right: 20px;
+    z-index: 1;
 }
 
 .btnFloat button {
@@ -341,13 +392,15 @@ table.dataTable {
 }
 
 .btnFloat .btnSearch {
-    background-color: #0062DA;
+    background-color: #006DF0;
+    display: none;
 }
-/* End button add and search styles*/
+/* End floatButton add and search styles */
 
 /* Form styles */
 .form-group {
-    text-align: center;
+    text-align: left;
+    overflow: auto;
 }
 
 .form-group label {
@@ -380,6 +433,14 @@ form input:hover, form select:hover, form textarea:hover {
 }
 form input:focus, form select:focus, form textarea:focus {
     border: 2px solid #CECECE;
+}
+
+.noSelected {
+    background-color: #F5F5F5;
+}
+
+.noSelected option {
+    background-color: #FFF;
 }
 /* End form styles */
 
@@ -438,6 +499,24 @@ form input:focus, form select:focus, form textarea:focus {
     }
 
 
+
+    #selectTrailer {
+        border-right: none;
+    }
+    
+    #selectOperador {
+        border-right: none;
+    }
+    
+    #selectTipoRemolque {
+        border-right: none;
+    }
+    
+    .selectRemolque {
+        border-right: none;
+    }
+
+
     .dataTables_wrapper .dataTables_info {
         clear: both;
         float: left;
@@ -478,7 +557,14 @@ form input:focus, form select:focus, form textarea:focus {
         font-weight: 600;
         text-transform: uppercase;
         padding: 2px 10px;
+    }
+
+    .btnFloat .btnAdd {
         border-bottom: 3px solid #1A7F06;
+    }
+
+    .btnFloat .btnSearch {
+        border-bottom: 3px solid #004EAC;
     }
 
     .btnFloat button:hover {
@@ -490,6 +576,9 @@ form input:focus, form select:focus, form textarea:focus {
         margin-left: 5px;
     }
     
+    .rowOperadores {
+        column-count: 2 !important;
+    }
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -499,7 +588,6 @@ form input:focus, form select:focus, form textarea:focus {
         width: 960px;
         margin: 0 auto;
     }
-
 
 }
 
@@ -527,4 +615,12 @@ form input:focus, form select:focus, form textarea:focus {
 
 .block {
     display: block !important;
+}
+
+.rowOperadores {
+    column-count: 1;
+}
+
+.rowFletes > *, .rowOperadores > * {
+    width: 100% !important;
 }

@@ -1,5 +1,0 @@
-C:\Users\XD\documents\visual studio 2015\Projects\CrazyTruck\ClassLr\bin\Debug\ClassLr.dll
-C:\Users\XD\documents\visual studio 2015\Projects\CrazyTruck\ClassLr\bin\Debug\ClassLr.pdb
-C:\Users\XD\documents\visual studio 2015\Projects\CrazyTruck\ClassLr\obj\Debug\ClassLr.csprojResolveAssemblyReference.cache
-C:\Users\XD\documents\visual studio 2015\Projects\CrazyTruck\ClassLr\obj\Debug\ClassLr.dll
-C:\Users\XD\documents\visual studio 2015\Projects\CrazyTruck\ClassLr\obj\Debug\ClassLr.pdb
