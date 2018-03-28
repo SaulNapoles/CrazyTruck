@@ -112,6 +112,8 @@ function enableBtnAdd(){
 
             //metodo post
             $.ajax({
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
                 url: '/Operadores/agregar',
                 data: JSON.stringify({
                     Operador: {
@@ -123,22 +125,16 @@ function enableBtnAdd(){
                         telefono: $('#operadorTelefono').val(),
                         nss: $('#operadorNss').val(),
                     }
-                }),
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8'
+                }),success: function (result) {
+                    alert(result);
+                    window.location.href = '/Operadores/Lista';
+
+                    //cerrar modal
+                    $(modal).modal('hide');
+                }
+               
             })
-            .done(function() {
-                alert("success");
-
-                //cerrar modal
-                $(modal).modal('hide');
-            })
-            .fail(function() {
-                alert("error");
-
-            });
-
-            //alert($(modal+' .formOperador').serialize());
+          
         }
     });
 }
@@ -200,6 +196,8 @@ function enableBtnEdit(idOperador){
 
             //metodo post
             $.ajax({
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
                 url: '/Operadores/editar',
                 data: JSON.stringify({
                     Operador: {
@@ -212,20 +210,15 @@ function enableBtnEdit(idOperador){
                         telefono: $('#operadorTelefono').val(),
                         nss: $('#operadorNss').val(),
                     }
-                }),
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8'
-            })
-            .done(function() {
-                alert("success");
+                }), success: function (result) {
+                    alert(result);
+                    window.location.href = '/Operadores/Lista';
 
-                //cerrar modal
-                $(modal).modal('hide');
+                    //cerrar modal
+                    $(modal).modal('hide');
+                }
+                
             })
-            .fail(function() {
-                alert("error");
-
-            });
 
         }
     });
@@ -259,22 +252,19 @@ function enableBtnDelete(idOperador){
 
             //metodo post
             $.ajax({
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
                 url: '/Operadores/eliminar',
                 data: JSON.stringify({
                     id: idOperador
-                }),
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8'
-            })
-            .done(function() {
-                alert("success");
+                }), success: function (result) {
+                    alert(result);
+                    window.location.href = '/Operadores/Lista';
 
-                //cerrar modal
-                $(modal).modal('hide');
-            })
-            .fail(function() {
-                alert("error");
-
+                    //cerrar modal
+                    $(modal).modal('hide');
+                }
+                
             });
 
         }
