@@ -14,17 +14,17 @@ namespace CrazyTruck.Controllers
         // GET: Operadores
         public ActionResult Lista()
         {
-            IList<Operador> opp = new List<Operador>();
+            IList<Operador> o = new List<Operador>();
             using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
             {                
                 try{
                     //obtener datos
-                    opp = ct.Operador.ToList();
+                    o = ct.Operador.ToList();
            
                 }
                 catch (Exception){throw;}               
             }
-                return View(opp);
+                return View(o);
         }
 
         //Agregar operadores
@@ -36,7 +36,7 @@ namespace CrazyTruck.Controllers
                 try
                 {
                     Random rnd = new Random();
-                    string numerOp = operador.curp.Substring(0, 3) + rnd.Next(1000,9999);
+                    string numerOp = operador.curp.Substring(0, 4) + rnd.Next(1000,9999);
 
                     operador.numOperador = numerOp ; 
 

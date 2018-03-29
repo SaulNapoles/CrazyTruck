@@ -19,3 +19,15 @@ C:\Users\Saul\Documents\Proyectos Github\CrazyTruck\Nucleo.CrazyTruck\obj\Debug\
 C:\Users\Saul\Documents\Proyectos Github\CrazyTruck\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.dll
 C:\Users\Saul\Documents\Proyectos Github\CrazyTruck\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.pdb
 C:\Users\Saul\Documents\Proyectos Github\CrazyTruck\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.csprojResolveAssemblyReference.cache
+C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck-master\CrazyTruck\Nucleo.CrazyTruck\bin\Debug\Nucleo.CrazyTruck.dll.config
+C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck-master\CrazyTruck\Nucleo.CrazyTruck\bin\Debug\Nucleo.CrazyTruck.dll
+C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck-master\CrazyTruck\Nucleo.CrazyTruck\bin\Debug\Nucleo.CrazyTruck.pdb
+C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck-master\CrazyTruck\Nucleo.CrazyTruck\bin\Debug\EntityFramework.dll
+C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck-master\CrazyTruck\Nucleo.CrazyTruck\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck-master\CrazyTruck\Nucleo.CrazyTruck\bin\Debug\EntityFramework.xml
+C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck-master\CrazyTruck\Nucleo.CrazyTruck\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck-master\CrazyTruck\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.csprojResolveAssemblyReference.cache
+C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck-master\CrazyTruck\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.csproj.CoreCompileInputs.cache
+C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck-master\CrazyTruck\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.csproj.CopyComplete
+C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck-master\CrazyTruck\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.dll
+C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck-master\CrazyTruck\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.pdb

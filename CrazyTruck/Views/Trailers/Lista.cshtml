@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Lista";
 }
+
 <div id="subtitleSection" class="container-fluid">
     <div class="row">
         <div class="col-xs-10 col-sm-6 left">
@@ -32,7 +33,7 @@
                 </thead>
                 <tbody>
 
-       
+
 
                     @foreach (Nucleo.CrazyTruck.Trailer t in Model)
                     {
@@ -130,7 +131,7 @@
 
 </div>
 
-<script src="~/scripts/jquery-3.3.1.min.js"></script>
-<script src="~/scripts/bootstrap.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-<script src="~/scripts/trailersScript.js"></script>
+@section JavaScript {
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+    <script src="~/scripts/trailersScript.js"></script>
+}

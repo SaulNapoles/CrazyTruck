@@ -8,7 +8,9 @@
 
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/styles.css" rel="stylesheet" />
-    @RenderSection("styles", false)  
+
+    @RenderSection("Styles", false)
+
 </head>
 <body>
     <div id="main">
@@ -16,7 +18,7 @@
             <div id="logoSection" class="container-fluid">
                 <div class="row">
                     <div class="col-xs-6 left" id="logo">
-                        <a href="index.html"><h1>CrazyTruck</h1></a>
+                        <a href="@Url.Action("Lista", "Fletes")"><h1>CrazyTruck</h1></a>
                     </div>
                     <div class="col-xs-6 right" id="userOptions">
                         <span id="userID" class="none">0</span><span id="userName">Nombre usuario</span><button type="button" id="btnLogOut"><i class="fas fa-power-off"></i></button>
@@ -28,7 +30,7 @@
         <div id="menu">
             <nav id="menuSection" class="container-fluid">
                 <div class="row">
-                    <a href="fletes.html">Fletes</a>
+                    <a href="@Url.Action("Lista", "Fletes")">Fletes</a>
                     <a href="@Url.Action("Lista", "Trailers")">Trailers</a>
                     <a href="@Url.Action("Lista", "Remolques")">Remolques</a>
                     <a href="@Url.Action("Lista", "Operadores")">Operadores</a>
@@ -47,25 +49,22 @@
         </div>
 
         <div id="content">
-            
-             @RenderBody()
-         
+
+            @RenderBody()
+
         </div>
 
-     
+
     </div>
-
-
-
 
 
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <script src="~/scripts/jquery-3.3.1.min.js"></script>
     <script src="~/scripts/bootstrap.min.js"></script>
 
-
-   
     <script src="~/scripts/scripts.js"></script>
- 
+
+    @RenderSection("JavaScript", false)
+
 </body>
 </html>

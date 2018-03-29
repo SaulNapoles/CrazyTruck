@@ -5,68 +5,70 @@
     ViewBag.Title = "Lista";
 }
 
-@section styles{<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css">}
+@section Styles{
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css">
+}
 
-    <div id="subtitleSection" class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 left">
-                <h3>Lista de Operadores</h3>
-            </div>
-            <div class="col-xs-12 col-sm-6 right">
-                <div class="btnFloat">
-                    <button type="button" id="btnShowAddOperador" class="btnAdd"><span><i class="fas fa-plus"></i></span><span>Agregar</span></button>
-                </div>
+<div id="subtitleSection" class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 left">
+            <h3>Lista de Operadores</h3>
+        </div>
+        <div class="col-xs-12 col-sm-6 right">
+            <div class="btnFloat">
+                <button type="button" id="btnShowAddOperador" class="btnAdd"><span><i class="fas fa-plus"></i></span><span>Agregar</span></button>
             </div>
         </div>
     </div>
+</div>
 
-    <div id="tableSection" class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12 table-responsive">
-                <table class="table table-hover display" id="tableOperadores" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>+</th>
-                            <th class="none">ID</th>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Licencia</th>
-                            <th class="none">NSS</th>
-                            <th class="none">CURP</th>
-                            <th class="none">Teléfono</th>
-                            <th class="none">Dirección</th>
-                            <th>Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            @foreach (Nucleo.CrazyTruck.Operador o in Model)
+<div id="tableSection" class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 table-responsive">
+            <table class="table table-hover display" id="tableOperadores" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>+</th>
+                        <th class="none">ID</th>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Licencia</th>
+                        <th class="none">NSS</th>
+                        <th class="none">CURP</th>
+                        <th class="none">Teléfono</th>
+                        <th class="none">Dirección</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Nucleo.CrazyTruck.Operador o in Model)
+                    {
+                        if (Model != null)
                         {
-                            if (Model != null)
-                            {
-                        <tr>
-                            <td class="details-control"><i class="fas fa-plus-square"></i></td>
-                            <td class="none">@o.id</td>
-                            <td>@o.numOperador</td>
-                            <td>@o.nombre</td>
-                            <td>@o.apellido</td>
-                            <td>@o.numLicencia</td>
-                            <td class="none">@o.nss</td>
-                            <td class="none">@o.curp</td>
-                            <td class="none">@o.telefono</td>
-                            <td class="none">@o.direccion</td>
-                            <td><button type="button" class="btnEdit btnShowEditOperador"><i class="fas fa-pencil-alt"></i></button><button type="button" class="btnDelete btnShowDeleteOperador"><i class="fas fa-trash-alt"></i></button></td>
-                        </tr>
-                            }
-            }
-    
-                    </tbody>        
-                </table>
-            </div>
+                            <tr>
+                                <td class="details-control"><i class="fas fa-plus-square"></i></td>
+                                <td class="none">@o.id</td>
+                                <td>@o.numOperador</td>
+                                <td>@o.nombre</td>
+                                <td>@o.apellido</td>
+                                <td>@o.numLicencia</td>
+                                <td class="none">@o.nss</td>
+                                <td class="none">@o.curp</td>
+                                <td class="none">@o.telefono</td>
+                                <td class="none">@o.direccion</td>
+                                <td><button type="button" class="btnEdit btnShowEditOperador"><i class="fas fa-pencil-alt"></i></button><button type="button" class="btnDelete btnShowDeleteOperador"><i class="fas fa-trash-alt"></i></button></td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 
-<div>
+<div id="modals">
     <!-- Modal form -->
     <div class="modal fade" id="modalFormOperador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-lg" role="document">
@@ -165,9 +167,8 @@
 
 </div>
 
-
-<script src="~/scripts/jquery-3.3.1.min.js"></script>
-<script src="~/scripts/bootstrap.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
-<script src="~/scripts/operadoresScript.js"></script>
+@section JavaScript {
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
+    <script src="~/scripts/operadoresScript.js"></script>
+}

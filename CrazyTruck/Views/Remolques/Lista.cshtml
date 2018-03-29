@@ -30,18 +30,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                        @foreach (Nucleo.CrazyTruck.Gandola g in Model)
-{
-                             if (Model != null)
-                                {
-                                 <tr>
-                                      <td class="none">@g.id</td>
-                                      <td>@g.matricula</td>
-                                      <td>@g.capacidad</td>
-                                      <td><button type="button" class="btnEdit btnShowEditRemolque"><i class="fas fa-pencil-alt"></i></button><button type="button" class="btnDelete btnShowDeleteRemolque"><i class="fas fa-trash-alt"></i></button></td>
-                                </tr>
-                                }
-}
+                    @foreach (Nucleo.CrazyTruck.Gandola g in Model)
+                    {
+                        if (Model != null)
+                        {
+                            <tr>
+                                <td class="none">@g.id</td>
+                                <td>@g.matricula</td>
+                                <td>@g.capacidad</td>
+                                <td><button type="button" class="btnEdit btnShowEditRemolque"><i class="fas fa-pencil-alt"></i></button><button type="button" class="btnDelete btnShowDeleteRemolque"><i class="fas fa-trash-alt"></i></button></td>
+                            </tr>
+                        }
+                    }
 
                 </tbody>
             </table>
@@ -113,10 +113,7 @@
 
 </div>
 
-<script src="~/scripts/jquery-3.3.1.min.js"></script>
-<script src="~/scripts/bootstrap.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-<script src="~/scripts/remolquesScript.js"></script>   
-
-
-
+@section JavaScript {
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+    <script src="~/scripts/remolquesScript.js"></script>
+}

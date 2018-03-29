@@ -131,11 +131,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\crazytruck-logo.png" />
-    <Content Include="modals\modalDeleteOperador.html" />
-    <Content Include="modals\modalFormOperador.html" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\fletesScript.js" />
     <Content Include="scripts\jquery-3.3.1.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="scripts\operadoresScript.js" />
@@ -166,7 +165,6 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Fletes\Fletes.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -174,6 +172,7 @@
     <Content Include="Views\Operadores\Lista.cshtml" />
     <Content Include="Views\Trailers\Lista.cshtml" />
     <Content Include="Views\Remolques\Lista.cshtml" />
+    <Content Include="Views\Fletes\Lista.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
