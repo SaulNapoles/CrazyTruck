@@ -26,6 +26,24 @@ namespace CrazyTruck.Controllers
             return View(t);
         }
 
+        //Metodos CRUD JSON
+        //listar trailers despues de una accion
+        public ActionResult listarTrailers()
+        {
+            IList<Trailer> t = new List<Trailer>();
+            using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
+            {
+                try
+                {
+                    //obtener datos
+                    t = ct.Trailer.ToList();
+
+                }
+                catch (Exception) { throw; }
+            }
+            return Json(t, JsonRequestBehavior.AllowGet);
+        }
+
         //Agregar trailers
         [HttpPost]
         public JsonResult agregar(Trailer trailer)
@@ -85,5 +103,21 @@ namespace CrazyTruck.Controllers
             return Json(new { succes = true });
         }
 
+        //listar trailer por id
+        public ActionResult tDeployInfoById(int id)
+        {
+            IList<Trailer> t = new List<Trailer>();
+            using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
+            {
+                try
+                {
+                    //obtener datos
+                    var trailer= ct.Trailer.Find(id);
+                    t.Add(trailer);
+                }
+                catch (Exception) { throw; }
+            }
+            return Json(t, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -16,15 +16,34 @@ namespace CrazyTruck.Controllers
         {
             IList<Operador> o = new List<Operador>();
             using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
-            {                
-                try{
+            {
+                try
+                {
                     //obtener datos
                     o = ct.Operador.ToList();
-           
+
                 }
-                catch (Exception){throw;}               
+                catch (Exception) { throw; }
             }
-                return View(o);
+            return View(o);
+        }
+
+                //Metodos CRUD JSON
+        //listar operadores despues de una accion
+        public ActionResult listarOperadores()
+        {
+            IList<Operador> o = new List<Operador>();
+            using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
+            {
+                try
+                {
+                    //obtener datos
+                    o = ct.Operador.ToList();
+
+                }
+                catch (Exception) { throw; }
+            }
+            return Json(o,JsonRequestBehavior.AllowGet);
         }
 
         //Agregar operadores
@@ -94,6 +113,25 @@ namespace CrazyTruck.Controllers
 
             return Json(new { succes = true });
         }
+
+        //desplegar info de operador por id
+        public ActionResult oDeployInfoById(int id)
+        {
+            IList<Operador> o = new List<Operador>();
+            using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
+            {
+                try
+                {
+                    //obtener datos
+                    var getOp = ct.Operador.Find(id);
+                    o.Add(getOp);
+
+                }
+                catch (Exception) { throw; }
+            }
+            return Json(o, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
                 

@@ -11,7 +11,7 @@ namespace CrazyTruck.Controllers
         // GET: Remolques
         public ActionResult Lista()
         {
-            IList<Gandola> g = new List<Nucleo.CrazyTruck.Gandola>();
+            IList<Gandola> g = new List<Gandola>();
             using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
                 try
                 {
@@ -23,6 +23,24 @@ namespace CrazyTruck.Controllers
                 }
 
             return View(g);
+        }
+
+                //Metodos CRUD JSON
+        //listar Remolques despues de una accion
+        public ActionResult listarRemolques()
+        {
+            IList<Gandola> g = new List<Gandola>();
+            using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
+            {
+                try
+                {
+                    //obtener datos
+                    g = ct.Gandola.ToList();
+
+                }
+                catch (Exception) { throw; }
+            }
+            return Json(g, JsonRequestBehavior.AllowGet);
         }
 
         //Agregar gandola
@@ -82,6 +100,23 @@ namespace CrazyTruck.Controllers
             }
 
             return Json(new { succes = true });
+        }
+
+        //listar Remolques por id
+        public ActionResult rDeployInfoById(int id)
+        {
+            IList<Gandola> g = new List<Gandola>();
+            using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
+            {
+                try
+                {
+                    //obtener datos
+                  var  remolque = ct.Gandola.Find(id);
+                    g.Add(remolque);
+                }
+                catch (Exception) { throw; }
+            }
+            return Json(g, JsonRequestBehavior.AllowGet);
         }
     }
 
