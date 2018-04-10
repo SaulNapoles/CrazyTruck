@@ -136,6 +136,7 @@
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\fletesScript.js" />
     <Content Include="scripts\jquery-3.3.1.min.js" />
+    <Content Include="scripts\mapScript.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="scripts\operadoresScript.js" />
     <Content Include="scripts\remolquesScript.js" />
