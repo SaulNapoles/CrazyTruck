@@ -56,33 +56,37 @@ namespace CrazyTruck.Controllers
         public JsonResult agregarFlete(Flete flete)
         {
 
-            CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn();            
+            CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn();
 
-                List<Carga> cargas = new List<Carga>();
-                
-                Random rnd = new Random();
-                string fol = DateTime.Now +Convert.ToString(rnd.Next(1000, 9999));
+            Random rnd = new Random();
+            string fol = DateTime.Now.ToString("yyyy_MM_dd") + "_" + Convert.ToString(rnd.Next(1000, 9999));
 
-                Flete fl = new Flete();
-                fl.folio = fol;
-                fl.idOperador = flete.idOperador;
-                fl.idTrailer = flete.idTrailer;
-                fl.idUsuario = flete.idUsuario;
-                fl.fecha = DateTime.Now;
-                fl.Carga = new List<Carga>();
-                foreach (Carga cg in fl.Carga)
-                {                                 
-                fl.Carga.Add(cg);
-                }
-                ct.Flete.Add(fl);
-                ct.SaveChanges();
+            Flete fl = new Flete
+            {
+                folio = fol,
+                idOperador = flete.idOperador,
+                idTrailer = flete.idTrailer,
+                idUsuario = 20,
+                fecha = DateTime.Now
+            };
 
-            //optener el id del flete
-            var idFlete = ct.Flete.Where(op => op.folio == fol).FirstOrDefault(); 
+            ct.Flete.Add(fl);
+            ct.SaveChanges();
+
+            //optener el flete generado
+            var idFlete = ct.Flete.Where(op => op.folio == fol).FirstOrDefault();
+
+            foreach (Carga carga in flete.Carga)
+            {
+                carga.idFlete = idFlete.id;
+                ct.Carga.Add(carga);
+            }
+
+            ct.SaveChanges();
 
             return Json(idFlete.id, JsonRequestBehavior.AllowGet);
         }
-        
+
         //desplegar info de flete por id
         public ActionResult fDeployInfoById(int id)
         {
@@ -103,6 +107,58 @@ namespace CrazyTruck.Controllers
                 catch (Exception) { throw; }
             }
             return Json(opList, JsonRequestBehavior.AllowGet);
+        }
+
+        //eliminar flete
+        public ActionResult eliminarFlete(int id)
+        {
+            bool bandera = false;
+            using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
+            {
+                try
+                {
+                    Flete f = ct.Flete.Where(op => op.id == id).FirstOrDefault();
+                    ct.Flete.Remove(f);
+                    ct.SaveChanges();
+                    bandera = true;
+                }
+                catch (Exception) { bandera = false; }
+            }
+            return Json(bandera, JsonRequestBehavior.AllowGet);
+        }
+
+        //editar flete
+        public JsonResult editarFlete(Flete flete)
+        {
+
+            CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn();
+            try
+            {
+                Flete s = ct.Flete.Where(op => op.id == flete.id).FirstOrDefault();
+                s.folio = flete.folio;
+                s.idOperador = flete.idOperador;
+                s.idTrailer = flete.idTrailer;
+                s.idUsuario = 20;
+                s.fecha = flete.fecha;
+
+                ct.SaveChanges();
+
+                foreach (Carga carga in flete.Carga)
+                {
+                    carga.idFlete = flete.id;
+                    ct.Carga.Add(carga);
+                }
+
+                ct.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+
+            return Json(idFlete.id, JsonRequestBehavior.AllowGet);
         }
 
         //Metodos auxiliares
