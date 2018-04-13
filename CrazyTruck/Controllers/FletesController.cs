@@ -109,7 +109,6 @@ namespace CrazyTruck.Controllers
                     string data = JsonConvert.SerializeObject(flete, Formatting.Indented, new JsonSerializerSettings
                     {
                         ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                        
                     });
 
                     var jsonResult = Json(data, JsonRequestBehavior.AllowGet);
@@ -126,7 +125,7 @@ namespace CrazyTruck.Controllers
         //eliminar flete
         public ActionResult eliminarFlete(int id)
         {
-            bool bandera = false;
+            bool succes = false;
             using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
             {
                 try
@@ -134,11 +133,11 @@ namespace CrazyTruck.Controllers
                     Flete f = ct.Flete.Where(op => op.id == id).FirstOrDefault();
                     ct.Flete.Remove(f);
                     ct.SaveChanges();
-                    bandera = true;
+                    succes = true;
                 }
-                catch (Exception) { bandera = false; }
+                catch (Exception) { succes = false; }
             }
-            return Json(bandera, JsonRequestBehavior.AllowGet);
+            return Json(succes, JsonRequestBehavior.AllowGet);
         }
 
         //editar flete
@@ -148,12 +147,12 @@ namespace CrazyTruck.Controllers
             CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn();
             try
             {
-                Flete s = ct.Flete.Where(op => op.id == flete.id).FirstOrDefault();
-                s.folio = flete.folio;
-                s.idOperador = flete.idOperador;
-                s.idTrailer = flete.idTrailer;
-                s.idUsuario = 20;
-                s.fecha = flete.fecha;
+                Flete f = ct.Flete.Where(fl => fl.id == flete.id).FirstOrDefault();
+                f.folio = flete.folio;
+                f.idOperador = flete.idOperador;
+                f.idTrailer = flete.idTrailer;
+                f.idUsuario = 20;
+                f.fecha = flete.fecha;
 
                 ct.SaveChanges();
 
@@ -165,14 +164,9 @@ namespace CrazyTruck.Controllers
 
                 ct.SaveChanges();
             }
-            catch (Exception)
-            {
+            catch (Exception) { throw; }
 
-                throw;
-            }
-           
-
-            return Json(idFlete.id, JsonRequestBehavior.AllowGet);
+            return Json(new { succes = true });
         }
 
         //Metodos auxiliares
