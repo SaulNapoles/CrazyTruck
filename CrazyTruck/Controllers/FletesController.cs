@@ -57,10 +57,10 @@ namespace CrazyTruck.Controllers
         public JsonResult agregarFlete(Flete flete)
         {
 
-            CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn();            
-            
+            CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn();
+
             Random rnd = new Random();
-            string fol = DateTime.Now.ToString("yyyy_MM_dd")+"_"+Convert.ToString(rnd.Next(1000, 9999));
+            string fol = DateTime.Now.ToString("yyyy_MM_dd") + "_" + Convert.ToString(rnd.Next(1000, 9999));
 
             Flete fl = new Flete
             {
@@ -73,7 +73,6 @@ namespace CrazyTruck.Controllers
 
             ct.Flete.Add(fl);
             ct.SaveChanges();
-            
             //optener el flete generado
             var idFlete = ct.Flete.Where(op => op.folio == fol).FirstOrDefault();
 
@@ -87,7 +86,7 @@ namespace CrazyTruck.Controllers
             
             return Json(idFlete.id, JsonRequestBehavior.AllowGet);
         }
-        
+
         //desplegar info de flete por id
         public ActionResult obtenerInfoFlete(int idFlete)
         {
@@ -124,9 +123,61 @@ namespace CrazyTruck.Controllers
             
         }
 
-        CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn();
+        //eliminar flete
+        public ActionResult eliminarFlete(int id)
+        {
+            bool bandera = false;
+            using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
+            {
+                try
+                {
+                    Flete f = ct.Flete.Where(op => op.id == id).FirstOrDefault();
+                    ct.Flete.Remove(f);
+                    ct.SaveChanges();
+                    bandera = true;
+                }
+                catch (Exception) { bandera = false; }
+            }
+            return Json(bandera, JsonRequestBehavior.AllowGet);
+        }
+
+        //editar flete
+        public JsonResult editarFlete(Flete flete)
+        {
+
+            CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn();
+            try
+            {
+                Flete s = ct.Flete.Where(op => op.id == flete.id).FirstOrDefault();
+                s.folio = flete.folio;
+                s.idOperador = flete.idOperador;
+                s.idTrailer = flete.idTrailer;
+                s.idUsuario = 20;
+                s.fecha = flete.fecha;
+
+                ct.SaveChanges();
+
+                foreach (Carga carga in flete.Carga)
+                {
+                    carga.idFlete = flete.id;
+                    ct.Carga.Add(carga);
+                }
+
+                ct.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+
+            return Json(idFlete.id, JsonRequestBehavior.AllowGet);
+        }
 
         //Metodos auxiliares
+        CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn();
+        
         [HttpGet]
         public JsonResult listaTrailers()
         {
