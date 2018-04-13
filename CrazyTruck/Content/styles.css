@@ -40,22 +40,22 @@ header {
     text-align: left;
 }
 
-    #logo a {
-        position: relative;
-        display: inline-block;
-        background: url("../images/crazytruck-logo.png") no-repeat -19px 0px;
-        color: #000;
-        text-decoration: none;
-        width: 88px;
-        height: 30px;
-        margin: 10px 0px;
-    }
+#logo a {
+    position: relative;
+    display: inline-block;
+    background: url("../images/crazytruck-logo.png") no-repeat -19px 0px;
+    color: #000;
+    text-decoration: none;
+    width: 88px;
+    height: 30px;
+    margin: 10px 0px;
+}
 
-        #logo a h1 {
-            font-size: 22px;
-            font-weight: bold;
-            visibility: hidden;
-        }
+#logo a h1 {
+    font-size: 22px;
+    font-weight: bold;
+    visibility: hidden;
+}
 
 #userOptions {
     position: relative;
@@ -63,26 +63,26 @@ header {
     margin-top: 10px;
 }
 
-    #userOptions > * {
-        position: relative;
-        display: inline-block;
-        font-size: 18px;
-        font-weight: bold;
-        vertical-align: middle;
-    }
+#userOptions > * {
+    position: relative;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    vertical-align: middle;
+}
 
-    #userOptions #userName {
-        display: none;
-    }
+#userOptions #userName {
+    display: none;
+}
 
-    #userOptions button {
-        font-size: 22px;
-        margin-left: 5px;
-    }
+#userOptions button {
+    font-size: 22px;
+    margin-left: 5px;
+}
 
-        #userOptions button:hover {
-            color: #DD1E1B;
-        }
+#userOptions button:hover {
+    color: #DD1E1B;
+}
 
 #menu {
     position: sticky;
@@ -98,20 +98,20 @@ header {
     z-index: 2;
 }
 
-    #menuSection a {
-        position: relative;
-        display: block;
-        text-transform: uppercase;
-        color: #FFF;
-        font-size: 16px;
-        font-weight: 600;
-        text-decoration: none;
-        padding: 6px 20px;
-    }
+#menuSection a {
+    position: relative;
+    display: block;
+    text-transform: uppercase;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 6px 20px;
+}
 
-        #menuSection a:hover, .menuSelected {
-            background-color: #006DF0;
-        }
+#menuSection a:hover, .menuSelected {
+    background-color: #006DF0;
+}
 
 #titleSection {
     position: relative;
@@ -121,21 +121,21 @@ header {
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-    #titleSection h2 {
-        font-size: 22px;
-        font-weight: bold;
-        text-transform: uppercase;
-        padding: 4px 0;
-    }
+#titleSection h2 {
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 4px 0;
+}
 
-    #titleSection button {
-        font-size: 22px;
-        margin-top: 4px;
-    }
+#titleSection button {
+    font-size: 22px;
+    margin-top: 4px;
+}
 
-        #titleSection button:hover {
-            color: #FCB535;
-        }
+#titleSection button:hover {
+    color: #FCB535;
+}
 
 #content h3 {
     font-size: 20px;
@@ -157,23 +157,31 @@ header {
 }
 
 
-    #addSection > * > div {
-        margin-bottom: 15px !important;
-    }
+#addSection > * > div {
+    margin-bottom: 15px !important;
+}
 
-    #addSection .fleteTitle {
-        border-left: 3px solid #525252;
-        font-size: 16px;
-        text-transform: uppercase;
-    }
+#addSection .fleteTitle {
+    border-left: 3px solid #525252;
+    font-size: 16px;
+    text-transform: uppercase;
+}
 
 #generalInfo form > div {
     margin-bottom: 10px;
 }
 
+#generalInfo.clearInfo .fleteTitle {
+    display: none;
+}
+
+#generalInfo.clearInfo #optionsFlete {
+    display: none;
+}
+
 #selectTrailer {
-    border-left: 3px solid #F5D131;
-    border-right: 3px solid #F5D131;
+    border-left: 3px solid #DEDB39;
+    border-right: 3px solid #DEDB39;
 }
 
 #selectOperador {
@@ -214,13 +222,21 @@ header {
     display: none;
 }
 
-    #scales .bold {
-        position: relative;
-        display: block;
-        text-transform: uppercase;
-        font-weight: bold;
-        margin-bottom: 4px;
-    }
+#scales.block {
+    display: block;
+}
+
+#scales.clearInfo .fleteTitle {
+    display: none;
+}
+
+#scales .bold {
+    position: relative;
+    display: block;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
 
 .selectEscalas > div:first-child {
     border-left: 3px solid #B44877;
@@ -237,8 +253,6 @@ header {
 }
 
 
-
-
 /* Button edit and delete styles */
 .table-responsive {
     border: none;
@@ -252,22 +266,25 @@ table button {
     top: 0;
     transition: all 0.2s ease;
 }
+table button:hover {
+    top: -2px;
+}
 
-    table button:hover {
-        top: -2px;
-    }
+table button.btnEye {
+    color: #DEDB39;
+}
 
-    table button.btnPin {
-        color: #F5D131;
-    }
+table button.btnPin {
+    color: #FCB535;
+}
 
-    table button.btnEdit {
-        color: #0062DA;
-    }
+table button.btnEdit {
+    color: #0062DA;
+}
 
-    table button.btnDelete {
-        color: #DD1E1B;
-    }
+table button.btnDelete {
+    color: #DD1E1B;
+}
 /* End button edit and delete styles */
 
 /* DataTables styles */
@@ -276,7 +293,6 @@ td.details-control {
     color: #50D16E;
     cursor: pointer;
 }
-
 tr.shown td.details-control {
     color: #DD1E1B;
 }
@@ -297,78 +313,78 @@ table.dataTable {
     zoom: 1;
 }
 
-    .dataTables_wrapper::after {
-        visibility: hidden;
-        display: block;
-        content: "";
-        clear: both;
-        height: 0;
-    }
+.dataTables_wrapper::after {
+    visibility: hidden;
+    display: block;
+    content: "";
+    clear: both;
+    height: 0;
+}
 
-    .dataTables_wrapper .dataTables_length,
-    .dataTables_wrapper .dataTables_filter {
-        float: none;
-        text-align: center;
-        margin-bottom: 6px;
-    }
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+    float: none;
+    text-align: center;
+    margin-bottom: 6px;
+}
 
-    .dataTables_wrapper .dataTables_info,
-    .dataTables_wrapper .dataTables_paginate {
-        float: none;
-        text-align: center;
-        margin-bottom: 6px;
-    }
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    float: none;
+    text-align: center;
+    margin-bottom: 6px;
+}
 
-    .dataTables_wrapper .dataTables_length select {
-        outline: none;
-        padding: 2px;
-        border: 1px solid #CECECE;
-        border-radius: 2px;
-    }
+.dataTables_wrapper .dataTables_length select {
+    outline: none;
+    padding: 2px;
+    border: 1px solid #CECECE;
+    border-radius: 2px;
+}
 
-    .dataTables_wrapper .dataTables_filter input {
-        margin-left: 6px;
-        outline: none;
-        padding: 2px;
-        border: 1px solid #CECECE;
-        border-radius: 2px;
-        width: 200px;
-    }
+.dataTables_wrapper .dataTables_filter input {
+    margin-left: 6px;
+    outline: none;
+    padding: 2px;
+    border: 1px solid #CECECE;
+    border-radius: 2px;
+    width: 200px;
+}
 
-        .dataTables_wrapper .dataTables_length select:hover,
-        .dataTables_wrapper .dataTables_filter input:hover {
-            border: 1px solid #AFAFAF;
-        }
+.dataTables_wrapper .dataTables_length select:hover,
+.dataTables_wrapper .dataTables_filter input:hover {
+    border: 1px solid #AFAFAF;
+}
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button {
-        cursor: pointer;
-        outline: none;
-        text-decoration: none;
-        color: #FFF;
-        padding: 0px 10px;
-        margin: 0px 2px;
-        background-color: #0F7CFF;
-        text-transform: uppercase;
-        font-weight: 600;
-        border-radius: 3px;
-        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-        transition: all 0.3s ease;
-    }
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+    color: #FFF;
+    padding: 0px 10px;
+    margin: 0px 2px;
+    background-color: #0F7CFF;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 3px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
 
-        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-            background-color: #006DF0;
-            box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-        }
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background-color: #006DF0;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
 
-        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-            background-color: #004EAC;
-            cursor: default;
-        }
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background-color: #004EAC;
+    cursor: default;
+}
 
-        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
-            background-color: #CECECE;
-            cursor: default;
-        }
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+    background-color: #CECECE;
+    cursor: default;
+}
 
 /* End dataTables styles */
 
@@ -392,9 +408,9 @@ table.dataTable {
     border-bottom: 3px solid #961310;
 }
 
-    .btnAccept span:first-child, .btnCancel span:first-child {
-        margin-right: 5px;
-    }
+.btnAccept span:first-child, .btnCancel span:first-child {
+    margin-right: 5px;
+}
 /* End button add and cancel styles */
 
 /* FloatButton add and search styles */
@@ -406,32 +422,31 @@ table.dataTable {
     z-index: 1;
 }
 
-    .btnFloat button {
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-        border-radius: 50%;
-        color: #FFF;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-        transition: all 0.3s ease;
-    }
+.btnFloat button {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    border-radius: 50%;
+    color: #FFF;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+.btnFloat button:hover {
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.6);
+}
 
-        .btnFloat button:hover {
-            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.6);
-        }
+.btnFloat button span:last-child {
+    display: none;
+}
 
-        .btnFloat button span:last-child {
-            display: none;
-        }
+.btnFloat .btnAdd {
+    background-color: #50D16E;
+}
 
-    .btnFloat .btnAdd {
-        background-color: #50D16E;
-    }
-
-    .btnFloat .btnSearch {
-        background-color: #006DF0;
-        display: none;
-    }
+.btnFloat .btnSearch {
+    background-color: #006DF0;
+    display: none;
+}
 /* End floatButton add and search styles */
 
 /* Form styles */
@@ -461,22 +476,13 @@ form input, form select, form textarea {
     outline: none;
     margin-bottom: 10px;
 }
-
-    form input:hover, form select:hover, form textarea:hover {
-        border: 2px solid #DADADA;
-    }
-
-    form input:focus, form select:focus, form textarea:focus {
-        border: 2px solid #CECECE;
-    }
-
-.noSelected {
-    background-color: #F5F5F5;
+form input:hover, form select:hover, form textarea:hover {
+    border: 2px solid #DADADA;
+}
+form input:focus, form select:focus, form textarea:focus {
+    border: 2px solid #CECECE;
 }
 
-    .noSelected option {
-        background-color: #FFF;
-    }
 /* End form styles */
 
 /* Modal styles */
@@ -487,9 +493,9 @@ form input, form select, form textarea {
     color: #000;
 }
 
-    .modal-header > button:hover {
-        color: #525252;
-    }
+.modal-header > button:hover {
+    color: #525252;
+}
 
 .modal-header h4 {
     text-transform: uppercase;
@@ -501,7 +507,7 @@ form input, form select, form textarea {
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-
+    
     #logo a {
         background-position: 0px 0px;
         width: 128px;
@@ -513,40 +519,40 @@ form input, form select, form textarea {
         margin-top: 24px;
     }
 
-        #userOptions #userName {
-            display: inline-block;
-        }
+    #userOptions #userName {
+        display: inline-block;
+    }
 
     #menuSection {
         display: block;
     }
 
-        #menuSection a {
-            display: inline-block;
-        }
+    #menuSection a {
+        display: inline-block;
+    }
 
     #titleSection {
         height: 15px;
     }
 
-        #titleSection h2, #titleSection button {
-            display: none;
-        }
+    #titleSection h2, #titleSection button {
+        display: none;
+    }
 
 
 
     #selectTrailer {
         border-right: none;
     }
-
+    
     #selectOperador {
         border-right: none;
     }
-
+    
     #selectTipoRemolque {
         border-right: none;
     }
-
+    
     .selectRemolque {
         border-right: none;
     }
@@ -554,7 +560,7 @@ form input, form select, form textarea {
     .selectEscalas > div:first-child {
         border-right: none;
     }
-
+    
     .selectEscalas > div:last-child {
         border: none;
     }
@@ -562,7 +568,7 @@ form input, form select, form textarea {
     #mapRutas {
         margin-bottom: 0px;
     }
-
+    
     #mapAdd {
         margin: 0 auto;
         width: 100%;
@@ -574,7 +580,7 @@ form input, form select, form textarea {
         clear: both;
         float: left;
     }
-
+    
     .dataTables_wrapper .dataTables_paginate {
         float: right;
         text-align: right;
@@ -599,36 +605,36 @@ form input, form select, form textarea {
         left: unset;
         margin-bottom: 6px;
     }
+    
+    .btnFloat button {
+        width: auto;
+        height: auto;
+        border-radius: 5px;
+        box-shadow: unset;
+        transition: none;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 2px 10px;
+    }
 
-        .btnFloat button {
-            width: auto;
-            height: auto;
-            border-radius: 5px;
-            box-shadow: unset;
-            transition: none;
-            font-size: 16px;
-            font-weight: 600;
-            text-transform: uppercase;
-            padding: 2px 10px;
-        }
+    .btnFloat .btnAdd {
+        border-bottom: 3px solid #1A7F06;
+    }
 
-        .btnFloat .btnAdd {
-            border-bottom: 3px solid #1A7F06;
-        }
+    .btnFloat .btnSearch {
+        border-bottom: 3px solid #004EAC;
+    }
 
-        .btnFloat .btnSearch {
-            border-bottom: 3px solid #004EAC;
-        }
+    .btnFloat button:hover {
+        box-shadow: unset;
+    }
 
-        .btnFloat button:hover {
-            box-shadow: unset;
-        }
-
-        .btnFloat button span:last-child {
-            display: inline-block;
-            margin-left: 5px;
-        }
-
+    .btnFloat button span:last-child {
+        display: inline-block;
+        margin-left: 5px;
+    }
+    
     .rowOperadores {
         column-count: 2 !important;
     }
@@ -641,10 +647,12 @@ form input, form select, form textarea {
         width: 960px;
         margin: 0 auto;
     }
+
 }
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
+
 }
 
 /* Estilos auxiliares */
@@ -678,7 +686,7 @@ form input, form select, form textarea {
 
 .rowFletes > div.table-details:first-child, .rowOperadores > div.table-details:first-child {
     display: none;
-    }
+}
 
 .rowEscalas > div.table-details:not(:last-child) {
     display: none;
