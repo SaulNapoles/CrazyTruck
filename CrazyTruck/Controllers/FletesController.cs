@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
+using CrazyTruck.Models;
 using Newtonsoft.Json;
 using Nucleo.CrazyTruck;
 
@@ -13,6 +16,7 @@ namespace CrazyTruck.Controllers
 {
     public class FletesController : Controller
     {
+
         // GET
         public ActionResult Lista()
         {
@@ -35,7 +39,7 @@ namespace CrazyTruck.Controllers
 
         //Metodos CRUD JSON
         //listar flete Trailer Operador despues de una accion
-        public ActionResult listarInfoFletes()
+        public JsonResult listarInfoFletes()
         {
             IList<Flete> listarFletes = new List<Flete>();
             using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
@@ -87,15 +91,18 @@ namespace CrazyTruck.Controllers
             return Json(idFlete.id, JsonRequestBehavior.AllowGet);
         }
 
+        
         //desplegar info de flete por id
-        public ActionResult obtenerInfoFlete(int idFlete)
+        public JsonResult obtenerInfoFlete(int idFlete)
         {
             //IList<Flete> opList = new List<Flete>();
-            
+
             using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
             {
+
                 try
                 {
+
                     //obtener datos
                     Flete flete = ct.Flete
                         //.Include(t => t.Trailer)
@@ -106,7 +113,23 @@ namespace CrazyTruck.Controllers
                         .Where(f => f.id == idFlete)
                         .SingleOrDefault();
 
-                    string data = JsonConvert.SerializeObject(flete, Formatting.Indented, new JsonSerializerSettings
+                    
+                    //Mapear objeto
+                    var fleteDTO = Mapper.Map<FleteDTO>(flete);
+
+                    List<CargaDTO> list = new List<CargaDTO>();
+
+                    ICollection<Carga> cargas = ct.Carga.Where(c => c.idFlete == idFlete).ToList();
+
+                    foreach (Carga c in cargas)
+                    {
+                        list.Add(Mapper.Map<CargaDTO>(c));
+                    }
+                    
+                    ICollection<CargaDTO> col = list;
+                    fleteDTO.Carga = col;
+
+                    /*string data = JsonConvert.SerializeObject(flete, Formatting.Indented, new JsonSerializerSettings
                     {
                         ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                     });
@@ -114,8 +137,36 @@ namespace CrazyTruck.Controllers
                     var jsonResult = Json(data, JsonRequestBehavior.AllowGet);
                     jsonResult.MaxJsonLength = Int32.MaxValue;
 
-                    return jsonResult;
+                    return jsonResult;*/
 
+                    /*var filePath = @"Fletes/somewhere.json";
+                    //var path = Server.MapPat('.')
+                    //Console.Write("Directorio:", path);
+
+                    using (var fs = new FileStream(filePath, FileMode.CreateNew))
+                    using (var sw = new StreamWriter(fs))
+                    using (var jw = new JsonTextWriter(sw))
+                    {
+                        var serializer = new JsonSerializer();
+                        serializer.Serialize(jw, flete);
+                    }*/
+
+                    /*string json = JsonConvert.SerializeObject(flete, Formatting.Indented, new JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    });
+
+                    //write string to file
+                    System.IO.File.WriteAllText(Server.MapPath("~/Views/Fletes/LocalJSONFile.json"), json);*/
+
+                    //serealizar a json y guardarlo en un archivo local como cache
+                    using (TextWriter writer = new StreamWriter(Server.MapPath("~/LocalJSONFile.json")))
+                    {
+                        var serializer = new JsonSerializer();
+                        serializer.Serialize(writer, fleteDTO);
+                    }
+
+                    return Json(new { succes = true }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception) { throw; }
             }
@@ -148,21 +199,32 @@ namespace CrazyTruck.Controllers
             try
             {
                 Flete f = ct.Flete.Where(fl => fl.id == flete.id).FirstOrDefault();
-                f.folio = flete.folio;
                 f.idOperador = flete.idOperador;
                 f.idTrailer = flete.idTrailer;
-                f.idUsuario = 20;
-                f.fecha = flete.fecha;
 
                 ct.SaveChanges();
 
                 foreach (Carga carga in flete.Carga)
                 {
-                    carga.idFlete = flete.id;
-                    ct.Carga.Add(carga);
-                }
+                    if(carga.id.Equals(0))
+                    {
+                        carga.idFlete = flete.id;
+                        ct.Carga.Add(carga);
 
-                ct.SaveChanges();
+                        ct.SaveChanges();
+                    }
+                    else
+                    {
+                        Carga c = ct.Carga.Where(ca => ca.id == carga.id).FirstOrDefault();
+                        c.idGandola = carga.idGandola;
+                        c.descripcion = carga.descripcion;
+                        c.peso = carga.peso;
+
+                        ct.SaveChanges();
+                    }
+                    
+                }
+                
             }
             catch (Exception) { throw; }
 

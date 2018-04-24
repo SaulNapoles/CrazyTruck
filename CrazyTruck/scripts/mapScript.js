@@ -293,7 +293,7 @@ function getRutas(idTable){
             var nombre = $(this).find("td").eq(4).text(); //nombre
 
             //guardar posicion
-            //console.log("lat"+lat+"lng"+lng);
+            console.log("lat"+lat+"lng"+lng);
             var position = {lat: lat, lng: lng, nombre: nombre}
             routes.push(position);
         });

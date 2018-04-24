@@ -71,7 +71,7 @@ function clearGeneralInfo(){
 }
 
 //mostrar tabla de fletes
-$('#subtitleSection #btnShowSearch').on({
+$('#subtitleSection #btnShowSearch, #terminarFlete .btnShowSearch').on({
     click: function(){
         $(this).hide();
         $('#addSection').hide();
@@ -81,13 +81,13 @@ $('#subtitleSection #btnShowSearch').on({
     }
 });
 
-$('select').change(function(){
+/*$('select').change(function(){
     if($(this).val() != "-1") {
         $(this).removeClass("noSelected");
     } else {
         $(this).addClass("noSelected");
     }
-});
+});*/
 
 /* Obtener lista de elementos para setear en el formulario */
 function getTrailerList(){
@@ -284,37 +284,71 @@ $('.btnShowAddCargaTemp').on({
     }
 });
 
+function validateFormCarga() {
+    $(".formCarga textarea, .formCarga input").removeClass("error");
+    if ($("#cargaDescripcion").val() == "") {
+        $("#cargaDescripcion").addClass("error");
+        return false;
+    }
+    else if ($("#cargaPeso").val() == "" || $("#cargaPeso").val() <= 0) {
+        $("#cargaPeso").addClass("error");
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+$("#cargaDescripcion, #cargaPeso").keyup(function () {
+    if ($(this).val() != "") {
+        $(this).removeClass("error");
+    }
+});
+$("#cargaPeso").keyup(function () {
+    var regex = /[0-9]+/;
+    if ($(this).val() > 0 && regex.test($(this).val())) {
+        $(this).removeClass("error");
+    } else {
+        $(this).addClass("error");
+    }
+});
+
 function enableBtnAddCargaTemp(idRemolque){
     $('#btnAddCargaTemp').on({
-        click: function(){
-            var modal = "#modalFormCarga";
-            var table1 = "#tableCargas1 tbody";
-            var table2 = "#tableCargas2 tbody";
+        click: function () {
 
-            //crear carga temporal
-            var carga = {descripcion: $('#cargaDescripcion').val(), peso: $('#cargaPeso').val()};
-            
-            //agregar a correspondiente arreglo
-            if(idRemolque == "fleteRemolque1"){
-                cargas1.push(carga);
-                updateTable(table1, cargas1);
-            } else if(idRemolque == "fleteRemolque2") {
-                cargas2.push(carga);
-                updateTable(table2, cargas2);
-            }
+            if (validateFormCarga()) {
+                
+                var modal = "#modalFormCarga";
+                var table1 = "#tableCargas1 tbody";
+                var table2 = "#tableCargas2 tbody";
 
-            //cerrar modal
-            alert("Carga agregada");
-            $(modal).modal('hide');
+                //crear carga temporal
+                var carga = { descripcion: $('#cargaDescripcion').val(), peso: $('#cargaPeso').val() };
 
-            if(editFlete == true){
-                //delay para abrir el modal
-                setTimeout(function() {
-                    $('#modalFormFlete').modal({
-                        backdrop: 'static'
-                    })
-                }, 400); //delay in miliseconds
-                editFlete = false;
+                //agregar a correspondiente arreglo
+                if (idRemolque == "fleteRemolque1") {
+                    cargas1.push(carga);
+                    updateTable(table1, cargas1);
+                } else if (idRemolque == "fleteRemolque2") {
+                    cargas2.push(carga);
+                    updateTable(table2, cargas2);
+                }
+
+                //cerrar modal
+                alert("Carga agregada");
+                $(modal).modal('hide');
+
+                if (editFlete == true) {
+                    //delay para abrir el modal
+                    setTimeout(function () {
+                        $('#modalFormFlete').modal({
+                            backdrop: 'static'
+                        })
+                    }, 400); //delay in miliseconds
+                    editFlete = false;
+                }
+
             }
 
         }
@@ -362,26 +396,31 @@ function setBtnEdit(){
 
 function enableBtnEditCargaTemp(idRemolque, rowIndex, carga){
     $('#btnEditCargaTemp').on({
-        click: function(){
-            var modal = "#modalFormCarga";
-            var table1 = "#tableCargas1 tbody";
-            var table2 = "#tableCargas2 tbody";
+        click: function () {
 
-            //crear carga temporal
-            var carga = {descripcion: $('#cargaDescripcion').val(), peso: $('#cargaPeso').val()};
+            if (validateFormCarga()) {
+                
+                var modal = "#modalFormCarga";
+                var table1 = "#tableCargas1 tbody";
+                var table2 = "#tableCargas2 tbody";
 
-            //editar de correspondiente arreglo
-            if(idRemolque == "fleteRemolque1"){
-                cargas1[rowIndex] = carga;
-                updateTable(table1, cargas1);
-            } else if(idRemolque == "fleteRemolque2"){
-                cargas2[rowIndex] = carga;
-                updateTable(table2, cargas2);
+                //crear carga temporal
+                var carga = { descripcion: $('#cargaDescripcion').val(), peso: $('#cargaPeso').val() };
+
+                //editar de correspondiente arreglo
+                if (idRemolque == "fleteRemolque1") {
+                    cargas1[rowIndex] = carga;
+                    updateTable(table1, cargas1);
+                } else if (idRemolque == "fleteRemolque2") {
+                    cargas2[rowIndex] = carga;
+                    updateTable(table2, cargas2);
+                }
+
+                //cerrar modal
+                alert("Se edito " + carga);
+                $(modal).modal('hide');
+
             }
-
-            //cerrar modal
-            alert("Se edito "+carga);
-            $(modal).modal('hide');
         }
     });
 }
@@ -435,63 +474,113 @@ function enableBtnDeleteCargaTemp(idRemolque, rowIndex){
     });
 }
 
+function validateFormFlete() {
+    $(".formFlete select").removeClass("error");
+    if ($("#fleteTrailer option:selected").val() == "-1") {
+        $("#fleteTrailer").addClass("error");
+        return false;
+    }
+    else if ($("#fleteOperador option:selected").val() == "-1") {
+        $("#fleteOperador").addClass("error");
+        return false;
+    }
+    else if ($("#fleteTipoRemolque option:selected").val() == "-1") {
+        $("#fleteTipoRemolque").addClass("error");
+        return false;
+    }
+    else if ($("#fleteTipoRemolque option:selected").val() == "1") {
+        if ($("#fleteRemolque1 option:selected").val() == "-1") {
+            $("#fleteRemolque1").addClass("error");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    else if ($("#fleteTipoRemolque option:selected").val() == "2") {
+        if ($("#fleteRemolque1 option:selected").val() == "-1") {
+            $("#fleteRemolque1").addClass("error");
+            return false;
+        }
+        else if ($("#fleteRemolque2 option:selected").val() == "-1") {
+            $("#fleteRemolque2").addClass("error");
+            return false;
+        }
+        else {
+            return true;
+        }
+    } else {
+        return true;
+    }
+}
+
+$("#formFlete select").change(function () {
+    if ($(this).val() != "-1") {
+        $(this).removeClass("error");
+    }
+});
+
 /* Agregar flete */
 var idFlete;
 $('#btnAddFlete').on({
-    click: function(){
-        var cargasList = [];
+    click: function () {
+        //validar formulario
+        if(validateFormFlete()){
 
-        //recorrer cargas
-        $.each(cargas1, function(i, val){
-            var c = {idGandola: $('#fleteRemolque1').val(), descripcion: cargas1[i].descripcion, peso: cargas1[i].peso};
-            cargasList.push(c);
-        });
-        $.each(cargas2, function(i, val){
-            var c = {idGandola: $('#fleteRemolque2').val(), descripcion: cargas2[i].descripcion, peso: cargas2[i].peso};
-            cargasList.push(c);
-        });
+            var cargasList = [];
 
-        //console.log(cargasList);
+            //recorrer cargas
+            $.each(cargas1, function (i, val) {
+                var c = { idGandola: $('#fleteRemolque1').val(), descripcion: cargas1[i].descripcion, peso: cargas1[i].peso };
+                cargasList.push(c);
+            });
+            $.each(cargas2, function (i, val) {
+                var c = { idGandola: $('#fleteRemolque2').val(), descripcion: cargas2[i].descripcion, peso: cargas2[i].peso };
+                cargasList.push(c);
+            });
 
-        //metodo post
-        $.ajax({
-            url: '/Fletes/agregarFlete',
-            data: JSON.stringify({
+            //console.log(cargasList);
+
+            //metodo post
+            $.ajax({
+                url: '/Fletes/agregarFlete',
+                data: JSON.stringify({
+                    Flete: {
+                        idTrailer: $('#fleteTrailer').val(),
+                        idOperador: $('#fleteOperador').val(),
+                        idUsuario: 1,
+                        Carga: cargasList
+                    }
+                }),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    alert("success");
+
+                    $('#generalInfo').hide();
+                    $('#scales').show();
+                    //setDataTableEscalas();
+
+                    idFlete = data;
+                    console.log(idFlete);
+
+                    getEscalaList(idFlete);
+                },
+                error: function () {
+                    alert("error");
+
+                }
+            });
+
+            /*console.log(JSON.stringify({
                 Flete: {
                     idTrailer: $('#fleteTrailer').val(),
                     idOperador: $('#fleteOperador').val(),
                     idUsuario: 1,
                     Carga: cargasList
-                }
-            }),
-            type: 'POST',
-            contentType: 'application/json; charset=utf-8',
-            success: function(data) {
-                alert("success");
-
-                $('#generalInfo').hide();
-                $('#scales').show();
-                //setDataTableEscalas();
-
-                idFlete = data;
-                console.log(idFlete);
-
-                getEscalaList(idFlete);
-            },
-            error: function(){
-                alert("error");
-                
-            }
-        });
-
-        /*console.log(JSON.stringify({
-            Flete: {
-                idTrailer: $('#fleteTrailer').val(),
-                idOperador: $('#fleteOperador').val(),
-                idUsuario: 1,
-                Carga: cargasList
-            }})
-        );*/
+                }})
+            );*/
+        }
     }
 });
 
@@ -520,69 +609,75 @@ $('.btnShowEditFlete').on({
         $.ajax({
             url: '/Fletes/obtenerInfoFlete?idFlete='+idFlete,
             type: 'GET',
-            success: function(data){
+            success: function(){
                 alert("success");
-                var flete = JSON.parse(data);
 
-                $('#fleteTrailer').val(flete.idTrailer).change();
-                $('#fleteOperador').val(flete.idOperador).change();
+                //leer archivo
+                $.getJSON("../LocalJSONFile.json", function(data) {
+                    //var flete = JSON.parse(data);
+                    var flete = data;
 
-                //obtener cargas
-                var cargasList = flete.Carga;
-                console.log(cargasList);
+                    $('#fleteTrailer').val(flete.idTrailer).change();
+                    $('#fleteOperador').val(flete.idOperador).change();
 
-                //verificar cuando son 2 remolques
-                var corte;
-                $.each(cargasList, function(index, val){
-                    if(index != 0){
-                        var actual = cargasList[index].idGandola;
-                        var anterior = cargasList[index - 1].idGandola;
-                        console.log("ac" + actual + "an" + anterior);
-                        if (actual != anterior) {
-                            corte = index;
-                            console.log("x" + corte);
-                            $('#fleteTipoRemolque').val("2").change();
-                            cargas2 = [];
-                            return false;
-                        } else {
-                            $('#fleteTipoRemolque').val("1").change();
-                            cargas1 = [];
-                        }
-                        
-                    }
-                });
+                    //obtener cargas
+                    var cargasList = flete.Carga;
+                    console.log(cargasList);
 
-                if (cargasList.length != 0) {
-                    //distribuir remolques
-                    $.each(cargasList, function (index, val) {
-                        console.log(index + " " + corte);
-                        if (typeof (corte) == 'undefined') {
-                            cargas1.push(val);
-                        } else {
-                            if(index < corte){
-                                cargas1.push(val);
+                    //verificar cuando son 2 remolques
+                    var corte;
+                    $.each(cargasList, function(index, val){
+                        if(index != 0){
+                            var actual = cargasList[index].idGandola;
+                            var anterior = cargasList[index - 1].idGandola;
+                            console.log("ac" + actual + "an" + anterior);
+                            if (actual != anterior) {
+                                corte = index;
+                                console.log("x" + corte);
+                                $('#fleteTipoRemolque').val("2").change();
+                                cargas2 = [];
+                                return false;
                             } else {
-                                cargas2.push(val);
+                                $('#fleteTipoRemolque').val("1").change();
+                                cargas1 = [];
                             }
+                        
                         }
                     });
 
-                    //setear remolques
-                    if(typeof(corte) == 'undefined'){
-                        //si no existe (solo hay 1 remolque)
-                        $('#remolque1').show();
-                        $('#fleteRemolque1').val(cargas1[0].idGandola).change();
-                        updateTable(table1, cargas1);
-                    } else {
-                        $('#remolque1').show();
-                        $('#fleteRemolque1').val(cargas1[0].idGandola).change();
-                        updateTable(table1, cargas1);
+                    if (cargasList.length != 0) {
+                        //distribuir remolques
+                        $.each(cargasList, function (index, val) {
+                            console.log(index + " " + corte);
+                            if (typeof (corte) == 'undefined') {
+                                cargas1.push(val);
+                            } else {
+                                if(index < corte){
+                                    cargas1.push(val);
+                                } else {
+                                    cargas2.push(val);
+                                }
+                            }
+                        });
 
-                        $('#remolque2').show();
-                        $('#fleteRemolque2').val(cargas2[0].idGandola).change();
-                        updateTable(table2, cargas2);
+                        //setear remolques
+                        if(typeof(corte) == 'undefined'){
+                            //si no existe (solo hay 1 remolque)
+                            $('#remolque1').show();
+                            $('#fleteRemolque1').val(cargas1[0].idGandola).change();
+                            updateTable(table1, cargas1);
+                        } else {
+                            $('#remolque1').show();
+                            $('#fleteRemolque1').val(cargas1[0].idGandola).change();
+                            updateTable(table1, cargas1);
+
+                            $('#remolque2').show();
+                            $('#fleteRemolque2').val(cargas2[0].idGandola).change();
+                            updateTable(table2, cargas2);
+                        }
                     }
-                }
+                });
+                
 
             },
             error: function(){
@@ -607,45 +702,66 @@ $('.btnShowEditFlete').on({
 
 function enableBtnEditInfo(idFlete){
     $('#btnEditFlete').on({
-        click: function(){
-            var modal = "#modalFormFlete";
-            var cargasList = [];
+        click: function () {
 
-            //recorrer cargas
-            $.each(cargas1, function(i, val){
-                var c = {idGandola: $('#fleteRemolque1').val(), descripcion: cargas1[i].descripcion, peso: cargas1[i].peso};
-                cargasList.push(c);
-            });
-            $.each(cargas2, function(i, val){
-                var c = {idGandola: $('#fleteRemolque2').val(), descripcion: cargas2[i].descripcion, peso: cargas2[i].peso};
-                cargasList.push(c);
-            });
+            if (validateFormFlete()) {
+                
+                var modal = "#modalFormFlete";
+                var cargasList = [];
+                
 
-            //metodo post
-            $.ajax({
-                url: '/Fletes/editarFlete',
-                data: JSON.stringify({
-                    Flete: {
-                        id: idFlete,
-                        idTrailer: $('#fleteTrailer').val(),
-                        idOperador: $('#fleteOperador').val(),
-                        idUsuario: "",
-                        Carga: cargasList
+                //recorrer cargas
+                $.each(cargas1, function (i, val) {
+                    console.log(cargas1[i].id + " carga1");
+                    var idCarga;
+                    if (typeof(cargas1[i].id) == 'undefined') {
+                        idCarga = "null";
+                    } else {
+                        idCarga = cargas1[i].id;
                     }
-                }),
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function(){
-                    alert("success");
-                    window.location.href = "/Fletes/Lista";
+                    var c = { id: idCarga, idGandola: $('#fleteRemolque1').val(), descripcion: cargas1[i].descripcion, peso: cargas1[i].peso };
+                    cargasList.push(c);
+                });
 
-                    //cerrar modal
-                    $(modal).modal('hide');
-                },
-                error: function(){
-                    alert("error");
-                }
-            });
+                $.each(cargas2, function (i, val) {
+                    console.log(cargas2[i].id + " carga2");
+                    var idCarga;
+                    if (typeof(cargas2[i].id) == 'undefined') {
+                        idCarga = "null";
+                    } else {
+                        idCarga = cargas2[i].id;
+                    }
+                    console.log();
+                    var c = { id: idCarga, idGandola: $('#fleteRemolque2').val(), descripcion: cargas2[i].descripcion, peso: cargas2[i].peso };
+                    cargasList.push(c);
+                });
+
+                //metodo post
+                $.ajax({
+                    url: '/Fletes/editarFlete',
+                    data: JSON.stringify({
+                        Flete: {
+                            id: idFlete,
+                            idTrailer: $('#fleteTrailer').val(),
+                            idOperador: $('#fleteOperador').val(),
+                            Carga: cargasList
+                        }
+                    }),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function () {
+                        alert("success");
+                        window.location.href = "/Fletes/Lista";
+
+                        //cerrar modal
+                        $(modal).modal('hide');
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+
+            }
 
         }
     });
@@ -667,10 +783,10 @@ $('.btnShowEditFleteEscala').on({
 
         //obtener valores de la tabla y los guarda en variables
         var row = $(this).parents("tr").find("td");
-        idFlete = row.eq(1).text(); //id
+        idFlete = row.eq(0).text(); //id
 
         getEscalaList(idFlete);
-
+        console.log(idFlete);
         
         //abrir modal
         $(modal).modal('show');
@@ -736,7 +852,7 @@ function enableBtnDeleteFlete(idFlete){
                 }
             });
 
-            alert(idFlete);
+            //alert(idFlete);
         }
     });
 }
@@ -744,10 +860,15 @@ function enableBtnDeleteFlete(idFlete){
 
 
 /* Manipulacion de escalas */
-function setDataTableEscalas(){
+function setDataTableEscalas() {
+
+    var table;
+    if (typeof(table) != 'undefined') {
+        table = null;
+    }
 
     //dar formato a la tabla
-    var table = $('#tableEscalas').DataTable({
+    table = $('#tableEscalas').DataTable({
         language: dataTableLanguage,
         order: [[ 6, "desc" ]],
         paging: false,
@@ -810,7 +931,7 @@ function setDataTableEscalas(){
 
 //fuction para actualizar la tabla de escalas
 function getEscalaList(idFlete) {
-    $.get("/Fletes/listaEscalas?idFlete="+idFlete, null, function(list){
+    $.get("/Escala/listaEscalas?idFlete="+idFlete, null, function(list){
 
         //obtener tbody
         var setData = $('#escalaList');
@@ -820,17 +941,19 @@ function getEscalaList(idFlete) {
             setData.empty();
             //recorrer lista obtenida del controlador
             $.each(list, function(i, val){
-                var tr = '<tr>'+
+                var tr = '<tr>' +
+                            '<td class="details-control"><i class="fas fa-plus-square"></i></td>'+
                             '<td class="none">'+list[i].id+'</td>'+
                             '<td class="none">'+list[i].latitud+'</td>'+
                             '<td class="none">'+list[i].longitud+'</td>'+
                             '<td>'+list[i].nombre+'</td>'+
                             '<td class="none">'+list[i].descripcion+'</td>'+
                             '<td>'+list[i].fecha+'</td>'+
-                            '<td><button type="button" class="btnEye btnShowInfoFlete"><i class="fas fa-eye"></i></button><button type="button" class="btnPin btnShowEditFleteEscala"><i class="fas fa-map-marker"></i></button><button type="button" class="btnEdit btnShowEditFlete"><i class="fas fa-pencil-alt"></i></button><button type="button" class="btnDelete btnShowDeleteFlete"><i class="fas fa-trash-alt"></i></button></td>'+
+                            '<td><button type="button" class="btnEdit btnShowEditEscala"><i class="fas fa-pencil-alt"></i></button><button type="button" class="btnDelete btnShowDeleteEscala"><i class="fas fa-trash-alt"></i></button></td>'+
                         '</tr>';
                 
                 setData.append(tr);
+                
             });
         } else {
             $(setData).html('<tr><td colspan="8">No hay escalas</td></tr>');
@@ -840,10 +963,14 @@ function getEscalaList(idFlete) {
         btnShowEditEscala();
         btnShowDeleteEscala();
 
+        //setDataTableEscalas();
+
         //actualizar mapa
         initMapRutas();
-
+        
     });
+
+    
 }
 
 $('#btnShowAddEscala').on({
@@ -885,66 +1012,85 @@ $('#btnShowAddEscala').on({
     }
 });
 
+function validateFormEscala() {
+    $(".formEscala input, .formEscala textarea").removeClass("error");
+    if ($("#escalaLat").val() == "" || $("#escalaLng").val() == "") {
+        alert("Selecciona una dirección");
+        return false;
+    }
+    else if ($("#escalaNombre").val() == "") {
+        $("#escalaNombre").addClass("error");
+        return false;
+    }
+    else if ($("#escalaDescripcion").val() == "") {
+        $("#escalaDescripcion").addClass("error");
+        return false;
+    }
+    else if ($("#escalaFecha").val() == "") {
+        $("#escalaFecha").addClass("error");
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+$("#escalaNombre, #escalaDescripcion, #escalaFecha").keyup(function() {
+    if ($(this).val() != "") {
+        $(this).removeClass("error");
+    }
+});
+
+
 function enableBtnAdd(){
     $('#btnAddEscala').on({
-        click: function(){
-            var modal = "#modalFormEscala";
+        click: function () {
 
-            //metodo post
-            $.ajax({
-                url: '/Fletes/agregarEscala',
-                data: JSON.stringify({
-                    Escala: {
-                        idFlete: idFlete,
-                        latitud: $('#escalaLat').val(),
-                        longitud: $('#escalaLng').val(),
-                        nombre: $('#escalaNombre').val(),
-                        descripcion: $('#escalaDescripcion').val(),
-                        fecha: $('#escalaFecha').val()
+            if (validateFormEscala()) {
+
+                var modal = "#modalFormEscala";
+
+                //metodo post
+                $.ajax({
+                    url: '/Escala/agregarEscala',
+                    data: JSON.stringify({
+                        Escala: {
+                            idFlete: idFlete,
+                            latitud: $('#escalaLat').val(),
+                            longitud: $('#escalaLng').val(),
+                            nombre: $('#escalaNombre').val(),
+                            descripcion: $('#escalaDescripcion').val(),
+                            fecha: $('#escalaFecha').val()
+                        }
+                    }),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function () {
+                        alert("success");
+
+                        //actualizar tabla
+                        getEscalaList(idFlete);
+
+                        //cerrar modal
+                        $(modal).modal('hide');
+
+                        if (editFlete == true) {
+                            //delay para abrir el modal
+                            setTimeout(function () {
+                                $('#modalFormFlete2').modal({
+                                    backdrop: 'static'
+                                })
+                            }, 500); //delay in miliseconds
+                            editFlete = false;
+                        }
+
+                    },
+                    error: function () {
+                        alert("error");
+
                     }
-                }),
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function() {
-                    alert("success");
+                });
 
-                    //actualizar tabla
-                    getEscalaList(idFlete);
-
-                    //cerrar modal
-                    $(modal).modal('hide');
-
-                    if(editFlete == true){
-                        //delay para abrir el modal
-                        setTimeout(function() {
-                            $('#modalFormFlete2').modal({
-                                backdrop: 'static'
-                            })
-                        }, 500); //delay in miliseconds
-                        editFlete = false;
-                    }
-
-                },
-                error: function(){
-                    alert("error");
-
-                    //actualizar tabla
-                    getEscalaList(idFlete);
-
-                    //cerrar modal
-                    $(modal).modal('hide');
-
-                    if(editFlete == true){
-                        //delay para abrir el modal
-                        setTimeout(function() {
-                            $('#modalFormFlete2').modal({
-                                backdrop: 'static'
-                            })
-                        }, 500); //delay in miliseconds
-                        editFlete = false;
-                    }
-                }
-            });
+            }
             
         }
     });
@@ -964,11 +1110,11 @@ function btnShowEditEscala(){
 
             //hacer metodo post para obtener flete
             $.ajax({
-                url: '/Fletes/obtenerEscala?idEscala=' + idEscala,
+                url: '/Escala/obtenerEscala?idEscala=' + idEscala,
                 type: 'GET',
-                success: function (data) {
+                success: function (escala) {
                     alert("success");
-                    var escala = JSON.parse(data);
+                    //var escala = JSON.parse(data);
 
                     //iniciar mapa
                     initMapAdd();
@@ -977,18 +1123,18 @@ function btnShowEditEscala(){
                     createMaker();
 
                     //setear marcador
-                    var coordenadas = new google.maps.LatLng({lat: parseFloat(escala.latitud), lng: parseFloat(escala.longitud)}); 
+                    var coordenadas = new google.maps.LatLng({lat: parseFloat(escala[0].latitud), lng: parseFloat(escala[0].longitud)}); 
                     moveMarker(mapAdd, gMarker, coordenadas);
                     mapAdd.setCenter(coordenadas);
                     mapAdd.setZoom(18);
 
                     //llenar formulario
                     var idEscala = id;
-                    $('#escalaLat').val(escala.latitud);
-                    $('#escalaLng').val(escala.longitud);
-                    $('#escalaNombre').val(escala.nombre);
-                    $('#escalaDescripcion').val(escala.descripcion);
-                    $('#escalaFecha').val(escala.fecha);
+                    $('#escalaLat').val(escala[0].latitud);
+                    $('#escalaLng').val(escala[0].longitud);
+                    $('#escalaNombre').val(escala[0].nombre);
+                    $('#escalaDescripcion').val(escala[0].descripcion);
+                    $('#escalaFecha').val(escala[0].fecha);
 
                 }
             });
@@ -1011,39 +1157,42 @@ function btnShowEditEscala(){
 
 function enableBtnEdit(idEscala){
     $('#btnEditEscala').on({
-        click: function(){
-            var modal = "#modalFormEscala";
+        click: function () {
 
-            //metodo post
-            $.ajax({
-                url: '/Fletes/editarEscala',
-                data: JSON.stringify({
-                    Escala: {
-                        id: idEscala,
-                        latitud: $('#escalaLat').val(),
-                        longitud: $('#escalaLng').val(),
-                        nombre: $('#escalaNombre').val(),
-                        descripcion: $('#escalaDescripcion').val(),
-                        fecha: $('#escalaFecha').val()
+            if (validateFormEscala()) {
+
+                var modal = "#modalFormEscala";
+
+                //metodo post
+                $.ajax({
+                    url: '/Escala/editarEscala',
+                    data: JSON.stringify({
+                        Escala: {
+                            id: idEscala,
+                            latitud: $('#escalaLat').val(),
+                            longitud: $('#escalaLng').val(),
+                            nombre: $('#escalaNombre').val(),
+                            descripcion: $('#escalaDescripcion').val(),
+                            fecha: $('#escalaFecha').val()
+                        }
+                    }),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function () {
+                        alert("success");
+
+                        //actualizar tabla
+                        getEscalaList(idFlete);
+
+                        //cerrar modal
+                        $(modal).modal('hide');
+                    },
+                    error: function () {
+                        alert("error");
                     }
-                }),
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function(){
-                    alert("success");
-                    
-                    //actualizar tabla
-                    getEscalaList(idFlete);
+                });
 
-                    //cerrar modal
-                    $(modal).modal('hide');
-                },
-                error: function(){
-                    alert("error");
-                }
-            });
-            
-
+            }
         }
     });
 }
@@ -1078,7 +1227,7 @@ function enableBtnDeleteEscala(idEscala){
 
             //metodo post
             $.ajax({
-                url: '/Fletes/eliminarEscala?idEscala='+idEscala,
+                url: '/Escala/eliminarEscala?idEscala='+idEscala,
                 type: 'POST',
                 contentType: 'application/json; charset=utf-8',
                 success: function(){

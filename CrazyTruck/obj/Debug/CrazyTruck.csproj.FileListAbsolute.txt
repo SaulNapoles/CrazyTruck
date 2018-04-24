@@ -328,3 +328,5 @@ C:\Users\Fernando Marenco\Documents\CrazyTruck-master\conRama\CrazyTruck\CrazyTr
 C:\Users\Fernando Marenco\Documents\CrazyTruck-master\conRama\CrazyTruck\CrazyTruck\bin\System.Web.Helpers.xml
 C:\Users\Fernando Marenco\Documents\CrazyTruck-master\conRama\CrazyTruck\CrazyTruck\bin\System.Web.Mvc.xml
 C:\Users\Fernando Marenco\Documents\CrazyTruck-master\conRama\CrazyTruck\CrazyTruck\obj\Debug\CrazyTruck.csproj.CopyComplete
+C:\Users\Fernando Marenco\Documents\CrazyTruck-master\conRama\CrazyTruck\CrazyTruck\bin\AutoMapper.dll
+C:\Users\Fernando Marenco\Documents\CrazyTruck-master\conRama\CrazyTruck\CrazyTruck\bin\AutoMapper.xml

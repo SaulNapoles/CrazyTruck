@@ -17,12 +17,45 @@ namespace CrazyTruck.Controllers
         //    return View();
         //}
 
+        CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn();
+
+
+        [HttpGet]
+        public JsonResult listaEscalas(string idFlete)
+        {
+            try
+            {
+                int idF = Int32.Parse(idFlete.ToString());
+
+                var listarEscalas = ct.Escala.OrderBy(es => es.fecha)
+                        .Where(es => es.idFlete == idF)
+                        .Select(e => new {
+                            id = e.id,
+                            latitud = e.latitud,
+                            longitud = e.longitud,
+                            nombre = e.nombre,
+                            descripcion = e.descripcion,
+                            fecha = e.fecha
+                        })
+                        .ToList();
+
+                return Json(listarEscalas, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception) { throw; }
+
+        }
+
         public JsonResult agregarEscala(Escala escala)
         {
             CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn();
 
             try
             {
+                int idF = Int32.Parse(escala.idFlete.ToString());
+
+                escala.idFlete = idF;
+                escala.tipo = "ESTIMADA";
+
                 ct.Escala.Add(escala);
                 ct.SaveChanges();
                 //ct.Dispose();
@@ -67,22 +100,33 @@ namespace CrazyTruck.Controllers
             return Json(new { succes = true });
         }
 
-        public JsonResult eDeployInfoById(int id)
+        public JsonResult obtenerEscala(int id)
         {
-            IList<Escala> escList = new List<Escala>();
+
             using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
             {
                 try
                 {
                     //obtener datos
-                    escList = ct.Escala
-                        .Include(f => f.Flete )
-                        .Where(e => e.id == id)
+                    var escalaObj = ct.Escala
+                        //.Include(f => f.Flete)
+                        .Where(es => es.id == id)
+                        .Select(e => new {
+                            id = e.id,
+                            latitud = e.latitud,
+                            longitud = e.longitud,
+                            nombre = e.nombre,
+                            descripcion = e.descripcion,
+                            fecha = e.fecha
+                        })
                         .ToList();
+
+                    return Json(escalaObj, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception) { throw; }
+
             }
-            return Json(escList, JsonRequestBehavior.AllowGet);
+            
         }
 
      

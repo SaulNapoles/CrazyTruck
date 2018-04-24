@@ -29,6 +29,35 @@ header {
     display: block;
 }
 
+#login {
+    padding: 20px;
+    background-color: #FFF;
+    margin: 10% 50px;
+    border-top: 10px solid #006DF0;
+    border-bottom: 10px solid #006DF0;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+#login h2 {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#loginOptions {
+    text-align: center;
+}
+
+#loginOptions > button {
+    display: inline-block;
+    margin-top: 10px;
+    text-align: center;
+}
+
+#loginOptions > button:last-child:hover {
+    
+}
+
 #logoSection {
     position: relative;
     display: block;
@@ -54,7 +83,7 @@ header {
 #logo a h1 {
     font-size: 22px;
     font-weight: bold;
-    visibility: hidden;
+    display: none;
 }
 
 #userOptions {
@@ -230,6 +259,10 @@ header {
     display: none;
 }
 
+#scales.clearInfo #terminarFlete {
+    display: none;
+}
+
 #scales .bold {
     position: relative;
     display: block;
@@ -238,12 +271,12 @@ header {
     margin-bottom: 4px;
 }
 
-.selectEscalas > div:first-child {
+.selectEscalas > div:nth-child(1) {
     border-left: 3px solid #B44877;
     border-right: 3px solid #B44877;
 }
 
-.selectEscalas > div:last-child {
+.selectEscalas > div:nth-child(2) {
     border-left: 3px solid #B44877;
     border-right: 3px solid #B44877;
 }
@@ -389,7 +422,7 @@ table.dataTable {
 /* End dataTables styles */
 
 /* Button accept and cancel styles */
-.btnAccept, .btnCancel {
+.btnAccept, .btnCancel, .btnAccess, .btnForget {
     color: #FFF;
     font-size: 16px;
     font-weight: 600;
@@ -406,6 +439,16 @@ table.dataTable {
 .btnCancel {
     background-color: #DD1E1B;
     border-bottom: 3px solid #961310;
+}
+
+.btnAccess {
+    background-color: #006DF0;
+    border-bottom: 3px solid #004EAC
+}
+
+.btnForget {
+    background-color: #CECECE;
+    border-bottom: 3px solid #AFAFAF;
 }
 
 .btnAccept span:first-child, .btnCancel span:first-child {
@@ -470,6 +513,8 @@ form textarea {
 
 form input, form select, form textarea {
     width: 100%;
+    height: 38px;
+    background-color: #FFF;
     border: 2px solid #EAEAEA;
     border-radius: 3px;
     padding: 6px;
@@ -482,6 +527,15 @@ form input:hover, form select:hover, form textarea:hover {
 form input:focus, form select:focus, form textarea:focus {
     border: 2px solid #CECECE;
 }
+
+form input.error, form select.error, form textarea.error {
+    background-color: #FFD9D9;
+    border: 2px solid #961310;
+}
+form select.error option {
+    background-color: #FFF;
+}
+
 
 /* End form styles */
 
@@ -508,6 +562,10 @@ form input:focus, form select:focus, form textarea:focus {
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
     
+    #login {
+        margin: 10%;
+    }
+
     #logo a {
         background-position: 0px 0px;
         width: 128px;
@@ -643,6 +701,10 @@ form input:focus, form select:focus, form textarea:focus {
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
 
+    #login {
+        margin: 10% 20%;
+    }
+
     #main .container-fluid .row:not(#modals) {
         width: 960px;
         margin: 0 auto;
@@ -665,7 +727,7 @@ form input:focus, form select:focus, form textarea:focus {
 }
 
 .center {
-    text-align: center;
+    text-align: center !important;
 }
 
 .none {
