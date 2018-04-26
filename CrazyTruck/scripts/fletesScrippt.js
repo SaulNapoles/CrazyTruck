@@ -11,7 +11,7 @@ $(document).ready(function() {
     //btnShowDeleteEscala();
 
     //inicializar tabla de escalas
-    setDataTableEscalas();
+    //setDataTableEscalas();
 });
 
 $(function(){
@@ -270,8 +270,8 @@ $('.btnShowAddCargaTemp').on({
         }
 
         //cambiar titulo
-        var nombreRemolque = $(this).parents('.selectRemolque').find('select option:selected').text();
-        $(modal+" .modal-title").text("Agregar carga para "+nombreRemolque);
+        //var nombreRemolque = $(this).parents('.selectRemolque').find('select option:selected').text();
+        $(modal+" .modal-title").text("Agregar carga");
 
         //agregar boton añadir
         $(modal+" .modal-footer button:first-child").remove();
@@ -548,7 +548,7 @@ $('#btnAddFlete').on({
                     Flete: {
                         idTrailer: $('#fleteTrailer').val(),
                         idOperador: $('#fleteOperador').val(),
-                        idUsuario: 1,
+                        idUsuario: "",
                         Carga: cargasList
                     }
                 }),
@@ -786,7 +786,11 @@ $('.btnShowEditFleteEscala').on({
         idFlete = row.eq(0).text(); //id
 
         getEscalaList(idFlete);
-        console.log(idFlete);
+
+        //actualizar mapa
+        //initMapRutas();
+
+        console.log("el idFlete es: "+idFlete);
         
         //abrir modal
         $(modal).modal('show');
@@ -860,17 +864,72 @@ function enableBtnDeleteFlete(idFlete){
 
 
 /* Manipulacion de escalas */
-function setDataTableEscalas() {
 
+//fuction para actualizar la tabla de escalas
+function getEscalaList(idFlete) {
     var table;
-    if (typeof(table) != 'undefined') {
-        table = null;
+    if ( $.fn.DataTable.isDataTable('#tableEscalas') ) {
+        $('#tableEscalas').DataTable().destroy();
     }
+    //$('#tableEscalas tbody').empty();
+    //$('#tableEscalas').DataTable().clear();
+    
+
+    function getList(callback){
+        $.get("/Escala/listaEscalas?idFlete="+idFlete, null, function(list){
+
+            //obtener tbody
+            var setData = $('#escalaList');
+            
+            if(list.length != 0) {
+                var rutasList = [];
+
+                setData.empty();
+                //recorrer lista obtenida del controlador
+                $.each(list, function(i, val){
+                    var tr = '<tr>' +
+                                '<td class="details-control"><i class="fas fa-plus-square"></i></td>'+
+                                '<td class="none">'+list[i].id+'</td>'+
+                                '<td class="none">'+myTrim(list[i].latitud)+'</td>'+
+                                '<td class="none">'+myTrim(list[i].longitud)+'</td>'+
+                                '<td>'+list[i].nombre+'</td>'+
+                                '<td class="none">'+list[i].descripcion+'</td>'+
+                                '<td>'+parseDate(list[i].fecha)+'</td>'+
+                                '<td><button type="button" class="btnEdit btnShowEditEscala"><i class="fas fa-pencil-alt"></i></button><button type="button" class="btnDelete btnShowDeleteEscala"><i class="fas fa-trash-alt"></i></button></td>'+
+                            '</tr>';
+                    
+                    setData.append(tr);
+
+                    var position = {lat: Number(myTrim(list[i].latitud)), lng: Number(myTrim(list[i].longitud)), nombre: list[i].nombre};
+                    rutasList.push(position);
+
+                });
+
+                callback(rutasList);
+
+            } else {
+                $(setData).html('<tr><td colspan="8">No hay escalas</td></tr>');
+
+                callback(null);
+            }
+            
+            //habilitar botones de añadir y eliminar
+            btnShowEditEscala();
+            btnShowDeleteEscala();
+            
+        });
+
+    }
+    
+    getList(function(rutasList){
+        //actualizar mapa
+        initMapRutas(rutasList);
+    });
 
     //dar formato a la tabla
     table = $('#tableEscalas').DataTable({
         language: dataTableLanguage,
-        order: [[ 6, "desc" ]],
+        //order: [[ 6, "desc" ]],
         paging: false,
         ordering: false,
         info: false,
@@ -907,9 +966,11 @@ function setDataTableEscalas() {
 
     });
 
+    //table.draw();
+
     //listener para abrir y cerrar detalles
     $('#tableEscalas').on('click', 'td.details-control', function(){
-        
+                
         var tr = $(this).parents('tr');
         var row = table.row(tr);
 
@@ -924,53 +985,37 @@ function setDataTableEscalas() {
 
             $(this).empty();
             $(this).append('<i class="fas fa-plus-square"></i>');
-            
+        
         }
     });
+
+    //actualizar mapa
+    //initMapRutas();
 }
 
-//fuction para actualizar la tabla de escalas
-function getEscalaList(idFlete) {
-    $.get("/Escala/listaEscalas?idFlete="+idFlete, null, function(list){
+//function para obtener las rutas de la tabla
+function getRutas(){
+    var routes = [];
 
-        //obtener tbody
-        var setData = $('#escalaList');
-        
-        if(list.length != 0) {
+    if($("#tableEscalas tbody tr").length != 0) {
 
-            setData.empty();
-            //recorrer lista obtenida del controlador
-            $.each(list, function(i, val){
-                var tr = '<tr>' +
-                            '<td class="details-control"><i class="fas fa-plus-square"></i></td>'+
-                            '<td class="none">'+list[i].id+'</td>'+
-                            '<td class="none">'+list[i].latitud+'</td>'+
-                            '<td class="none">'+list[i].longitud+'</td>'+
-                            '<td>'+list[i].nombre+'</td>'+
-                            '<td class="none">'+list[i].descripcion+'</td>'+
-                            '<td>'+list[i].fecha+'</td>'+
-                            '<td><button type="button" class="btnEdit btnShowEditEscala"><i class="fas fa-pencil-alt"></i></button><button type="button" class="btnDelete btnShowDeleteEscala"><i class="fas fa-trash-alt"></i></button></td>'+
-                        '</tr>';
-                
-                setData.append(tr);
-                
-            });
-        } else {
-            $(setData).html('<tr><td colspan="8">No hay escalas</td></tr>');
-        }
-        
-        //habilitar botones de añadir y eliminar
-        btnShowEditEscala();
-        btnShowDeleteEscala();
+        //recorrer tabla de escalas
+        $("#tableEscalas tbody tr").each(function(index){
+            //redondear a 8
+            var lat = round($(this).find("td").eq(2).text(), 8); //lat
+            var lng = round($(this).find("td").eq(3).text(), 8); //lng
+            var nombre = $(this).find("td").eq(4).text(); //nombre
 
-        //setDataTableEscalas();
+            //guardar posicion
+            console.log("lat"+lat+"lng"+lng);
+            var position = {lat: lat, lng: lng, nombre: nombre}
+            routes.push(position);
+        });
 
-        //actualizar mapa
-        initMapRutas();
-        
-    });
+    }
 
-    
+    //console.log(routes);
+    return routes;
 }
 
 $('#btnShowAddEscala').on({
@@ -1129,19 +1174,33 @@ function btnShowEditEscala(){
                     mapAdd.setZoom(18);
 
                     //llenar formulario
-                    var idEscala = id;
                     $('#escalaLat').val(escala[0].latitud);
                     $('#escalaLng').val(escala[0].longitud);
                     $('#escalaNombre').val(escala[0].nombre);
                     $('#escalaDescripcion').val(escala[0].descripcion);
-                    $('#escalaFecha').val(escala[0].fecha);
+                    $('#escalaFecha').val(parseDate(escala[0].fecha));
 
                 }
             });
             
-            //abrir modal
             var modal = "#modalFormEscala";
-            $(modal).modal('show');
+
+            //cerrar modal si se esta editando
+            if(($('#modalFormFlete2').data('bs.modal') || {}).isShown){
+                editFlete = true;
+                $('#modalFormFlete2').modal('hide');
+
+                //delay para abrir el modal
+                setTimeout(function() {
+                    $(modal).modal({
+                        backdrop: 'static'
+                    })
+                }, 400); //delay in miliseconds
+            } else {
+                editFlete = false;
+                //abrir modal
+                $(modal).modal('show');
+            }
 
             //cambiar titulo
             $(modal+" .modal-title").text("Editar escala");
@@ -1186,6 +1245,16 @@ function enableBtnEdit(idEscala){
 
                         //cerrar modal
                         $(modal).modal('hide');
+
+                        if (editFlete == true) {
+                            //delay para abrir el modal
+                            setTimeout(function () {
+                                $('#modalFormFlete2').modal({
+                                    backdrop: 'static'
+                                })
+                            }, 500); //delay in miliseconds
+                            editFlete = false;
+                        }
                     },
                     error: function () {
                         alert("error");
@@ -1203,11 +1272,26 @@ function btnShowDeleteEscala(){
     
             //obtener id
             var idEscala = $(this).parents("tr").find("td").eq(1).text();
-    
-            //abrir modal
-            var modal = "#modalDeleteEscala";
-            $(modal).modal('show');
             
+            var modal = "#modalDeleteEscala";
+            
+            //cerrar modal si se esta editando
+            if(($('#modalFormFlete2').data('bs.modal') || {}).isShown){
+                editFlete = true;
+                $('#modalFormFlete2').modal('hide');
+
+                //delay para abrir el modal
+                setTimeout(function() {
+                    $(modal).modal({
+                        backdrop: 'static'
+                    })
+                }, 400); //delay in miliseconds
+            } else {
+                editFlete = false;
+                //abrir modal
+                $(modal).modal('show');
+            }
+
             //cambiar titulo
             $(modal+" .modal-title").text("Eliminar escala");
     
@@ -1238,6 +1322,16 @@ function enableBtnDeleteEscala(idEscala){
 
                     //cerrar modal
                     $(modal).modal('hide');
+
+                    if (editFlete == true) {
+                        //delay para abrir el modal
+                        setTimeout(function () {
+                            $('#modalFormFlete2').modal({
+                                backdrop: 'static'
+                            })
+                        }, 500); //delay in miliseconds
+                        editFlete = false;
+                    }
                 },
                 error: function(){
                     alert("error");
@@ -1247,4 +1341,15 @@ function enableBtnDeleteEscala(idEscala){
             //alert(idEscala);
         }
     });
+}
+
+function parseDate(date){
+    var regex = /-?\d+/;
+    var result = regex.exec(date);
+    var date = new Date(parseInt(result[0]));
+    return moment(date).format('DD/MM/YYYY hh:mm a')
+}
+
+function myTrim(string) {
+    return string.replace(/^\s+|\s+$/gm,'');
 }

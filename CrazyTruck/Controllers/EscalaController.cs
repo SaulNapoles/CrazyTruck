@@ -51,9 +51,9 @@ namespace CrazyTruck.Controllers
 
             try
             {
-                int idF = Int32.Parse(escala.idFlete.ToString());
+                /*int idF = Int32.Parse(escala.idFlete.ToString());
 
-                escala.idFlete = idF;
+                escala.idFlete = idF;*/
                 escala.tipo = "ESTIMADA";
 
                 ct.Escala.Add(escala);
@@ -65,12 +65,12 @@ namespace CrazyTruck.Controllers
             return Json(new { succes = true });
         }
 
-        public JsonResult eliminarEscala(int id)
+        public JsonResult eliminarEscala(int idEscala)
         {
             CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn();
             try
             {
-                Escala e = ct.Escala.Where(es => es.id == id).FirstOrDefault();
+                Escala e = ct.Escala.Where(es => es.id == idEscala).FirstOrDefault();
                 ct.Escala.Remove(e);
                 ct.SaveChanges();
             }
@@ -88,7 +88,6 @@ namespace CrazyTruck.Controllers
                 e.latitud = escala.latitud;
                 e.longitud = escala.longitud;
                 e.nombre = escala.nombre;
-                e.tipo = escala.tipo;
                 e.descripcion = escala.descripcion;
                 e.fecha = escala.fecha;
                 e.idFlete = e.idFlete;
@@ -100,7 +99,7 @@ namespace CrazyTruck.Controllers
             return Json(new { succes = true });
         }
 
-        public JsonResult obtenerEscala(int id)
+        public JsonResult obtenerEscala(int idEscala)
         {
 
             using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
@@ -110,7 +109,7 @@ namespace CrazyTruck.Controllers
                     //obtener datos
                     var escalaObj = ct.Escala
                         //.Include(f => f.Flete)
-                        .Where(es => es.id == id)
+                        .Where(es => es.id == idEscala)
                         .Select(e => new {
                             id = e.id,
                             latitud = e.latitud,

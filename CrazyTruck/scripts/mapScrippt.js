@@ -83,7 +83,7 @@ function moveMarker(map, marker, coordenadas){
 
     //actualizar nombre escala
     getAddress(marker, function(location){
-        document.getElementById("escalaNombre").value = location;
+        document.getElementById("escalaDescripcion").value = location;
         document.getElementById("escalaLat").value = round(coordenadas.lat(), 8);
         document.getElementById("escalaLng").value = round(coordenadas.lng(), 8);
 
@@ -111,7 +111,7 @@ function setListeners(){
         console.log(coordenadas.lat()+" "+coordenadas.lng());
 
         getAddress(gMarker, function(location){
-            document.getElementById("escalaNombre").value = location;
+            document.getElementById("escalaDescripcion").value = location;
             document.getElementById("escalaLat").value = round(coordenadas.lat(), 8);
             document.getElementById("escalaLng").value = round(coordenadas.lng(), 8);
     
@@ -155,8 +155,9 @@ function resetMarker(marker){
 */
 
 var mapRutas;
+var dr;
+function initMapRutas(rutas) {
 
-function initMapRutas(){
     var idMap = document.getElementById('mapRutas');
 
     var objMap = {
@@ -167,73 +168,119 @@ function initMapRutas(){
         zoom: 6,
         streetViewControl: false
     }
-    mapRutas = new google.maps.Map(idMap, objMap);
+    
+    if (typeof (mapRutas) == 'undefined') {
+        mapRutas = new google.maps.Map(idMap, objMap);
 
+    }
 
+    //limpiar rutas y markers
+    if (dr != null) {
+        dr.setMap(null);
+        dr = null;
+
+        $.each(markers, function (i, val) {
+            //console.log(markers[i]);
+            markers[i].setMap(null);
+            console.log(markers[i]);
+        });
+        markers = [];
+        console.log("limpiar");
+    }
+    
     //generar rutas objetos
     var objDR = {
         map: mapRutas,
         suppressMarkers: true,
         //markerOptions: {icon: "images/miniMarker.png"}
     }
-
+    
     var ds = new google.maps.DirectionsService(); //obtener coordenadas
-    var dr = new google.maps.DirectionsRenderer(objDR); //traducir coordenadas
+    dr = new google.maps.DirectionsRenderer(objDR); //traducir coordenadas
+    
 
-    //tabla de escalas
-    var idTable = "#tableEscalas";
+    //dr.setMap(null);
+    //dr.setOptions(objDR);
 
-    createMarkers(mapRutas, idTable, function(markers){
-        
-        //inicializar cluster de markers
-        var markerCluster = new MarkerClusterer(mapRutas, markers, {
-            //imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-            imagePath: "images/m"
+    if (rutas != null) {
+
+        createMarkers(mapRutas, rutas, function (markers) {
+
+            //inicializar cluster de markers
+            var markerCluster = new MarkerClusterer(mapRutas, markers, {
+                //imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+                imagePath: "../images/m"
+            });
+
+            //guardar wayPoints
+            var points = markers.slice(1, -1);
+            var wayPoints = [];
+            for (var i = 0; i < points.length; i++) {
+                var o = {
+                    location: {
+                        lat: points[i].position.lat(),
+                        lng: points[i].position.lng()
+                    },
+                    stopover: true
+                }
+                wayPoints.push(o);
+            }
+
+            console.log(wayPoints);
+
+            //generar ruta
+            var origin;
+            var destination;
+
+            if (rutas.length == 1) {
+                origin = markers[0].position;
+                destination = markers[0].position;
+                console.log("es 1");
+            }
+            else {
+                origin = markers[0].position;
+                destination = markers[markers.length - 1].position;
+                console.log("es 2 o mas");
+            }
+
+            var objDS = {
+                origin: origin,
+                destination: destination,
+                waypoints: wayPoints,
+                optimizeWaypoints: true,
+                provideRouteAlternatives: true,
+                travelMode: "DRIVING"
+            }
+            ds.route(objDS, function (routes, status) {
+                if (status === "OK") {
+                    dr.setDirections(routes);
+                } else {
+                    alert(status);
+                }
+
+            });
+
         });
 
-        //guardar wayPoints
-        var points = markers.slice(1, -1);
-        var wayPoints = [];
-        for(var i = 0; i < points.length; i++){
-            var o = {
-                location: {
-                    lat: points[i].position.lat(),
-                    lng: points[i].position.lng()
-                },
-                stopover: true
-            }
-            wayPoints.push(o);
-        }
+    }
+    else {
+        var position = {
+            lat: 23.877435, lng: -102.620500
+        };
 
-        console.log(wayPoints);
+        mapRutas.setCenter(position);
+        mapRutas.setZoom(6);
+        console.log("es 0");
+    }
 
-        //generar ruta
-        var objDS = {
-            origin: markers[0].position,
-            destination: markers[markers.length-1].position,
-            waypoints: wayPoints,
-            optimizeWaypoints: true,
-            provideRouteAlternatives: true,
-            travelMode: "DRIVING"
-        }
-        ds.route(objDS, function(routes, status){
-            if(status === "OK") {
-                dr.setDirections(routes);
-            } else {
-                alert(status);
-            }
-            
-        });
-
-    });
-
+    
 }
 
 //function para generar los markers
-function createMarkers(map, idTable, fn){
+var markers = [];
+function createMarkers(map, routes, fn){
     //obtener rutas de la tabla
-    var routes = getRutas(idTable);
-    var markers = [];
+    //var routes = getRutas(idTable);
 
     //recorrer arreglo de rutas
     $.each(routes, function(index, val){
@@ -248,6 +295,7 @@ function createMarkers(map, idTable, fn){
                 lng: routes[index].lng
             }
         }
+        console.log(routes[index].lat+" "+routes[index].lng);
         var gMarker = new google.maps.Marker(objMarker);
         
         //set listener click
@@ -277,31 +325,6 @@ function createMarkers(map, idTable, fn){
 
     fn(markers);
 
-}
-
-//function para obtener las rutas de la tabla
-function getRutas(idTable){
-    var routes = [];
-
-    if($(idTable+" tbody tr").length != 0) {
-
-        //recorrer tabla de escalas
-        $(idTable+" tbody tr").each(function(index){
-            //redondear a 8
-            var lat = round($(this).find("td").eq(2).text(), 8); //lat
-            var lng = round($(this).find("td").eq(3).text(), 8); //lng
-            var nombre = $(this).find("td").eq(4).text(); //nombre
-
-            //guardar posicion
-            console.log("lat"+lat+"lng"+lng);
-            var position = {lat: lat, lng: lng, nombre: nombre}
-            routes.push(position);
-        });
-
-    }
-
-    //console.log(routes);
-    return routes;
 }
 
 //function para redondear

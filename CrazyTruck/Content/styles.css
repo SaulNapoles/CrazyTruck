@@ -451,8 +451,11 @@ table.dataTable {
     border-bottom: 3px solid #AFAFAF;
 }
 
-.btnAccept span:first-child, .btnCancel span:first-child {
-    margin-right: 5px;
+.btnAccept span:last-child,
+.btnCancel span:last-child,
+.btnAccess span:last-child,
+.btnForget span:last-child {
+    display: none;
 }
 /* End button add and cancel styles */
 
@@ -615,11 +618,11 @@ form select.error option {
         border-right: none;
     }
 
-    .selectEscalas > div:first-child {
+    .selectEscalas > div:nth-child(1) {
         border-right: none;
     }
     
-    .selectEscalas > div:last-child {
+    .selectEscalas > div:nth-child(2) {
         border: none;
     }
 
@@ -691,6 +694,20 @@ form select.error option {
     .btnFloat button span:last-child {
         display: inline-block;
         margin-left: 5px;
+    }
+
+    .btnAccept span:first-child,
+    .btnCancel span:first-child,
+    .btnAccess span:first-child,
+    .btnForget span:first-child {
+        margin-right: 5px;
+    }
+
+    .btnAccept span:last-child,
+    .btnCancel span:last-child,
+    .btnAccess span:last-child,
+    .btnForget span:last-child {
+        display: inline-block;
     }
     
     .rowOperadores {
