@@ -14,18 +14,26 @@ namespace CrazyTruck.Controllers
         // GET: Operadores
         public ActionResult Lista()
         {
-            IList<Operador> o = new List<Operador>();
-            using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
+            if (Session != null)
             {
-                try
+                IList<Operador> o = new List<Operador>();
+                using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
                 {
-                    //obtener datos
-                    o = ct.Operador.ToList();
+                    try
+                    {
+                        //obtener datos
+                        o = ct.Operador.ToList();
 
+                    }
+                    catch (Exception) { throw; }
                 }
-                catch (Exception) { throw; }
+                return View(o);
             }
-            return View(o);
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
+         
         }
 
                 //Metodos CRUD JSON

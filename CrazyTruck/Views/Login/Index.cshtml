@@ -1,0 +1,87 @@
+﻿
+@{
+    Layout = null;
+    //if (Session["nombre"] == null)
+    //{
+    //    Response.Redirect("~/Login/Index");
+    //}
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Login</title>
+
+       
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+
+    <script src="~/scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/scripts/loginScript.js"></script>
+</head>
+<body class="gray">
+    <div id="main">
+        <div id="login">
+            <header>
+                <div class="container-fluid">
+                    <div class="col-xs-12 center" id="logo">
+                        <a href="@Url.Action("Index","Login")"><h1>Crazy Truck</h1></a>
+                    </div>
+                    <div class="col-xs-12 center">
+                        <h2 id="titleLogin">Login</h2>
+                    </div>
+                </div>
+            </header>
+            <div id="content">
+                <div class="container-fluid">
+                    <div class="col-xs-12">
+                           <form action="" method="post" id="formLogin">
+
+                            <div class="form-group">
+                                <label for="userEmail">Email:</label>
+                                <input type="text" name="userEmail" id="userEmail">
+                            </div>
+                           
+
+                            <div class="form-group">
+                                <label for="userPass">Contraseña:</label>
+                                <input type="password" name="userPass" id="userPass">
+                            </div>
+
+                            <div id="loginOptions">
+                                <button type="button" class="btnAccess" id="btnLogin" onclick="validarCampos()">Iniciar sesión</button>
+                                <button type="button" class="btnForget" id="btnForget">Olvide mi contraseña</button>
+                            </div>
+                        </form>
+                        </div>
+                       
+
+                        <form action="" method="post" id="formRecover" class="none">
+                            <div class="form-group">
+                                <p>Introduce tu email para enviarte un correo de recuperación</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userEmailRecov">Email:</label>
+                                <input type="text" name="userEmailRecov" id="userEmailRecov">
+                            </div>
+
+                            <div id="loginOptions">
+                                <button type="button" class="btnAccess" id="btnRecover">Recuperar</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+</body>
+</html>
+

@@ -9,9 +9,18 @@ namespace CrazyTruck.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Inicio()
         {
-            return View();
+            if (Session!=null)
+            {
+                return View();
+            }else
+            {
+              return  RedirectToAction("Index", "Login");
+            }
+            
         }
+
+
     }
 }

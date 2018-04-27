@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CrazyTruck</title>
-
+    
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/styles.css" rel="stylesheet" />
-
+    
     @RenderSection("Styles", false)
+    
 
 </head>
 <body>
@@ -20,9 +21,13 @@
                     <div class="col-xs-6 left" id="logo">
                         <a href="@Url.Action("Lista", "Fletes")"><h1>CrazyTruck</h1></a>
                     </div>
+              @if (HttpContext.Current.Session["nombre"] != null)
+              {
                     <div class="col-xs-6 right" id="userOptions">
-                        <span id="userID" class="none">0</span><span id="userName">Nombre usuario</span><button type="button" id="btnLogOut"><i class="fas fa-power-off"></i></button>
+                       <span id="userID" class="none">0</span><span id="userName">@Session["nombre"].ToString() @Session["apellido"].ToString()</span>
+                        <button type="button" id="btnLogOut"><i class="fas fa-power-off" onclick="salir()"></i></button>
                     </div>
+              }else{ Response.Redirect("~/Login/Index"); }
                 </div>
             </div>
         </header>
@@ -63,7 +68,7 @@
     <script src="~/scripts/bootstrap.min.js"></script>
 
     <script src="~/scripts/scripts.js"></script>
-
+    <script src="~/scripts/loginScript.js"></script>
     @RenderSection("JavaScript", false)
 
 </body>

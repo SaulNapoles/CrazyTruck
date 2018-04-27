@@ -9,11 +9,48 @@ using System.Security.Cryptography;
 
 namespace Nucleo.CrazyTruck.Models
 {
-    class UsuarioModel
+    public class UsuarioModel
     {
         CrazyTruckDBEntitiesCn context = new CrazyTruckDBEntitiesCn();
 
-        public void activateEmail(string correo)
+        public bool nuevoUsuario(Usuario user)
+        {
+            try
+            {
+                if (user!=null)
+                {
+                    var temp = context.Usuario.Where(u=> u.email ==user.email).FirstOrDefault();
+                    if (temp == null)
+                    {
+                        user.activado = false;
+                        user.passRequest = false;
+                        user.password = SHA256Encrypt(user.password);
+                        user.rol = "User";
+                        context.Usuario.Add(user);
+                        context.SaveChanges();
+                        activateEmail(user.email, user.password);
+                        context.Dispose();
+                        return true;
+                    }else
+                    {
+                        return false;
+                    }
+                }else
+                {
+                    return false;
+                }
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+         
+
+        }
+
+        public void activateEmail(string correo, string password)
         {
             //Inicializan las variables del cliente, las credenciales y el mensaje
             NetworkCredential login;
@@ -23,14 +60,14 @@ namespace Nucleo.CrazyTruck.Models
             //Se obtiene un codigo aleatorio como token
             string token = codigoAleatorio();
             //Se inserta el token que se le va a dar a dicha activacion respecto al correo que lo solicito
-            modificarTokenActivacion(correo, token);
+            modificarTokenActivacion(correo, token, password);
 
             //Se agrega la informacion del mensaje
             msg.From = new MailAddress("crazytruckcc@gmail.com");
             msg.Subject = "Activar correo";
             msg.To.Add(new MailAddress(correo));
             msg.Body = "Se ha creado una cuenta con este correo en la pagina crazy truck, para activar la cuenta, favor" +
-                "de hacer click en el siguiente ne lace o copiar y pegar en su navegador: http://activacion.cshtml?uid= " + token;
+                "de hacer click en el siguiente enlace o copiar y pegar en su navegador: http://localhost:62560/Login/activarUsuario?=" + token;
 
             //Se declaran las variables con la siguiente informacion
             
@@ -45,10 +82,10 @@ namespace Nucleo.CrazyTruck.Models
         }
 
         //Metodo el cual modifica el token del correo al cual se va a enviar el email de ativacion respecto al correo
-        public void modificarTokenActivacion(string correo, string token)
+        public void modificarTokenActivacion(string correo, string token, string password)
         {
-            int idUsu= context.Usuario.Single(d => d.email == correo).id;
-            Usuario usu = context.Usuario.Where(e => e.id == idUsu).First();
+            //int idUsu= context.Usuario.Single(d => d.email == correo).id;
+            Usuario usu = context.Usuario.Where(e => e.email == correo && e.password == password).FirstOrDefault();
             usu.tokenActivacion = token;
             context.SaveChanges();
 
@@ -69,8 +106,8 @@ namespace Nucleo.CrazyTruck.Models
             msg.To.Add(new MailAddress (correo));
             msg.Body = "Se ha creado solicitado una recuperacion de contrasenia para su cuenta de crazy truck, " +
                 "para recuperar dicha contrasenia favor de hacer click en el siguiente enlace o copiar y pegar "+
-                "en su navegador: http://crazytruck/activar.cshtml?uid= " + token;
-
+                "en su navegador: http://localhost:62560/recuperarUsuario?=" + token;
+            
             login = new NetworkCredential("crazytruckcc@gmail.com", "Cece2018");
             client = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
             client.EnableSsl = true;
@@ -110,25 +147,62 @@ namespace Nucleo.CrazyTruck.Models
         //Metodo el cual comprueba que el logeo que realizado correctamente
         public Usuario login (string correo, string contrasenia)
         {
-            Usuario usu = context.Usuario.Single(d => d.email == correo);
-
-            string pass = passHash(contrasenia);
-
-            if(usu.email== correo && usu.password == pass)
+            try
             {
-                Console.Write("Se encontró el usuario con los datos correctos");
-                return usu;
+                Usuario usu = context.Usuario.Where(d => d.email == correo).FirstOrDefault();
+
+              
+
+                if (usu != null)
+                {
+                    //Usuario temUser = new Usuario();
+                    string pass = SHA256Encrypt(contrasenia);
+                    if (usu.email == correo && usu.password == pass && usu.activado == true)
+                    {
+                        //temUser.apellido = usu.apellido.Trim();
+                        //temUser.nombre = usu.nombre.Trim();
+                        //temUser.rol = usu.rol.Trim();
+                        //temUser.email = usu.email.Trim();
+                        //temUser.id = usu.id;
+                        Console.Write("Se encontró el usuario con los datos correctos");
+                        return usu;
+                    }
+                    else
+                    {
+                        Console.Write("No se pudo encontrar al usuario");
+                        return null;
+                    }
+
+                }
+                else
+                {
+                    return null;
+                }
+
             }
-            else
+            catch (Exception)
             {
-                Console.Write("No se pudo encontrar al usuario");
-                return null;
+
+                throw;
             }
+            
 
         }
 
+
+        private string SHA256Encrypt(string str)
+        {
+            SHA256 sha256 = SHA256Managed.Create();
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] stream = null;
+            StringBuilder sb = new StringBuilder();
+            stream = sha256.ComputeHash(encoding.GetBytes(str));
+            for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
+            return sb.ToString();
+        }
+
         //Metodo que encripta la contraseya tanto al momento de crear al usuario como al querer cambiar la contrasenia
-        public string passHash(string pass)
+        public string passHash(string pass, string emailSalt)
         {
             string contra = pass;
 
@@ -193,12 +267,20 @@ namespace Nucleo.CrazyTruck.Models
         }
 
         //Metodo el cual se usa para marcar como activado el usuario y restablecer sus valores
-        public void restablecerTokenActivacion(int idT)
+        public bool activarUsuarioToken(string token)
         {
-            Usuario usu = context.Usuario.Single(d => d.id == idT);
-            usu.activado = false;
-            usu.tokenActivacion = "";
-            context.SaveChanges();
+
+            Usuario usu = context.Usuario.Where(d=> d.tokenActivacion == token).FirstOrDefault();
+            if (usu!=null)
+            {
+                usu.activado = true;
+                usu.tokenActivacion = "";
+                context.SaveChanges();
+                return true;
+            }else
+            {
+                return false;
+            }          
         }
     }
 }

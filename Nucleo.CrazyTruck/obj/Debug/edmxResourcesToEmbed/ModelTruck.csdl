@@ -7,7 +7,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="idGandola" Type="Int32" Nullable="false" />
     <Property Name="idFlete" Type="Int32" Nullable="false" />
-    <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="peso" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
     <NavigationProperty Name="Flete" Relationship="Self.FK_Carga_Flete" FromRole="Carga" ToRole="Flete" />
     <NavigationProperty Name="Gandola" Relationship="Self.FK_Carga_Gandola" FromRole="Carga" ToRole="Gandola" />
@@ -17,12 +17,12 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="latitud" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="longitud" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="latitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="longitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="tipo" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="idFlete" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Flete" Relationship="Self.FK_Escala_Flete" FromRole="Escala" ToRole="Flete" />
   </EntityType>
@@ -47,7 +47,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="matricula" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="matricula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="capacidad" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
     <NavigationProperty Name="Carga" Relationship="Self.FK_Carga_Gandola" FromRole="Gandola" ToRole="Carga" />
   </EntityType>
@@ -56,14 +56,14 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="numOperador" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="nss" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="curp" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="numLicencia" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="numOperador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nss" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="curp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="numLicencia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Flete" Relationship="Self.FK_Flete_Operador" FromRole="Operador" ToRole="Flete" />
   </EntityType>
   <EntityType Name="Trailer">
@@ -71,10 +71,10 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="matricula" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="modelo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="anio" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="color" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="matricula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="modelo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="anio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Flete" Relationship="Self.FK_Flete_Trailer" FromRole="Trailer" ToRole="Flete" />
   </EntityType>
   <EntityType Name="Usuario">
@@ -82,12 +82,12 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="rol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="password" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="tokenPassword" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="rol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tokenPassword" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="passRequest" Type="Boolean" />
     <Property Name="activado" Type="Boolean" />
     <Property Name="tokenActivacion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />

@@ -389,3 +389,7 @@ C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck project\CrazyTr
 C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck project\CrazyTruck\obj\Debug\CrazyTruck.csproj.CopyComplete
 C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck project\CrazyTruck\obj\Debug\CrazyTruck.dll
 C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck project\CrazyTruck\obj\Debug\CrazyTruck.pdb
+C:\Users\XD\Documents\Visual Studio 2015\Projects\CrazyTruck\CrazyTruck\bin\AutoMapper.dll
+C:\Users\XD\Documents\Visual Studio 2015\Projects\CrazyTruck\CrazyTruck\bin\Newtonsoft.Json.dll
+C:\Users\XD\Documents\Visual Studio 2015\Projects\CrazyTruck\CrazyTruck\bin\AutoMapper.xml
+C:\Users\XD\Documents\Visual Studio 2015\Projects\CrazyTruck\CrazyTruck\bin\Newtonsoft.Json.xml
