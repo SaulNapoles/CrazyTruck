@@ -103,20 +103,28 @@ namespace CrazyTruck.Controllers
         }
 
         //listar Remolques por id
-        public ActionResult rDeployInfoById(int id)
+        public ActionResult obtenerRemolque(int idRemolque)
         {
-            IList<Gandola> g = new List<Gandola>();
+            
             using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
             {
                 try
                 {
                     //obtener datos
-                  var  remolque = ct.Gandola.Find(id);
-                    g.Add(remolque);
+                    var remolqueObj = ct.Gandola
+                        .Where(ga => ga.id == idRemolque)
+                        .Select(g => new {
+                            id = g.id,
+                            matricula = g.matricula,
+                            capacidad = g.capacidad
+                        })
+                        .ToList();
+               
+                    return Json(remolqueObj, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception) { throw; }
             }
-            return Json(g, JsonRequestBehavior.AllowGet);
+
         }
     }
 

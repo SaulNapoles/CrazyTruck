@@ -49,33 +49,68 @@ $('#btnShowAddRemolque').on({
     }
 });
 
+function validateFormRemolque() {
+    $(".formRemolque textarea, .formRemolque input").removeClass("error");
+
+    if ($("#remolqueMatricula").val() == "") {
+        $("#remolqueMatricula").addClass("error");
+        return false;
+    }
+    else if ($("#remolqueCapacidad").val() == "" || $("#remolqueCapacidad").val() <= 0) {
+        $("#remolqueCapacidad").addClass("error");
+        return false;
+    }
+
+    return true;
+}
+
+$("#remolqueMatricula, #remolqueCapacidad").keyup(function () {
+    if ($(this).val() != "") {
+        $(this).removeClass("error");
+    }
+});
+
+$("#remolqueCapacidad").keyup(function () {
+    var regex = /[0-9]+/;
+    if ($(this).val() > 0 && regex.test($(this).val())) {
+        $(this).removeClass("error");
+    } else {
+        $(this).addClass("error");
+    }
+});
+
 function enableBtnAdd() {
     $('#btnAddRemolque').on({
         click: function () {
-            var modal = "#modalFormRemolque";
 
-            //metodo post
-            $.ajax({
-                url: '/Remolques/agregar',
-                data: JSON.stringify({
-                    Gandola: {
-                        matricula: $('#remolqueMatricula').val(),
-                        capacidad: $('#remolqueCapacidad').val(),
+            if (validateFormRemolque()) {
+
+                var modal = "#modalFormRemolque";
+
+                //metodo post
+                $.ajax({
+                    url: '/Remolques/agregar',
+                    data: JSON.stringify({
+                        Gandola: {
+                            matricula: $('#remolqueMatricula').val(),
+                            capacidad: $('#remolqueCapacidad').val(),
+                        }
+                    }),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function () {
+                        alert("success");
+                        window.location.href = "/Remolques/Lista";
+
+                        //cerrar modal
+                        $(modal).modal('hide');
+                    },
+                    error: function () {
+                        alert("error");
                     }
-                }),
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function () {
-                    alert("success");
-                    window.location.href = "/Remolques/Lista";
+                });
 
-                    //cerrar modal
-                    $(modal).modal('hide');
-                },
-                error: function () {
-                    alert("error");
-                }
-            });
+            }
 
         }
     });
@@ -118,33 +153,38 @@ $('.btnShowEditRemolque').on({
 function enableBtnEdit(idRemolque) {
     $('#btnEditRemolque').on({
         click: function () {
-            var modal = "#modalFormRemolque";
 
-            //metodo post
-            $.ajax({
-                url: '/Remolques/editar',
-                data: JSON.stringify({
-                    Gandola: {
-                        id: idRemolque,
-                        matricula: $('#remolqueMatricula').val(),
-                        capacidad: $('#remolqueCapacidad').val(),
+            if (validateFormRemolque()) {
+
+                var modal = "#modalFormRemolque";
+
+                //metodo post
+                $.ajax({
+                    url: '/Remolques/editar',
+                    data: JSON.stringify({
+                        Gandola: {
+                            id: idRemolque,
+                            matricula: $('#remolqueMatricula').val(),
+                            capacidad: $('#remolqueCapacidad').val(),
+                        }
+                    }),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function () {
+                        alert("success");
+                        window.location.href = "/Remolques/Lista";
+
+                        //cerrar modal
+                        $(modal).modal('hide');
+                    },
+                    error: function () {
+                        alert("error");
                     }
-                }),
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function () {
-                    alert("success");
-                    window.location.href = "/Remolques/Lista";
+                });
 
-                    //cerrar modal
-                    $(modal).modal('hide');
-                },
-                error: function () {
-                    alert("error");
-                }
-            });
+                //alert($(modal+' .formRemolque').serialize());
 
-            //alert($(modal+' .formRemolque').serialize());
+            }
         }
     });
 }

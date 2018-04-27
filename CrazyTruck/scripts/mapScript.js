@@ -156,6 +156,9 @@ function resetMarker(marker){
 
 var mapRutas;
 var dr;
+var markerCluster;
+var markers = [];
+
 function initMapRutas(rutas) {
 
     var idMap = document.getElementById('mapRutas');
@@ -176,16 +179,21 @@ function initMapRutas(rutas) {
 
     //limpiar rutas y markers
     if (dr != null) {
+        //limpiar direcciones
         dr.setMap(null);
         dr = null;
-
-        $.each(markers, function (i, val) {
-            //console.log(markers[i]);
+        
+        //limpiar markers
+        for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
-            console.log(markers[i]);
-        });
+            console.log("null");
+        }
         markers = [];
-        console.log("limpiar");
+
+        //limpiar cluster
+        if (markerCluster != null) {
+            markerCluster.clearMarkers();
+        }
     }
     
     //generar rutas objetos
@@ -202,12 +210,17 @@ function initMapRutas(rutas) {
     //dr.setMap(null);
     //dr.setOptions(objDR);
 
+
+    for (var i = 0; i < markers.length; i++) {
+        console.log("markers"+markers[i]);
+    }
+
     if (rutas != null) {
 
         createMarkers(mapRutas, rutas, function (markers) {
 
             //inicializar cluster de markers
-            var markerCluster = new MarkerClusterer(mapRutas, markers, {
+            markerCluster = new MarkerClusterer(mapRutas, markers, {
                 //imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
                 imagePath: "../images/m"
             });
@@ -226,7 +239,7 @@ function initMapRutas(rutas) {
                 wayPoints.push(o);
             }
 
-            console.log(wayPoints);
+            //console.log(wayPoints);
 
             //generar ruta
             var origin;
@@ -277,10 +290,7 @@ function initMapRutas(rutas) {
 }
 
 //function para generar los markers
-var markers = [];
 function createMarkers(map, routes, fn){
-    //obtener rutas de la tabla
-    //var routes = getRutas(idTable);
 
     //recorrer arreglo de rutas
     $.each(routes, function(index, val){
@@ -288,7 +298,7 @@ function createMarkers(map, routes, fn){
         
         //crear marcador
         var objMarker = {
-            map: map,
+            //map: map,
             position: {
                 //obtener posicion
                 lat: routes[index].lat,

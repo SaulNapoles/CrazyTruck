@@ -74,8 +74,8 @@ C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck project\Nucleo.
 C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck project\Nucleo.CrazyTruck\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck project\Nucleo.CrazyTruck\bin\Debug\EntityFramework.xml
 C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck project\Nucleo.CrazyTruck\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck project\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.csprojResolveAssemblyReference.cache
 C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck project\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.csproj.CoreCompileInputs.cache
 C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck project\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.csproj.CopyComplete
 C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck project\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.dll
 C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck project\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.pdb
+C:\Users\Fernando Marenco\Documents\CrazyTruck-master\CrazyTruck project\Nucleo.CrazyTruck\obj\Debug\Nucleo.CrazyTruck.csprojResolveAssemblyReference.cache

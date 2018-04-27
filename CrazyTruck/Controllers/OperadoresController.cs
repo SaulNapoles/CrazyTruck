@@ -115,21 +115,35 @@ namespace CrazyTruck.Controllers
         }
 
         //desplegar info de operador por id
-        public ActionResult oDeployInfoById(int id)
+        public ActionResult obtenerOperador(int idOperador)
         {
-            IList<Operador> o = new List<Operador>();
+            
             using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
             {
                 try
                 {
                     //obtener datos
-                    var getOp = ct.Operador.Find(id);
-                    o.Add(getOp);
+                    var operadorObj = ct.Operador
+                        .Where(op => op.id == idOperador)
+                        .Select(o => new
+                        {
+                            id = o.id,
+                            numOperador = o.numOperador,
+                            nombre = o.nombre,
+                            apellido = o.apellido,
+                            nss = o.nss,
+                            curp = o.curp,
+                            numLicencia = o.numLicencia,
+                            direccion = o.direccion,
+                            telefono = o.telefono
+                        })
+                        .ToList();
+
+                    return Json(operadorObj, JsonRequestBehavior.AllowGet);
 
                 }
                 catch (Exception) { throw; }
             }
-            return Json(o, JsonRequestBehavior.AllowGet);
         }
 
     }

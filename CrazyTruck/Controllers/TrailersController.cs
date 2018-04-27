@@ -104,20 +104,30 @@ namespace CrazyTruck.Controllers
         }
 
         //listar trailer por id
-        public ActionResult tDeployInfoById(int id)
+        public ActionResult obtenerTrailer(int idTrailer)
         {
-            IList<Trailer> t = new List<Trailer>();
+            
             using (CrazyTruckDBEntitiesCn ct = new CrazyTruckDBEntitiesCn())
             {
                 try
                 {
                     //obtener datos
-                    var trailer= ct.Trailer.Find(id);
-                    t.Add(trailer);
+                    var trailerObj = ct.Trailer
+                        .Where(tr => tr.id == idTrailer)
+                        .Select(t => new {
+                            id = t.id,
+                            matricula = t.matricula,
+                            modelo = t.modelo,
+                            anio = t.anio,
+                            color = t.color
+                        })
+                        .ToList();
+
+                    return Json(trailerObj, JsonRequestBehavior.AllowGet);
+
                 }
                 catch (Exception) { throw; }
             }
-            return Json(t, JsonRequestBehavior.AllowGet);
         }
     }
 }

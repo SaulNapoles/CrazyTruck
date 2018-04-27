@@ -71,7 +71,7 @@ namespace CrazyTruck.Controllers
                 folio = fol,
                 idOperador = flete.idOperador,
                 idTrailer = flete.idTrailer,
-                idUsuario = 20,
+                idUsuario = 28,
                 fecha = DateTime.Now
             };
 
@@ -119,7 +119,9 @@ namespace CrazyTruck.Controllers
 
                     List<CargaDTO> list = new List<CargaDTO>();
 
-                    ICollection<Carga> cargas = ct.Carga.Where(c => c.idFlete == idFlete).ToList();
+                    ICollection<Carga> cargas = ct.Carga
+                        .OrderBy(ga => ga.idGandola)
+                        .Where(c => c.idFlete == idFlete).ToList();
 
                     foreach (Carga c in cargas)
                     {
@@ -202,7 +204,7 @@ namespace CrazyTruck.Controllers
                 f.idOperador = flete.idOperador;
                 f.idTrailer = flete.idTrailer;
 
-                ct.SaveChanges();
+                //ct.SaveChanges();
 
                 foreach (Carga carga in flete.Carga)
                 {
@@ -210,6 +212,12 @@ namespace CrazyTruck.Controllers
                     {
                         carga.idFlete = flete.id;
                         ct.Carga.Add(carga);
+
+                        ct.SaveChanges();
+                    }
+                    else if(carga.idGandola.Equals(0))
+                    {
+                        ct.Carga.Remove(carga);
 
                         ct.SaveChanges();
                     }

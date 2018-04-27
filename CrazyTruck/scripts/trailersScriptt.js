@@ -48,38 +48,81 @@ $('#btnShowAddTrailer').on({
     }
 });
 
+function validateFormTrailer() {
+    $(".formTrailer textarea, .formTrailer input").removeClass("error");
+
+    if ($("#trailerModelo").val() == "") {
+        $("#trailerModelo").addClass("error");
+        return false;
+    }
+    else if ($("#trailerAnio").val() == "" || $("#trailerAnio").val() <= 0) {
+        $("#trailerAnio").addClass("error");
+        return false;
+    }
+    else if ($("#trailerMatricula").val() == "") {
+        $("#trailerMatricula").addClass("error");
+        return false;
+    }
+    else if ($("#trailerColor").val() == "") {
+        $("#trailerColor").addClass("error");
+        return false;
+    }
+
+    return true;
+}
+
+$("#trailerModelo, #trailerAnio, #trailerMatricula, #trailerColor").keyup(function () {
+    if ($(this).val() != "") {
+        $(this).removeClass("error");
+    }
+});
+
+$("#trailerAnio").keyup(function () {
+    var regex = /[0-9]+/;
+    if ($(this).val() > 0 && regex.test($(this).val())) {
+        $(this).removeClass("error");
+    } else {
+        $(this).addClass("error");
+    }
+});
+
 function enableBtnAdd() {
     $('#btnAddTrailer').on({
         click: function () {
-            var modal = "#modalFormTrailer";
 
-            //metodo post
-            $.ajax({
-                url: '/Trailers/agregar',
-                data: JSON.stringify({
-                    Trailer: {
-                        modelo: $('#trailerModelo').val(),
-                        anio: $('#trailerAnio').val(),
-                        matricula: $('#trailerMatricula').val(),
-                        color: $('#trailerColor').val()
+            if (validateFormTrailer()) {
+
+                var modal = "#modalFormTrailer";
+
+                //metodo post
+                $.ajax({
+                    url: '/Trailers/agregar',
+                    data: JSON.stringify({
+                        Trailer: {
+                            modelo: $('#trailerModelo').val(),
+                            anio: $('#trailerAnio').val(),
+                            matricula: $('#trailerMatricula').val(),
+                            color: $('#trailerColor').val()
+                        }
+                    }),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function () {
+                        alert("success");
+                        window.location.href = "/Trailers/Lista";
+
+
+                        //cerrar modal
+                        $(modal).modal('hide');
+                    },
+                    error: function () {
+                        alert("error");
                     }
-                }),
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function () {
-                    alert("success");
-                    window.location.href = "/Trailers/Lista";
+                });
 
+                //alert($(modal+' .formTrailer').serialize());
 
-                    //cerrar modal
-                    $(modal).modal('hide');
-                },
-                error: function () {
-                    alert("error");
-                }
-            });
-
-            //alert($(modal+' .formTrailer').serialize());
+            }
         }
     });
 }
@@ -125,35 +168,40 @@ $('.btnShowEditTrailer').on({
 function enableBtnEdit(idTrailer) {
     $('#btnEditTrailer').on({
         click: function () {
-            var modal = "#modalFormTrailer";
 
-            //metodo post
-            $.ajax({
-                url: '/Trailers/editar',
-                data: JSON.stringify({
-                    Trailer: {
-                        id: idTrailer,
-                        modelo: $('#trailerModelo').val(),
-                        anio: $('#trailerAnio').val(),
-                        matricula: $('#trailerMatricula').val(),
-                        color: $('#trailerColor').val()
+            if (validateFormTrailer()) {
+
+                var modal = "#modalFormTrailer";
+
+                //metodo post
+                $.ajax({
+                    url: '/Trailers/editar',
+                    data: JSON.stringify({
+                        Trailer: {
+                            id: idTrailer,
+                            modelo: $('#trailerModelo').val(),
+                            anio: $('#trailerAnio').val(),
+                            matricula: $('#trailerMatricula').val(),
+                            color: $('#trailerColor').val()
+                        }
+                    }),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function () {
+                        alert("success");
+                        window.location.href = "/Trailers/Lista";
+
+                        //cerrar modal
+                        $(modal).modal('hide');
+                    },
+                    error: function () {
+                        alert("error");
                     }
-                }),
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function () {
-                    alert("success");
-                    window.location.href = "/Trailers/Lista";
+                });
 
-                    //cerrar modal
-                    $(modal).modal('hide');
-                },
-                error: function () {
-                    alert("error");
-                }
-            });
+                //alert($(modal+' .formTrailer').serialize());
 
-            //alert($(modal+' .formTrailer').serialize());
+            }
         }
     });
 }

@@ -141,14 +141,14 @@
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\bootstrap.min.js" />
-    <Content Include="scripts\fletesScrippt.js" />
+    <Content Include="scripts\fletesScriptt.js" />
     <Content Include="scripts\jquery-3.3.1.min.js" />
-    <Content Include="scripts\mapScrippt.js" />
+    <Content Include="scripts\mapScript.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
-    <Content Include="scripts\operadoresScript.js" />
-    <Content Include="scripts\remolquesScript.js" />
+    <Content Include="scripts\operadoresScriptt.js" />
+    <Content Include="scripts\remolquesScriptt.js" />
     <Content Include="scripts\scripts.js" />
-    <Content Include="scripts\trailersScript.js" />
+    <Content Include="scripts\trailersScriptt.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

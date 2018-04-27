@@ -71,7 +71,7 @@ function clearGeneralInfo(){
 }
 
 //mostrar tabla de fletes
-$('#subtitleSection #btnShowSearch, #terminarFlete .btnShowSearch').on({
+$('#subtitleSection #btnShowSearch').on({
     click: function(){
         $(this).hide();
         $('#addSection').hide();
@@ -80,6 +80,19 @@ $('#subtitleSection #btnShowSearch, #terminarFlete .btnShowSearch').on({
         $('#subtitleSection h3').text("Lista de fletes");
     }
 });
+
+//finalizar flete
+$('#terminarFlete .btnShowSearch').on({
+    click: function () {
+        window.location.href = "/Fletes/Lista";
+        $('#subtitleSection #btnShowSearch').hide();
+        $('#addSection').hide();
+        $('#tableSection').show();
+        $('#btnShowAdd').show();
+        $('#subtitleSection h3').text("Lista de fletes");
+    }
+});
+
 
 /*$('select').change(function(){
     if($(this).val() != "-1") {
@@ -200,6 +213,8 @@ $('#fleteTipoRemolque').change(function(){
             cargas2 = undefined;
         }
         $('#fleteRemolque2').val("-1").change();
+        
+        
 
     } else if(cantidad == "2"){
         
@@ -207,6 +222,8 @@ $('#fleteTipoRemolque').change(function(){
         createCargas2();
 
     }
+
+    
 
     function createCargas1(){
         if(typeof(cargas1) == 'undefined') {
@@ -237,8 +254,20 @@ function updateTable(table, cargas){
             $(table).append(rowCarga(cargas, i));
             console.log(cargas[i].descripcion+" "+cargas[i].peso);
         });
-        setBtnEdit();
-        setBtnDelete();
+
+
+        $('.btnShowEditCargaTemp').each(function () {
+            $(this).off('click');
+            setBtnEdit(this);
+        });
+
+        $('.btnShowDeleteCargaTemp').each(function () {
+            $(this).off('click');
+            setBtnDelete(this);
+        });
+        
+        
+        
     }
 }
 
@@ -356,8 +385,8 @@ function enableBtnAddCargaTemp(idRemolque){
     
 }
 
-function setBtnEdit(){
-    $('.btnShowEditCargaTemp').on({
+function setBtnEdit(btn){
+    $(btn).on({
         click: function(){
             //limpiar formulario
             $('.formCarga input').val("");
@@ -373,9 +402,29 @@ function setBtnEdit(){
             $('#cargaDescripcion').val(descripcion);
             $('#cargaPeso').val(peso);
 
-            //abrir modal
             var modal = "#modalFormCarga";
-            $(modal).modal('show');
+
+            console.log("es true??" + editFlete);
+            
+            //cerrar modal si se esta editando
+            if (($('#modalFormFlete').data('bs.modal') || {}).isShown) {
+                editFlete = true;
+                $('#modalFormFlete').modal('hide');
+                console.log("es true??" + editFlete);
+                //delay para abrir el modal
+                setTimeout(function () {
+                    $(modal).modal({
+                        backdrop: 'static'
+                    })
+                }, 400); //delay in miliseconds
+            } else {
+                editFlete = false;
+                //abrir modal
+                $(modal).modal('show');
+                console.log("es true?" + editFlete);
+            }
+
+            
 
             //cambiar titulo
             $(modal+" .modal-title").text("Editar carga");
@@ -417,22 +466,48 @@ function enableBtnEditCargaTemp(idRemolque, rowIndex, carga){
                 }
 
                 //cerrar modal
-                alert("Se edito " + carga);
+                alert("Se edito carga" + editFlete);
                 $(modal).modal('hide');
-
+                
+                if (editFlete == true) {
+                    //delay para abrir el modal
+                    console.log("si es true");
+                    setTimeout(function () {
+                        $('#modalFormFlete').modal({
+                            backdrop: 'static'
+                        })
+                    }, 400); //delay in miliseconds
+                    editFlete = false;
+                }
             }
         }
     });
 }
 
 
-function setBtnDelete(){
-    $('.btnShowDeleteCargaTemp').on({
+function setBtnDelete(btn){
+    $(btn).on({
         click: function(){
 
-            //abrir modal
             var modal = "#modalDeleteCarga";
-            $(modal).modal('show');
+
+            //cerrar modal si se esta editando
+            if(($('#modalFormFlete').data('bs.modal') || {}).isShown){
+                editFlete = true;
+                $('#modalFormFlete').modal('hide');
+
+                //delay para abrir el modal
+                setTimeout(function() {
+                    $(modal).modal({
+                        backdrop: 'static'
+                    })
+                }, 400); //delay in miliseconds
+            } else {
+                editFlete = false;
+                //abrir modal
+                $(modal).modal('show');
+            }
+
             
             //cambiar titulo
             $(modal+" .modal-title").text("Eliminar carga");
@@ -459,10 +534,16 @@ function enableBtnDeleteCargaTemp(idRemolque, rowIndex){
             var table2 = "#tableCargas2 tbody";
 
             //eliminar de correspondiente arreglo
-            if(idRemolque == "fleteRemolque1"){
+            if (idRemolque == "fleteRemolque1") {
+                if (typeof (cargasDelete) != 'undefined') {
+                    cargasDelete.push(cargas1[rowIndex]);
+                }
                 cargas1.splice(rowIndex, 1);
                 updateTable(table1, cargas1);
-            } else if(idRemolque == "fleteRemolque2"){
+            } else if (idRemolque == "fleteRemolque2") {
+                if (typeof (cargasDelete) != 'undefined') {
+                    cargasDelete.push(cargas2[rowIndex]);
+                }
                 cargas2.splice(rowIndex, 1);
                 updateTable(table2, cargas2);
             }
@@ -470,6 +551,16 @@ function enableBtnDeleteCargaTemp(idRemolque, rowIndex){
             //cerrar modal
             alert("Se elimino "+rowIndex);
             $(modal).modal('hide');
+
+            if (editFlete == true) {
+                //delay para abrir el modal
+                setTimeout(function () {
+                    $('#modalFormFlete').modal({
+                        backdrop: 'static'
+                    })
+                }, 400); //delay in miliseconds
+                editFlete = false;
+            }
         }
     });
 }
@@ -584,6 +675,7 @@ $('#btnAddFlete').on({
     }
 });
 
+var cargasDelete;
 /* Edit generalInfo in table */
 $('.btnShowEditFlete').on({
     click: function(){
@@ -610,7 +702,7 @@ $('.btnShowEditFlete').on({
             url: '/Fletes/obtenerInfoFlete?idFlete='+idFlete,
             type: 'GET',
             success: function(){
-                alert("success");
+                //alert("success");
 
                 //leer archivo
                 $.getJSON("../LocalJSONFile.json", function(data) {
@@ -627,7 +719,7 @@ $('.btnShowEditFlete').on({
                     //verificar cuando son 2 remolques
                     var corte;
                     $.each(cargasList, function(index, val){
-                        if(index != 0){
+                        if (index != 0) {
                             var actual = cargasList[index].idGandola;
                             var anterior = cargasList[index - 1].idGandola;
                             console.log("ac" + actual + "an" + anterior);
@@ -641,7 +733,10 @@ $('.btnShowEditFlete').on({
                                 $('#fleteTipoRemolque').val("1").change();
                                 cargas1 = [];
                             }
-                        
+
+                        } else {
+                            $('#fleteTipoRemolque').val("1").change();
+                            cargas1 = [];
                         }
                     });
 
@@ -677,6 +772,8 @@ $('.btnShowEditFlete').on({
                         }
                     }
                 });
+
+                cargasDelete = [];
                 
 
             },
@@ -734,6 +831,12 @@ function enableBtnEditInfo(idFlete){
                     console.log();
                     var c = { id: idCarga, idGandola: $('#fleteRemolque2').val(), descripcion: cargas2[i].descripcion, peso: cargas2[i].peso };
                     cargasList.push(c);
+                });
+
+                $.each(cargasDelete, function (i, val) {
+                    cargasDelete[i].idGandola = 0;
+
+                    cargasList.push(cargasDelete[i]);
                 });
 
                 //metodo post

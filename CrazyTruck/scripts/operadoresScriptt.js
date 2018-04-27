@@ -106,41 +106,110 @@ $('#btnShowAddOperador').on({
     }
 });
 
+function validateFormOperador(){
+    $(".formOperador textarea, .formOperador input").removeClass("error");
+
+    var regexNss = /^(\d{2})(\d{2})(\d{2})\d{5}$/;
+    var regexCurp = /^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$/;
+
+    if($("#operadorNombre").val() == "") {
+        $("#operadorNombre").addClass("error");
+        return false;
+    }
+    else if ($("#operadorApellido").val() == "") {
+        $("#operadorApellido").addClass("error");
+        return false;
+    }
+    else if ($("#operadorNss").val() == "" || regexNss.test($("#operadorNss").val()) == false) {
+        $("#operadorNss").addClass("error");
+        return false;
+    }
+    else if ($("#operadorCurp").val() == "" || regexCurp.test($("#operadorCurp").val()) == false) {
+        $("#operadorCurp").addClass("error");
+        return false;
+    }
+    else if ($("#operadorNumLicencia").val() == "") {
+        $("#operadorNumLicencia").addClass("error");
+        return false;
+    }
+    else if ($("#operadorTelefono").val() == "") {
+        $("#operadorTelefono").addClass("error");
+        return false;
+    }
+    else if ($("#operadorDireccion").val() == "") {
+        $("#operadorDireccion").addClass("error");
+        return false;
+    }
+
+    return true;
+}
+
+$("#operadorNombre, #operadorApellido, #operadorNss, #operadorCurp, #operadorNumLicencia, #operadorTelefono, #operadorDireccion").keyup(function () {
+    if ($(this).val() != "") {
+        $(this).removeClass("error");
+    }
+});
+
+$("#operadorNss").keyup(function () {
+    var regex = /^(\d{2})(\d{2})(\d{2})\d{5}$/;
+    if (regex.test($(this).val())) {
+        $(this).removeClass("error");
+    } else {
+        $(this).addClass("error");
+    }
+});
+$("#operadorCurp").keyup(function () {
+    var regex = /^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$/;
+
+    if (regex.test($(this).val())) {
+        $(this).removeClass("error");
+    } else {
+        $(this).addClass("error");
+    }
+});
+
+
 function enableBtnAdd() {
     $('#btnAddOperador').on({
         click: function () {
-            var modal = "#modalFormOperador";
 
-            //metodo post
-            $.ajax({
-                url: '/Operadores/agregar',
-                data: JSON.stringify({
-                    Operador: {
-                        nombre: $('#operadorNombre').val(),
-                        apellido: $('#operadorApellido').val(),
-                        direccion: $('#operadorDireccion').val(),
-                        curp: $('#operadorCurp').val(),
-                        numLicencia: $('#operadorNumLicencia').val(),
-                        telefono: $('#operadorTelefono').val(),
-                        nss: $('#operadorNss').val(),
+            if (validateFormOperador()) {
+
+
+                var modal = "#modalFormOperador";
+
+                //metodo post
+                $.ajax({
+                    url: '/Operadores/agregar',
+                    data: JSON.stringify({
+                        Operador: {
+                            nombre: $('#operadorNombre').val(),
+                            apellido: $('#operadorApellido').val(),
+                            direccion: $('#operadorDireccion').val(),
+                            curp: $('#operadorCurp').val(),
+                            numLicencia: $('#operadorNumLicencia').val(),
+                            telefono: $('#operadorTelefono').val(),
+                            nss: $('#operadorNss').val(),
+                        }
+                    }),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function () {
+                        alert("success");
+                        window.location.href = "/Operadores/Lista";
+
+
+                        //cerrar modal
+                        $(modal).modal('hide');
+                    },
+                    error: function () {
+                        alert("error");
                     }
-                }),
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function () {
-                    alert("success");
-                    window.location.href = "/Operadores/Lista";
+                });
 
+                //alert($(modal+' .formOperador').serialize());
 
-                    //cerrar modal
-                    $(modal).modal('hide');
-                },
-                error: function () {
-                    alert("error");
-                }
-            });
-
-            //alert($(modal+' .formOperador').serialize());
+            }
         }
     });
 }
@@ -198,37 +267,41 @@ $('.btnShowEditOperador').on({
 function enableBtnEdit(idOperador) {
     $('#btnEditOperador').on({
         click: function () {
-            var modal = "#modalFormOperador";
 
-            //metodo post
-            $.ajax({
-                url: '/Operadores/editar',
-                data: JSON.stringify({
-                    Operador: {
-                        id: idOperador,
-                        nombre: $('#operadorNombre').val(),
-                        apellido: $('#operadorApellido').val(),
-                        direccion: $('#operadorDireccion').val(),
-                        curp: $('#operadorCurp').val(),
-                        numLicencia: $('#operadorNumLicencia').val(),
-                        telefono: $('#operadorTelefono').val(),
-                        nss: $('#operadorNss').val(),
+            if (validateFormOperador()) {
+
+                var modal = "#modalFormOperador";
+
+                //metodo post
+                $.ajax({
+                    url: '/Operadores/editar',
+                    data: JSON.stringify({
+                        Operador: {
+                            id: idOperador,
+                            nombre: $('#operadorNombre').val(),
+                            apellido: $('#operadorApellido').val(),
+                            direccion: $('#operadorDireccion').val(),
+                            curp: $('#operadorCurp').val(),
+                            numLicencia: $('#operadorNumLicencia').val(),
+                            telefono: $('#operadorTelefono').val(),
+                            nss: $('#operadorNss').val(),
+                        }
+                    }),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function () {
+                        alert("success");
+                        window.location.href = "/Operadores/Lista";
+
+                        //cerrar modal
+                        $(modal).modal('hide');
+                    },
+                    error: function () {
+                        alert("error");
                     }
-                }),
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function () {
-                    alert("success");
-                    window.location.href = "/Operadores/Lista";
+                });
 
-                    //cerrar modal
-                    $(modal).modal('hide');
-                },
-                error: function () {
-                    alert("error");
-                }
-            });
-
+            }
         }
     });
 }

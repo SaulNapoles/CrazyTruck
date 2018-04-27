@@ -7,7 +7,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="idGandola" Type="int" Nullable="false" />
     <Property Name="idFlete" Type="int" Nullable="false" />
-    <Property Name="descripcion" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="250" Nullable="false" />
     <Property Name="peso" Type="decimal" Precision="18" Scale="2" Nullable="false" />
   </EntityType>
   <EntityType Name="Escala">
@@ -15,12 +15,12 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="latitud" Type="nchar" MaxLength="30" Nullable="false" />
-    <Property Name="longitud" Type="nchar" MaxLength="30" Nullable="false" />
-    <Property Name="nombre" Type="nchar" MaxLength="50" Nullable="false" />
-    <Property Name="descripcion" Type="nchar" MaxLength="100" />
+    <Property Name="latitud" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="longitud" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="descripcion" Type="varchar(max)" />
     <Property Name="fecha" Type="datetime" Nullable="false" />
-    <Property Name="tipo" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="tipo" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="idFlete" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Flete">
@@ -39,7 +39,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="matricula" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="matricula" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="capacidad" Type="decimal" Precision="18" Scale="2" Nullable="false" />
   </EntityType>
   <EntityType Name="Operador">
@@ -47,36 +47,36 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="numOperador" Type="nvarchar" MaxLength="45" Nullable="false" />
-    <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="nss" Type="nchar" MaxLength="20" Nullable="false" />
-    <Property Name="curp" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="numLicencia" Type="nvarchar" MaxLength="30" Nullable="false" />
-    <Property Name="direccion" Type="nvarchar" MaxLength="50" />
-    <Property Name="telefono" Type="nvarchar" MaxLength="30" />
+    <Property Name="numOperador" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="apellido" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="nss" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="curp" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="numLicencia" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="direccion" Type="varchar" MaxLength="50" />
+    <Property Name="telefono" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Trailer">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="matricula" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="modelo" Type="nvarchar" MaxLength="30" Nullable="false" />
-    <Property Name="anio" Type="nvarchar" MaxLength="10" />
-    <Property Name="color" Type="nvarchar" MaxLength="25" />
+    <Property Name="matricula" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="modelo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="anio" Type="varchar" MaxLength="50" />
+    <Property Name="color" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Usuario">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="rol" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="password" Type="nchar" MaxLength="100" Nullable="false" />
-    <Property Name="email" Type="nchar" MaxLength="50" Nullable="false" />
-    <Property Name="tokenPassword" Type="nchar" MaxLength="150" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="apellido" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="rol" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="tokenPassword" Type="varchar" MaxLength="150" />
     <Property Name="passRequest" Type="bit" />
     <Property Name="activado" Type="bit" />
     <Property Name="tokenActivacion" Type="varchar" MaxLength="150" />

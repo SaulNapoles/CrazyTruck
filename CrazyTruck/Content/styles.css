@@ -185,7 +185,6 @@ header {
     display: none;
 }
 
-
 #addSection > * > div {
     margin-bottom: 15px !important;
 }
@@ -232,6 +231,9 @@ header {
     display: none;
 }
 
+.btnShowSearch {
+    margin-top: 10px;
+}
 
 #mapRutas {
     margin: 0 auto;
@@ -422,7 +424,7 @@ table.dataTable {
 /* End dataTables styles */
 
 /* Button accept and cancel styles */
-.btnAccept, .btnCancel, .btnAccess, .btnForget {
+.btnAccept, .btnCancel, .btnAccess {
     color: #FFF;
     font-size: 16px;
     font-weight: 600;
@@ -447,8 +449,11 @@ table.dataTable {
 }
 
 .btnForget {
-    background-color: #CECECE;
-    border-bottom: 3px solid #AFAFAF;
+    margin-left: 10px;
+}
+
+.btnForget:hover {
+    color: #004EAC;
 }
 
 .btnAccept span:last-child,
@@ -499,6 +504,10 @@ table.dataTable {
 .form-group {
     text-align: left;
     overflow: auto;
+}
+
+form p {
+    margin: 10px 0;
 }
 
 form label {
@@ -753,6 +762,10 @@ form select.error option {
 
 .block {
     display: block !important;
+}
+
+.gray {
+    background-color: #FAFAFA;
 }
 
 .rowOperadores {
